@@ -716,3 +716,6 @@ java.lang.Exception: The project description file (.project) for 'Riding' is mis
 !MESSAGE Save operation warnings.
 !SUBENTRY 1 org.eclipse.core.resources 2 234 2022-06-06 01:24:44.540
 !MESSAGE The project description file (.project) for 'Servers' was missing.  This file contains important information about the project.  A new project description file has been created, but some information about the project may have been lost.
+
+!ENTRY org.eclipse.jst.server.tomcat.core 4 0 2022-06-06 02:07:55.055
+!MESSAGE The Tomcat server configuration at \Servers\Tomcat v8.5 Server at localhost-config is missing. Check the server for errors.

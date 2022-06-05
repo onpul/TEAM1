@@ -1,0 +1,18 @@
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%
+	request.setCharacterEncoding("UTF-8");
+	String cp = request.getContextPath();
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div>
+	<div>모임명</div>
+	<input type="text" /><input type="button" value="찾기"/></li>
+</div>
+</body>
+</html>

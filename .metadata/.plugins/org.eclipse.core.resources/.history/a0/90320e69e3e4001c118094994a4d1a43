@@ -1,0 +1,52 @@
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%
+	request.setCharacterEncoding("UTF-8");
+	String cp = request.getContextPath();
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<form action="login.action" method="post" id="loginForm">
+		<div class="form-group form-inline">
+			<label for="inputEmail">이메일</label>
+	    	<input type="email" class="form-control" id="inputEmail" placeholder="이메일을 입력하세요">
+			<select name="" id="" class="form-control">
+				<option value="네이버">@naver.com</option>
+				<option value="구글">@google.com</option>
+				<option value="네이트">@nate.com</option>
+			</select>    
+			<br /><span>등록하신 이메일은 로그인 시 아이디로 사용됩니다.</span>
+	    </div>
+		
+		
+		
+		
+			<ul>
+				<li>
+					<input type="text" id="id" name="id" placeholder="@abcd.com" required="required"/>
+				</li>
+				<li>
+					<input type="password" id="pw" name="pw" placeholder="패스워드" required="required"/>
+				</li>
+				<li>
+					<input type="button" value="로그인" id="submitBtn" class="btn"/>
+				</li>
+				<li><a href="">비밀번호 찾기 | </a><a href="">아이디 찾기 | </a><a href="">회원가입</a></li>
+			</ul>
+		
+	</form>
+	
+</body>
+</html>

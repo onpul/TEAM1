@@ -1,0 +1,33 @@
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%
+	request.setCharacterEncoding("UTF-8");
+	String cp = request.getContextPath();
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Header.jsp</title>
+<!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div>
+	<ul>
+		<li>로고</li>
+		<li><a href="">라이딩 모임</a></li>
+		<li><a href="">맛집 후기</a></li>
+		<li><a href="">지도</a></li>
+		<li><a href="">알림</a></li>
+		<li><a href="">쪽지</a></li>
+		<li><a href="">마이페이지</a></li>
+	</ul>
+</div>
+</body>
+</html>

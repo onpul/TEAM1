@@ -1,0 +1,22 @@
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%
+	request.setCharacterEncoding("UTF-8");
+	String cp = request.getContextPath();
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div>
+<form action="">
+	<ul>
+		<li>닉네임 <input type="text" /></li>
+		
+	</ul>
+</form>
+</div>
+</body>
+</html>

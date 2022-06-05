@@ -1,0 +1,100 @@
+<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%
+	request.setCharacterEncoding("UTF-8");
+	String cp = request.getContextPath();
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JoinForm.jsp</title>
+</head>
+<body>
+
+<div>
+	<form action="">
+		<ul>
+			<li>닉네임* <input type="text" placeholder="닉네임"/> <button type="button">중복 확인</button></li>
+			<span>12자 이내의 닉네임을 입력하세요.</span>
+			<li>이메일* <input type="text" placeholder="이메일"/></textarea>
+						<select name="" id="">
+							<option value="네이버">@naver.com</option>
+							<option value="구글">@google.com</option>
+							<option value="네이트">@nate.com</option>
+						</select>
+			</li>
+			<span>등록하신 이메일은 로그인 시 아이디로 사용됩니다.</span>
+			<li>비밀번호* <input type="password" placeholder="비밀번호"/></li>
+			8~12자 이내의 비밀번호를 입력하세요.
+			<li>생년월일*
+				<select name="birthyear" id="birthyear">
+					<option value="year">1999</option>
+					<option value="year">2000</option>
+					<option value="year">2001</option>
+				</select>년
+				<select name="birthmonth" id="birthmonth">
+					<option value="month">1</option>
+					<option value="month">2</option>
+					<option value="month">3</option>
+				</select>월
+				<select name="birthday" id="birthday">
+					<option value="day">1</option>
+					<option value="day">2</option>
+					<option value="day">3</option>
+				</select>일
+			</li>
+			<li>성별* 
+				<select name="gender" id="gender">
+					<option value="male">남성</option>
+					<option value="female">여성</option>
+				</select>
+			</li>
+			<li>라이딩 스타일 <span>마이페이지에서 수정할 수 있습니다.</span></li>
+			<li>성별
+				<input type="radio" name="gender" value="nolimit"/>제한 없음
+				<input type="radio" name="gender" value="male"/>남성
+				<input type="radio" name="gender" value="female"/>여성
+			</li>
+			<li>연령대
+				<input type="radio" name="age" value="nolimit"/>제한 없음
+				<input type="radio" name="age" value="20"/>20대
+				<input type="radio" name="age" value="30"/>30대
+				<input type="radio" name="age" value="40"/>40대
+				<input type="radio" name="age" value="50"/>50대
+				<input type="radio" name="age" value="60"/>60대 이상
+			</li>
+			<li>속도
+				<input type="radio" name="speed" value="nolimit"/>제한 없음
+				<input type="radio" name="speed" value="20미만"/>20미만
+				<input type="radio" name="speed" value="20이상 24미만"/>20이상 24미만
+				<input type="radio" name="speed" value="24이상"/>24이상
+			</li>
+			<li>숙련도
+				<input type="radio" name="step" value="nolimit"/>제한 없음
+				<input type="radio" name="step" value="1년 미만" />1년 미만
+				<input type="radio" name="step" value="1~3년" />1~3년
+				<input type="radio" name="step" value="3~5년" />3~5년
+				<input type="radio" name="step" value="6년 이상" />6년 이상
+			</li>
+			<li>식사여부
+				<input type="radio" name="eat" value="nolimit"/>제한 없음
+				<input type="radio" name="eat" value="밥 안 먹고 달려요"/>밥 안 먹고 달려요
+				<input type="radio" name="eat" value="밥 먹고 달려요"/>밥 먹고 달려요
+			</li>
+			<li>회식 여부
+				<input type="radio" name="dinning" value="nolimit"/>제한 없음
+				<input type="radio" name="dinning" value="끝나고 회식 안 해요"/>끝나고 회식 안 해요
+				<input type="radio" name="dinning" value="끝나고 회식해요"/>끝나고 회식해요
+			</li>
+			<li>분위기
+				<input type="radio" name="mood" value="nolimt"/>제한 없음
+				<input type="radio" name="mood" value="침묵이 좋아요"/>침묵이 좋아요
+				<input type="radio" name="mood" value="친목이 좋아요"/>친목이 좋아요
+			</li>
+		</ul>
+	</form>
+</div>
+
+</body>
+</html>

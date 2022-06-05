@@ -1,0 +1,29 @@
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%
+	request.setCharacterEncoding("UTF-8");
+	String cp = request.getContextPath();
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div>
+	<ul>
+		<li><h1>20대 라이더 여기여기 붙어라</h1></li>
+		<li>참석 가능</li>
+	</ul>
+	<ul>
+		<li>여성</li>
+		<li>끝나고 회식해요</li>
+	</ul>
+
+	<div>
+		<h3>경로 보기</h3>
+		<div>지도 들어갈 div</div>
+	</div>
+</div>
+</body>
+</html>

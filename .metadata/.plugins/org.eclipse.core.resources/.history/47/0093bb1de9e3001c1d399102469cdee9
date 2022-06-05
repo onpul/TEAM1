@@ -1,0 +1,31 @@
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%
+	request.setCharacterEncoding("UTF-8");
+	String cp = request.getContextPath();
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JoinForm.jsp</title>
+</head>
+<body>
+
+<div>
+	<form action="">
+		<ul>
+			<li>닉네임* <input type="text" placeholder="닉네임"/> <button type="button">중복 확인</button></li>
+			<li>이메일* <input type="text" placeholder="이메일"/></textarea>
+						<select name="" id="">
+							<option value="네이버">@naver.com</option>
+							<option value="구글">@google.com</option>
+							<option value="네이트">@nate.com</option>
+						</select>
+			</li>
+			<li>비밀번호* <input type="password" /></li>
+		</ul>
+	</form>
+</div>
+
+</body>
+</html>

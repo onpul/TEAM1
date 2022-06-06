@@ -27,7 +27,7 @@ SearchPasswordForm.jsp
 <style type="text/css">
 	.searchIdFormBox
 	{
-		width: 400px;
+		width: 600px;
 	}
 	.goLoginBtn, .result-text, .searchBtn
 	{
@@ -39,12 +39,18 @@ SearchPasswordForm.jsp
 <div class="searchIdFormBox">
 	<form action="" class="searchIdForm">
 		<div class="form-group form-inline">
-			<label for="inputEmail">이메일</label>
-	    	<input type="email" class="form-control" id="inputEmail" placeholder="이메일을 입력하세요">
-			<select name="" id="" class="form-control">
-				<option value="네이버">@naver.com</option>
-				<option value="구글">@google.com</option>
-				<option value="네이트">@nate.com</option>
+			<!-- 직접 입력 선택 시 input 박스 활성화 구현 해야 함 -->
+			<label for="inputEmail">이메일*</label>
+	    	<input type="text" class="form-control" name="inputEmail" id="inputEmail" placeholder="이메일을 입력하세요">
+			@
+			<input type="text" class="form-control" name="inputEmail2" id="inputEmail2" style="width:100px;" disabled="disabled" value="naver.com">
+			<select name="selectEmail" id="selectEmail" class="form-control">
+				<option value="1">직접입력</option>			
+				<option value="naver.com" selected>naver.com</option>
+				<option value="hanmail.net">hanmail.net</option>
+				<option value="nate.com">nate.com</option>
+				<option value="yahoo.co.kr">yahoo.co.kr</option>
+				<option value="gmail.com">gmail.com</option>
 			</select>    
 	    </div>
 	    <div class="form-group form-inline">
@@ -65,12 +71,14 @@ SearchPasswordForm.jsp
 				<option value="day">3</option>
 			</select>일
 	    </div>
-	    <div class="form-group searchBtn">
+	    <div class="form- group searchBtn">
 			<input type="button" class="btn btn-default" value="찾기"/>
 		</div>
 		<hr />
 	    <div class="form-group result-text">
+	    	<!-- 비밀번호 찾기 성공 시 노출 -->
 	    	<p>회원가입 시 등록한 비밀번호는 java**** 입니다.</p>
+	    	<!-- 비밀번호 찾기 실패 시 노출 -->
 			<p>회원정보를 찾을 수 없습니다.</p>
 	    </div>
 	    <div class="form-group goLoginBtn">

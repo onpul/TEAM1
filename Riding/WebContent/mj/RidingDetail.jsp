@@ -3,6 +3,8 @@ RidingDetail.jsp
 모임 상세보기 페이지
 메인 페이지 > 모임 생성하기 > 모임 상세보기
 모임 리스트 > 모임 상세보기
+
+참여하기 누르면 라이딩 대기실로 이동 처리
 -->
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%
@@ -25,6 +27,14 @@ RidingDetail.jsp
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<style type="text/css">
+	.map-box
+	{
+		width: 500px;
+		height: 400px;
+		background-color: lightgray;
+	}
+</style>
 </head>
 <body>
 <div>
@@ -39,7 +49,7 @@ RidingDetail.jsp
 
 	<div>
 		<h3>경로 보기</h3>
-		<div>지도 들어갈 div</div>
+		<div class="map-box">지도 들어갈 div</div>
 	</div>
 	
 	<div>
@@ -61,6 +71,7 @@ RidingDetail.jsp
 	</div>
 	
 	<div>
+		<!-- 비회원은 블러 처리 후 로그인 페이지로 이동 버튼 -->
 		<h3>멤버 정보</h3>
 		<!-- 사용자 프로필 -->
 		<div>
@@ -75,6 +86,7 @@ RidingDetail.jsp
 				<li>
 					<ul>
 						<li>여성</li>
+						<!-- 친구관계일 때는 친구 버튼 보이지 않게 구현 -->
 						<li><input type="button" class="btn btn-default" value="친구 추가"/> <input type="button" class="btn btn-default" value="신고"/></li>
 					</ul>
 				</li>
@@ -116,7 +128,7 @@ RidingDetail.jsp
 		</div>
 		
 		<div>
-			<input type="button" class="btn btn-default" value="목록으로"/> <input type="button" class="btn btn-default" value="참석하기"/>
+			<input type="button" class="btn btn-default" value="목록으로"/> <input type="button" class="btn btn-default" value="참여하기"/>
 		</div>
 	</div>
 </div>

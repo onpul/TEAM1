@@ -2,6 +2,8 @@
 JoinForm.jsp 
 회원가입 폼
 메인페이지 > 상단 메뉴 > 회원가입
+
+회원가입 완료 후 메인화면으로 이동 처리
 --><%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%
@@ -39,28 +41,35 @@ JoinForm.jsp
 <div class="joinFormBox">
 	<form action="" class="joinForm">
 		<div class="form-group form-inline">
-			<label for="inputNickname">닉네임</label>
+			<label for="inputNickname">닉네임*</label>
 	    	<input type="email" class="form-control" id="inputNickname" placeholder="닉네임을 입력하세요">
 	    	<input type="button" class="btn btn-default" value="중복 확인"/>
 	    	<br /><span>12자 이내의 닉네임을 입력하세요.</span>
 	    </div>
 		<div class="form-group form-inline">
-			<label for="inputEmail">이메일</label>
-	    	<input type="email" class="form-control" id="inputEmail" placeholder="이메일을 입력하세요">
-			<select name="" id="" class="form-control">
-				<option value="네이버">@naver.com</option>
-				<option value="구글">@google.com</option>
-				<option value="네이트">@nate.com</option>
+			<!-- 직접 입력 선택 시 input 박스 활성화 구현 해야 함 -->
+			<label for="inputEmail">이메일*</label>
+	    	<input type="text" class="form-control" name="inputEmail" id="inputEmail" placeholder="이메일을 입력하세요">
+			@
+			<input type="text" class="form-control" name="inputEmail2" id="inputEmail2" style="width:100px;" disabled="disabled" value="naver.com">
+			<select name="selectEmail" id="selectEmail" class="form-control">
+				<option value="1">직접입력</option>			
+				<option value="naver.com" selected>naver.com</option>
+				<option value="hanmail.net">hanmail.net</option>
+				<option value="nate.com">nate.com</option>
+				<option value="yahoo.co.kr">yahoo.co.kr</option>
+				<option value="gmail.com">gmail.com</option>
 			</select>    
 			<br /><span>등록하신 이메일은 로그인 시 아이디로 사용됩니다.</span>
 	    </div>
 	    <div class="form-group form-inline">
-	    	<label for="inputPassword">비밀번호</label>
+	    	<label for="inputPassword">비밀번호*</label>
 	    	<input type="password" class="form-control" id="inputPassword" placeholder="비밀번호를 입력하세요"/>
 	    	<br /><span>8~12자 이내의 비밀번호를 입력하세요.</span>
 	    </div>
 	    <div class="form-group form-inline">
-	    	<label for="">생년월일</label>
+	    	<!-- 해당 년도 기준 +-10 선택할 수 있도록 구현해야 함 -->
+	    	<label for="">생년월일*</label>
 	    	<select name="birthyear" id="birthyear" class="form-control">
 				<option value="year">1999</option>
 				<option value="year">2000</option>
@@ -78,7 +87,7 @@ JoinForm.jsp
 			</select>일
 	    </div>
 		<div class="form-group form-inline">
-			<label for="gender">성별</label>
+			<label for="gender">성별*</label>
 			<select name="gender" id="gender" class="form-control">
 				<option value="male">남성</option>
 				<option value="female">여성</option>
@@ -88,6 +97,7 @@ JoinForm.jsp
 		<div class="form-group">
 			<h3>라이딩 스타일 <small>마이페이지에서 수정할 수 있습니다.</small></h3>
 			<label for="gender" class="">성별</label>
+			<!-- 본인과 동일한 성별의 옵션만 노출되게 구현해야 함 -->
 			<label class="radio-inline">
 				<input type="radio" name="gender" id="gender" value="nolimit" checked="checked"> 제한 없음
 			</label>
@@ -100,6 +110,7 @@ JoinForm.jsp
 		</div>
 		<div class="form-group">
 			<label for="age">연령대</label>
+			<!-- 본인과 동일한 연령대의 옵션만 노출되게 구현해야 함 -->
 			<label class="radio-inline">
 				<input type="radio" name="age" id="age" value="nolimit" checked="checked"> 제한 없음
 			</label>
@@ -151,6 +162,7 @@ JoinForm.jsp
 			<label class="radio-inline">
 				<input type="radio" name="step" id="step" value="6년 이상" />6년 이상
 			</label>
+			<!-- 숙련도 관련 정보 제공 아이콘 추가해야 함 -->
 		</div>
 		<div class="form-group">
 			<label for="eat">식사 여부</label>
@@ -189,6 +201,7 @@ JoinForm.jsp
 			</label>
 		</div>
 		<div class="form-group joinBtn">
+			<!-- 회원가입 버튼 누르면 메인으로 이동 -->
 			<input type="button" class="btn btn-default" value="회원가입"/>
 		</div>
 	</form>

@@ -41,10 +41,9 @@ SearchIdForm.jsp
 		<div class="form-group form-inline">
 			<label for="inputNickname">닉네임</label>
 	    	<input type="email" class="form-control" id="inputNickname" placeholder="닉네임을 입력하세요">
-	    	<input type="button" class="btn btn-default" value="중복 확인"/>
-	    	<br /><span>12자 이내의 닉네임을 입력하세요.</span>
 	    </div>
 	    <div class="form-group form-inline">
+	     	<!-- 해당 년도 기준 +-10 선택할 수 있도록 구현해야 함 -->
 	    	<label for="">생년월일</label>
 	    	<select name="birthyear" id="birthyear" class="form-control">
 				<option value="year">1999</option>
@@ -67,7 +66,9 @@ SearchIdForm.jsp
 		</div>
 		<hr />
 	    <div class="form-group result-text">
+	    	<!-- 아이디 찾기 성공 시 노출 -->
 	    	<p>회원가입 시 등록한 아이디는 chmj072@gmail.com 입니다.</p>
+	    	<!-- 아이디 찾기 실패 시 노출 -->
 	    	<p>회원정보를 찾을 수 없습니다.</p>
 	    </div>
 	    <div class="form-group goLoginBtn">

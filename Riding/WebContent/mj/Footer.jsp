@@ -1,3 +1,7 @@
+<!--
+Footer.jsp 
+푸터페이지(모든 페이지에 적용할 푸터)
+-->
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%
 	request.setCharacterEncoding("UTF-8");

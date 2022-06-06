@@ -1,6 +1,6 @@
 <!--
 Main.jsp 
-메인페이지(최초 접속 뷰 페이지)
+메인페이지(최초 접속 페이지)
 -->
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%
@@ -36,10 +36,6 @@ Main.jsp
 	{
 		text-align: right;
 	}
-	.btn
-	{
-		margin-right: 40px;
-	}
 	
 </style>
 </head>
@@ -51,6 +47,7 @@ Main.jsp
 	</div>
 	
 	<!-- 지도 들어갈 div -->
+	<!-- 회원일 경우 적용 -->
 	<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
 		<select name="" id="" class="form-control">
 			<option value="">맛집 보기</option>
@@ -60,10 +57,24 @@ Main.jsp
 			지도 들어갈 div
 		</div>
 	</div>
+	
+	<!-- 비회원일 경우 적용 -->
+	<!-- 
+	<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+		<p>편의시설 보기</p>
+		<div class="map-box">
+			지도 들어갈 div
+		</div>
+	</div> 
+	-->
 </div>
+
+<!-- 하단 버튼(회원/관리자) / 비회원일 경우 적용 안 함 -->
 <!-- 회원일 경우 적용 -->
 <div class="row btn-box"> 
-	<input type="button" class="btn btn-default" value="모임 생성하기"/>
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		<input type="button" class="btn btn-default" value="모임 생성하기"/>
+	</div>
 </div>
 
 <!-- 관리자일 경우 적용 -->

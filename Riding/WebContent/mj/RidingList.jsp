@@ -31,7 +31,7 @@ RidingList.jsp
 <body>
 <div class="form-group form-inline">
 	<label for="gender" class="">모임명</label>
-	<input type="text" class="form-control" placeholder="Search">
+	<input type="text" class="form-control" placeholder="모임명">
 	<button type="submit" class="btn btn-default">검색</button>
 </div>
 <div>
@@ -145,55 +145,51 @@ RidingList.jsp
 	<table class="table">
 		<tr>
 			<th>모임명</th>
-			<th>최대</th>
-			<th>참여가능</th>
-			<th>기간</th>
-			<th>참석가능여부</th>
+			<th>최대<input type="button" value="정렬"/></th>
+			<th>참여가능<input type="button" value="정렬"/></th>
+			<th>기간<input type="button" value="정렬"/></th>
+			<th>참석가능여부<input type="button" value="정렬"/></th>
+			<th></th>
 		</tr>
 		<tr>
 			<td>인천 피플</td>
 			<td>9</td>
 			<td>2</td>
 			<td>2022.06.20 12:00 ~ 2022.06.20 16:00</td>
-			<td>참석 가능
-				<input type="button" value="신고"/>
-			</td>
+			<td>참석 가능</td>
+			<td><input type="button" value="신고"/></td>
 		</tr>
 		<tr>
 			<td>인천 피플</td>
 			<td>9</td>
 			<td>2</td>
 			<td>2022.06.20 12:00 ~ 2022.06.20 16:00</td>
-			<td>참석 가능
-				<input type="button" value="신고"/>
-			</td>
+			<td>참석 가능</td>
+			<td><input type="button" value="신고"/></td>
 		</tr>
 		<tr>
 			<td>인천 피플</td>
 			<td>9</td>
 			<td>2</td>
 			<td>2022.06.20 12:00 ~ 2022.06.20 16:00</td>
-			<td>참석 가능
-				<input type="button" value="신고"/>
-			</td>
+			<td>참석 가능</td>
+			<td><input type="button" value="신고"/></td>
 		</tr>
 		<tr>
 			<td>인천 피플</td>
 			<td>9</td>
 			<td>2</td>
 			<td>2022.06.20 12:00 ~ 2022.06.20 16:00</td>
-			<td>참석 가능
-				<input type="button" value="신고"/>
-			</td>
+			<td>참석 가능</td>
+			<td><input type="button" value="신고"/></td>
 		</tr>
 		<tr>
 			<td>인천 피플</td>
 			<td>9</td>
 			<td>2</td>
 			<td>2022.06.20 12:00 ~ 2022.06.20 16:00</td>
-			<td>참석 가능
-				<input type="button" value="신고"/>
-			</td>
+			<td>참석 가능</td>
+			<td><input type="button" value="신고"/></td>
 		</tr>
 	</table>
 	<input type="button" class="btn btn-default" value="라이딩 모임 만들기"/>

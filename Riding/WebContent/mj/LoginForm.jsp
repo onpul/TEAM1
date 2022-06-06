@@ -3,6 +3,8 @@ LoginForm.jsp
 로그인 폼
 메인페이지 > 상단메뉴 > 로그인
 모임 페이지 > 상세보기 > 로그인
+
+로그인 완료 후 메인페이지로 이동 처리
 -->
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%
@@ -40,14 +42,8 @@ LoginForm.jsp
 <div class="loginFormBox">
 	<form action="login.action" method="post" id="loginForm">
 		<div class="form-group form-inline">
-			<label for="inputEmail">이메일</label>
-	    	<input type="email" class="form-control" id="inputEmail" placeholder="이메일을 입력하세요">
-			<select name="" id="" class="form-control">
-				<option value="네이버">@naver.com</option>
-				<option value="구글">@google.com</option>
-				<option value="네이트">@nate.com</option>
-			</select>    
-			<br /><span>등록하신 이메일은 로그인 시 아이디로 사용됩니다.</span>
+			<label for="inputEmail">아이디</label>
+	    	<input type="email" class="form-control" id="inputEmail" placeholder="@abcd.com">
 	    </div>
 		<div class="form-group form-inline">
 	    	<label for="inputPassword">비밀번호</label>

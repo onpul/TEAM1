@@ -1,3 +1,8 @@
+<!--
+SearchIdForm.jsp 
+아이디 찾기 폼
+메인 페이지 > 상단 메뉴 > 로그인 > 아이디 찾기 폼
+-->
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%
 	request.setCharacterEncoding("UTF-8");

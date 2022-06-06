@@ -1,3 +1,7 @@
+<!--
+Header.jsp 
+헤더페이지(모든 페이지에 적용할 헤더)
+-->
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%
 	request.setCharacterEncoding("UTF-8");
@@ -48,8 +52,12 @@
         <li><a href="#">지도</a></li>
       </ul>
      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">알림</a></li>
-        <li><a href="#">쪽지</a></li>
+        <li>
+        	<a href="#">알림<span class="badge"> 12</span></a>
+        </li>
+        <li>
+        	<a href="#">쪽지<span class="badge"> 4</span></a>
+        </li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">프로필사진 <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">

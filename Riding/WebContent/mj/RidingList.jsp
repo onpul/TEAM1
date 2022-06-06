@@ -1,3 +1,9 @@
+<!--
+RidingList.jsp 
+모임 리스트 페이지
+메인 페이지 > 상단메뉴 > 모임 리스트
+메인 페이지 > 캘린더 > 모임 리스트
+-->
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%
 	request.setCharacterEncoding("UTF-8");
@@ -19,70 +25,124 @@
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<style type="text/css">
+</style>
 </head>
 <body>
-<div>
-	<div>모임명</div>
-	<input type="text" />
-	<input type="button" value="찾기"/>
+<div class="form-group form-inline">
+	<label for="gender" class="">모임명</label>
+	<input type="text" class="form-control" placeholder="Search">
+	<button type="submit" class="btn btn-default">검색</button>
 </div>
 <div>
-	<ul>
-		<li> 연령대
-		<label><input type="checkbox" name="age" value="전체">전체</label>
-		<label><input type="checkbox" name="age" value="10대">10대</label>
-		<label><input type="checkbox" name="age" value="20대">20대</label>
-		<label><input type="checkbox" name="age" value="30대">30대</label>
-		<label><input type="checkbox" name="age" value="40대">40대</label>
-		<label><input type="checkbox" name="age" value="50대">50대</label>
-		<label><input type="checkbox" name="age" value="60대 이상"> 60대 이상</label>
-		</li>
-		<li> 성별
-		<label><input type="checkbox" name="gender" value="전체"/>전체</label>
-		<label><input type="checkbox" name="gender" value="남성"/>남성</label>
-		<label><input type="checkbox" name="gender" value="여성"/>여성</label>
-		</li>
-		<li> 속도
-		<label><input type="checkbox" name="speed" value="전체"/>전체</label>
-		<label><input type="checkbox" name="speed" value="20미만"/>20미만</label>
-		<label><input type="checkbox" name="speed" value="20이상 24미만"/>20이상 24미만</label>
-		<label><input type="checkbox" name="speed" value="24이상"/>24이상</label>
-		</li>
-		<li> 숙련도
-		<label><input type="checkbox" name="step" value="전체"/>전체</label>
-		<label><input type="checkbox" name="step" value="1년 미만"/>1년 미만</label>
-		<label><input type="checkbox" name="step" value="1~3년"/>1~3년</label>
-		<label><input type="checkbox" name="step" value="3~5년"/>3~5년</label>
-		<label><input type="checkbox" name="step" value="6년 이상"/>6년 이상</label>
-		</li>
-		<li> 회식 여부
-		<label><input type="checkbox" name="dinning" value="전체"/>전체</label>
-		<label><input type="checkbox" name="dinning" value="끝나고 회식해요"/>끝나고 회식해요</label>
-		<label><input type="checkbox" name="dinning" value="끝나고 회식 안 해요"/>끝나고 회식 안 해요</label>
-		</li>
-		<li> 식사 여부
-		<label><input type="checkbox" name="eat" value="전체"/>전체</label>
-		<label><input type="checkbox" name="eat" value="밥 먹고 달려요"/>밥 먹고 달려요</label>
-		<label><input type="checkbox" name="eat" value="밥 안 먹고 달려요"/>밥 안 먹고 달려요</label>
-		</li>
-		<li> 분위기
-		<label><input type="checkbox" name="mood" value="전체"/>전체</label> 
-		<label><input type="checkbox" name="mood" value="침묵이 좋아요"/>침묵이 좋아요</label> 
-		<label><input type="checkbox" name="mood" value="친목이 좋아요"/>친목이 좋아요</label> 
-		</li>
-		<li> 제한 등급
-		<label><input type="checkbox" name="grade" value="전체"/>전체</label> 
-		<label><input type="checkbox" name="grade" value="다이아전거"/>다이아전거</label> 
-		<label><input type="checkbox" name="grade" value="금전거"/>금전거</label> 
-		<label><input type="checkbox" name="grade" value="은전거"/>은전거</label> 
-		<label><input type="checkbox" name="grade" value="동전거"/>동전거</label> 
-		<label><input type="checkbox" name="grade" value="돌전거"/>돌전거</label> 
-		</li>
-		<li><input type="button" value="나의 라이딩 스타일 적용"/></li>
-	</ul>
+	<div class="form-group">
+		<label for="gender" class="">성별</label>
+		<label class="radio-inline">
+			<input type="radio" name="gender" id="gender" value="all" checked="checked"> 전체
+		</label>
+		<label class="radio-inline">
+			<input type="radio" name="gender" id="gender" value="male"/>남성
+		</label>
+		<label class="radio-inline">
+			<input type="radio" name="gender" id="gender" value="female"/>여성
+		</label>
+	</div>
+	<div class="form-group">
+		<label for="age">연령대</label>
+		<label class="radio-inline">
+			<input type="radio" name="age" id="age" value="all" checked="checked"> 전체
+		</label>
+		<label class="radio-inline">
+			<input type="radio" name="age" id="age" value="20"/>20대
+		</label>
+		<label class="radio-inline">
+			<input type="radio" name="age" id="age" value="30"/>30대
+		</label>
+		<label class="radio-inline">
+			<input type="radio" name="age" id="age" value="40"/>40대
+		</label>
+		<label class="radio-inline">
+			<input type="radio" name="age" id="age" value="50"/>50대
+		</label>
+		<label class="radio-inline">
+			<input type="radio" name="age" id="age" value="60"/>60대 이상
+		</label>
+	</div>
+	<div class="form-group">
+		<label for="speed">속도</label>
+		<label class="radio-inline">
+			<input type="radio" name="speed" id="speed" value="all" checked="checked"> 전체
+		</label>
+		<label class="radio-inline">
+			<input type="radio" name="speed" id="speed" value="20미만"/>20미만
+		</label>
+		<label class="radio-inline">
+			<input type="radio" name="speed" id="speed" value="20이상 24미만"/>20이상 24미만
+		</label>
+		<label class="radio-inline">
+			<input type="radio" name="speed" id="speed" value="24이상"/>24이상
+		</label>
+	</div>
+	<div class="form-group">
+		<label for="step">숙련도</label>
+		<label class="radio-inline">
+			<input type="radio" name="step" id="step" value="all" checked="checked"> 전체
+		</label>
+		<label class="radio-inline">
+			<input type="radio" name="step" id="step" value="1년 미만" />1년 미만
+		</label>
+		<label class="radio-inline">
+			<input type="radio" name="step" id="step" value="1~3년" />1~3년
+		</label>
+		<label class="radio-inline">
+			<input type="radio" name="step" id="step" value="3~5년" />3~5년
+		</label>
+		<label class="radio-inline">
+			<input type="radio" name="step" id="step" value="6년 이상" />6년 이상
+		</label>
+	</div>
+	<div class="form-group">
+		<label for="eat">식사 여부</label>
+		<label class="radio-inline">
+			<input type="radio" name="eat" id="eat" value="all" checked="checked"> 전체
+		</label>
+		<label class="radio-inline">
+			<input type="radio" name="eat" id="eat" value="밥 안 먹고 달려요"/>밥 안 먹고 달려요
+		</label>
+		<label class="radio-inline">
+			<input type="radio" name="eat" id="eat" value="밥 먹고 달려요"/>밥 먹고 달려요
+		</label>
+	</div>
+	<div class="form-group">
+		<label for="dinning">회식 여부</label>
+		<label class="radio-inline">
+			<input type="radio" name="dinning" id="dinning" value="all" checked="checked"> 전체
+		</label>
+		<label class="radio-inline">
+			<input type="radio" name="dinning" id="dinning" value="끝나고 회식 안 해요"/>끝나고 회식 안 해요
+		</label>
+		<label class="radio-inline">
+			<input type="radio" name="dinning" id="dinning" value="끝나고 회식해요"/>끝나고 회식해요
+		</label>
+	</div>
+	<div class="form-group">
+		<label for="mood">분위기</label>
+		<label class="radio-inline">
+			<input type="radio" name="mood" id="mood" value="all" checked="checked"> 전체
+		</label>
+		<label class="radio-inline">
+			<input type="radio" name="mood" id="mood" value="침묵이 좋아요"/>침묵이 좋아요
+		</label>
+		<label class="radio-inline">
+			<input type="radio" name="mood" id="mood" value="친목이 좋아요"/>친목이 좋아요
+		</label>
+	</div>
+	<div class="form-group myRidingBtn">
+		<input type="button" class="btn btn-default" value="나의 라이딩스타일 적용"/>
+	</div>
 </div>
 <div>
-	<table>
+	<table class="table">
 		<tr>
 			<th>모임명</th>
 			<th>최대</th>
@@ -136,7 +196,7 @@
 			</td>
 		</tr>
 	</table>
-	<input type="button" value="라이딩 모임 만들기"/>
+	<input type="button" class="btn btn-default" value="라이딩 모임 만들기"/>
 </div>
 </body>
 </html>

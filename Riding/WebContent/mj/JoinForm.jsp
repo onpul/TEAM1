@@ -1,4 +1,8 @@
-<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
+<!--
+JoinForm.jsp 
+회원가입 폼
+메인페이지 > 상단 메뉴 > 회원가입
+--><%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%
 	request.setCharacterEncoding("UTF-8");

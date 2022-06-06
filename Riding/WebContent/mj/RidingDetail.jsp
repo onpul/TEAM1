@@ -1,3 +1,9 @@
+<!--
+RidingDetail.jsp 
+모임 상세보기 페이지
+메인 페이지 > 모임 생성하기 > 모임 상세보기
+모임 리스트 > 모임 상세보기
+-->
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%
 	request.setCharacterEncoding("UTF-8");
@@ -38,7 +44,7 @@
 	
 	<div>
 		<h3>모임 정보</h3>
-		<table>
+		<table class="table">
 			<tr>
 				<td>모임 시작 일시</td>
 				<td>2022.05.23 10:00</td>
@@ -69,7 +75,7 @@
 				<li>
 					<ul>
 						<li>여성</li>
-						<li><input type="button" value="친구 추가"/> <input type="button" value="신고"/></li>
+						<li><input type="button" class="btn btn-default" value="친구 추가"/> <input type="button" class="btn btn-default" value="신고"/></li>
 					</ul>
 				</li>
 			</ul>
@@ -86,7 +92,7 @@
 				<li>
 					<ul>
 						<li>여성</li>
-						<li><input type="button" value="친구 추가"/> <input type="button" value="신고"/></li>
+						<li><input type="button" class="btn btn-default" value="친구 추가"/> <input type="button" class="btn btn-default" value="신고"/></li>
 					</ul>
 				</li>
 			</ul>
@@ -103,14 +109,14 @@
 				<li>
 					<ul>
 						<li>여성</li>
-						<li><input type="button" value="친구 추가"/> <input type="button" value="신고"/></li>
+						<li><input type="button" class="btn btn-default" value="친구 추가"/> <input type="button" class="btn btn-default" value="신고"/></li>
 					</ul>
 				</li>
 			</ul>
 		</div>
 		
 		<div>
-			<input type="button" value="목록으로"/> <input type="button" value="참석하기"/>
+			<input type="button" class="btn btn-default" value="목록으로"/> <input type="button" class="btn btn-default" value="참석하기"/>
 		</div>
 	</div>
 </div>

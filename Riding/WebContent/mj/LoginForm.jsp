@@ -1,3 +1,9 @@
+<!--
+LoginForm.jsp 
+로그인 폼
+메인페이지 > 상단메뉴 > 로그인
+모임 페이지 > 상세보기 > 로그인
+-->
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%
 	request.setCharacterEncoding("UTF-8");

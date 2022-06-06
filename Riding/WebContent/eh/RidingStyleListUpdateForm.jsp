@@ -8,13 +8,40 @@
 <head>
 <meta charset="UTF-8">
 <title>RidingStyleListUpdateForm.jsp</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+	$(function()
+	{
+		$("updateCheck").click(function()
+		{
+			alert("수정이 완료되었습니다.");
+		});
+		
+		$("#myPageMain").click(function()
+		{
+			// 변경 사항이 있는지 체크하고
+			// 있으면 → alert("변경사항이 저장되지 않습니다. 정말로 이전 페이지로 이동하시겠습니까?")
+			// 없으면 바로 목록으로 이동.
+			alert("변경사항이 저장되지 않습니다. 정말로 이전 페이지로 이동하시겠습니까?");
+		})
+	});
+</script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 </head>
 <body>
 <!-- 라이딩 스타일 조회 및 수정 폼 -->
+<!-- RidingStyleListUpdateForm.jsp -->
+
+<div>
+	라이딩 스타일 조회 및 수정 페이지
+</div>
 <div>
 	<!-- 사용자가 회원가입할 때 입력한 값이 check 되어 보여진다. -->
 	<!-- 회원가입할 때 라이딩스타일 체크 안했으면 당연히 check 안된 상태로 보여진다. -->
-	<form>
+	<form class="form-horizontal">
 		<div>
 			연령대	
 			<label><input type="radio" name="나이" value="해당없음">해당없음</label>
@@ -61,8 +88,10 @@
 		</div>
 		
 		<div>
-			<button>수정하기</button>
-			<button>목록으로</button>
+			<!-- MyPageMain.jsp 로 이동. -->
+			<button id="updateCheck" class="btn btn-success">수정하기</button>
+			<!-- MyPageMain.jsp 로 이동. -->
+			<button id="myPageMain" class="btn btn-default">마이페이지로 이동</button>
 		</div>
 	</form>
 </div>

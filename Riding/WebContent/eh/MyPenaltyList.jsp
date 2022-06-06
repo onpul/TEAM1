@@ -5,6 +5,10 @@
 %>
 <!DOCTYPE html>
 <html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <head>
 <meta charset="UTF-8">
 <title>MyPenaltyList.jsp</title>
@@ -55,8 +59,11 @@
 </div>
 
 <div>
-	<button>문의하기</button>
-	<button>목록으로</button>
+	<!-- Inquiry.jsp 로 이동. -->
+	<button id="inquiry">문의하기</button>
+	
+	<!-- MyPageMain.jsp 로 이동. -->
+	<button id="myPageMain">목록으로</button>
 </div>
 </body>
 </html>

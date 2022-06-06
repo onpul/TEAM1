@@ -45,12 +45,13 @@
 	나의 공헌도
 	
 	<div>
-		<!-- MyReviewList.jsp로 이동. -->
-		<!-- 공헌도 얻는 곳은 게시글 작성 혹은 맛집 생성 -->
-		<a href="">공헌도 : <span>40 / 100</span></a>
+		공헌도 : <span>40 / 100</span>
 	</div>
 </div>
 
-<div><button>목록으로</button></div>
+<div>
+	<!-- MyPageMain.jsp 로 이동. -->
+	<button id="myPageMain">목록으로</button>
+</div>
 </body>
 </html>

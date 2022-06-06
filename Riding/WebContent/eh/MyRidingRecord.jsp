@@ -8,9 +8,14 @@
 <head>
 <meta charset="UTF-8">
 <title>MyRigingRecord.jsp</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 </head>
 <body>
 <!-- 라이딩 기록 상세보기 페이지 -->
+<!-- MyRigingRecord.jsp -->
 <div>
 	모임명
 	<span>새벽반</span>
@@ -43,7 +48,8 @@
 </div>
 
 <div>
-	<button>목록으로</button>
+	<!-- MyPageMain.jsp 로 이동. -->
+	<button id="myPageMain">마이페이지로 이동</button>
 </div>
 </body>
 </html>

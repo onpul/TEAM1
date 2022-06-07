@@ -1,0 +1,223 @@
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+	request.setCharacterEncoding("UTF-8");
+	String cp = request.getContextPath();
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>라이딩 스타일 지정</title>
+<link rel="stylesheet"  type="text/css" href="<%=cp%>/css/main.css">
+</head>
+<body>
+
+
+<div>
+<h2>라이딩 스타일 지정</h2>
+        <hr>
+			<form action ="" name="style" >
+				<p>성별</p>
+					<label>
+						<input type="radio" name="gender" id="nolimit" value="제한없음" />
+						제한없음
+					</label>
+					<label>
+						<input type="radio" name="gender" id="same" value="같은성별" />
+						나와 같은 성별
+					</label>
+			<br /><br />
+			
+			
+				<p>연령대</p>
+					<label>
+						<input type="radio" name="gender" id="every" value="제한없음" />
+						제한없음
+					</label>
+					<label>
+						<input type="radio" name="gender" id="ten" value="10대" />
+						10대
+					</label>
+					<label>
+						<input type="radio" name="gender" id="twenty" value="20대" />
+						20대
+					</label>
+					<label>
+						<input type="radio" name="gender" id="thirty" value="30대" />
+						30대
+					</label>
+					<label>
+						<input type="radio" name="gender" id="forty" value="40대" />
+						40대
+					</label>
+					<label>
+						<input type="radio" name="gender" id="fifty" value="50대" />
+						50대
+					</label>
+					<label>
+						<input type="radio" name="gender" id="sixty" value="60대" />
+						60대 이상
+					</label>
+			<br /><br />
+			
+
+				<p>속도</p>
+					<label>
+						<input type="radio" name="speed" id="nolimit" value="제한없음" />
+						제한없음
+					</label>
+					<label>
+						<input type="radio" name="speed" id="first" value="20미만" />
+						20미만
+					</label>
+					<label>
+						<input type="radio" name="speed" id="second" value="20이상" />
+						20이상 24미만
+					</label>
+					<label>
+						<input type="radio" name="speed" id="third" value="24이상" />
+						24이상
+					</label>
+			<br /><br />
+		
+				<p>숙련도</p>
+					<label>
+						<input type="radio" name="skill" id="nolimit" value="제한없음" />
+						제한없음
+					</label>
+					<label>
+						<input type="radio" name="skill" id="one" value="1년미만" />
+						1년 미만
+					</label>
+					<label>
+						<input type="radio" name="skill" id="three" value="1~3년" />
+						1~3년
+					</label>
+					<label>
+						<input type="radio" name="skill" id="five" value="3~5년" />
+						3~5년
+					</label>
+					<label>
+						<input type="radio" name="skill" id="six" value="6년이상" />
+						6년 이상
+					</label>
+			<br /><br />
+
+
+				<p>식사 여부</p>
+					<label>
+						<input type="radio" name="meal" id="nolimit" value="제한없음" />
+						제한없음
+					</label>
+					<label>
+						<input type="radio" name="meal" id="nomeal" value="식사있음" />
+						밥 안 먹고 달려요
+					</label>
+					<label>
+						<input type="radio" name="meal" id="yesmeal" value="식사없음" />
+						밥 먹고 달려요
+					</label>
+			<br /><br />
+			
+
+				<p>회식 여부</p>
+					<label>
+						<input type="radio" name="get" id="nolimit" value="제한없음" />
+						제한없음
+					</label>
+					<label>
+						<input type="radio" name="get" id="noget" value="회식있음" />
+						끝나고 회식 안 해요
+					</label>
+					<label>
+						<input type="radio" name="get" id="yesget" value="회식없음" />
+						끝나고 회식 해요
+					</label>
+			<br /><br />
+
+				<p>분위기</p>
+					<label>
+						<input type="radio" name="quiet" id="nolimit" value="제한없음" />
+						제한없음
+					</label>
+					<label>
+						<input type="radio" name="quiet" id="yesquiet" value="침묵" />
+						침묵이 좋아요
+					</label>
+					<label>
+						<input type="radio" name="quiet" id="noquiet" value="친목" />
+						친목이 좋아요
+					</label>
+			<br /><br />
+			
+
+				<p>참여자 제한 등급</p>
+					<label>
+						<input type="radio" name="bike" id="nolimit" value="제한없음" />
+						제한없음
+					</label>
+					<label>
+						<input type="radio" name="bike" id="dia" value="다이아" />
+						다이아전거
+					</label>
+					<label>
+						<input type="radio" name="bike" id="gold" value="금" />
+						금전거
+					</label>
+					<label>
+						<input type="radio" name="bike" id="gold" value="금" />
+						은전거
+					</label>
+					<label>
+						<input type="radio" name="bike" id="gold" value="금" />
+						동전거
+					</label>
+					<label>
+						<input type="radio" name="bike" id="gold" value="금" />
+						돌전거
+					</label>
+			<br /><br />
+			
+			
+				<p>공지사항</p>
+				<textarea name="" id="" cols="50" rows="10"></textarea>
+			<br /><br />
+			
+				<tr>
+					<td colspan="2" style="text-align: center">
+                        <HR>
+						<input 	type="submit" value="모임생성하기">   
+						<input type="reset"	value="취소하기">
+					</td>
+				</tr>	
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		</form>
+</div>
+
+
+
+
+
+</body>
+</html>

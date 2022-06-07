@@ -27,6 +27,50 @@ LoginForm.jsp
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+	// 비밀번호 최소 글자수 확인 함수
+	function minLengthCheck(object)
+	{
+		if (object.value.length < 8)
+		{
+			document.getElementById("pwdSpan").style.color = "red";
+		}
+		else
+			document.getElementById("pwdSpan").style.color = "black";
+	}
+	
+	// 로그인 버튼 클릭 시 작성 여부 확인 후 서브밋 하는 함수
+	function formCheck()
+	{
+		//alert("확인");
+
+		document.getElementById("pwdSpan").style.color = "black";
+		
+		var f = document.forms[0];
+		
+		if(!f.inputEmail.value)
+		{
+			alert("아이디를 입력하세요.");
+			return false;
+		}	
+		
+		if(!f.inputPassword.value)
+		{
+			alert("비밀번호를 입력하세요.");
+			return false;
+		}
+		
+		if(f.inputPassword.value.length < 8)
+		{
+			document.getElementById("pwdSpan").style.display = "inline";
+			document.getElementById("pwdSpan").style.color = "red";
+			
+			return false;
+		}
+		
+		f.submit();
+	}
+</script>
 <style type="text/css">
 	.loginFormBox
 	{
@@ -44,14 +88,15 @@ LoginForm.jsp
 		<div class="form-group form-inline">
 			<label for="inputEmail">아이디</label>
 	    	<input type="email" class="form-control" id="inputEmail" placeholder="@abcd.com">
+	    	<br /><span>이메일 형식으로 입력하세요.</span>
 	    </div>
 		<div class="form-group form-inline">
 	    	<label for="inputPassword">비밀번호</label>
-	    	<input type="password" class="form-control" id="inputPassword" placeholder="비밀번호를 입력하세요"/>
-	    	<br /><span>8~12자 이내의 비밀번호를 입력하세요.</span>
+	    	<input type="password" class="form-control" maxlength="20" id="inputPassword" oninput="minLengthCheck(this)" placeholder="비밀번호를 입력하세요"/>
+	    	<br /><span id="pwdSpan">8~20자 이내의 비밀번호를 입력하세요.</span>
 	    </div>
 		<div class="form-group loginBtn">
-			<input type="button" class="btn btn-default" value="로그인"/>
+			<input type="button" class="btn btn-default" value="로그인" onclick="formCheck()"/>
 		</div>
 		<div class="form-group link-text">
 			<a href="">비밀번호 찾기 | </a><a href="">아이디 찾기 | </a><a href="">회원가입</a>

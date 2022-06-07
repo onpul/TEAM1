@@ -54,7 +54,16 @@ Header.jsp
 		<ul class="nav navbar-nav navbar-right">
 			<!-- 알림, 쪽지는 회원일 경우에만 적용 -->
 	   		<li>
-	   			<a href="#">알림<span class="badge"> 12</span></a>
+	   			<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">알림<span class="badge"> 12</span> <span class="caret"></span></a>
+				<ul class="dropdown-menu" role="menu">
+			       <li><a href="#">마이페이지</a></li>
+			       <li><a href="#">로그아웃</a></li>
+			       <!-- 
+			       비회원 적용 메뉴
+			       <li><a href="#">로그인</a></li>
+			       <li><a href="#">회원가입</a></li> 
+			       -->
+				</ul>
 	   		</li>
 	   		<li>
 	   			<a href="#">쪽지<span class="badge"> 4</span></a>

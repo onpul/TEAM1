@@ -24,6 +24,65 @@ SearchPasswordForm.jsp
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script type="text/javascript">
+	//이메일 직접 선택 시 인풋 박스 활성화하는 함수
+	function email_change()
+	{
+		//alert("확인");
+		
+		if (document.searchPwdForm.selectEmail.options[document.searchPwdForm.selectEmail.selectedIndex].value=='0')
+		{
+			//alert("확인");
+			
+			document.searchPwdForm.inputEmail2.disabled = false;
+			document.searchPwdForm.inputEmail2.value = "";
+			document.searchPwdForm.inputEmail2.focus();
+		}
+		else
+		{
+			document.searchPwdForm.inputEmail2.disabled = true;
+			document.searchPwdForm.inputEmail2.value = document.searchPwdForm.selectEmail.options[document.searchPwdForm.selectEmail.selectedIndex].value;
+		}
+	}
+
+	//생년월일 datepicker
+	$(document).ready(function()
+	{
+		//alert("확인");
+		
+		$("#birthday").datepicker(
+		{
+			dateFormat : "yy-mm-dd"
+			, changeMonth : true
+			, changeYear : true
+		});
+	});
+
+	// 찾기 버튼 클릭 시 작성 여부 확인 후 서브밋 하는 함수
+	function formCheck()
+	{
+		//alert("확인");
+
+		var f = document.forms[0];
+
+		if(!f.inputEmail.value)
+		{
+			alert("이메일을 입력하세요.");
+			return false;
+		}	
+		
+		if(!f.birthday.value)
+		{
+			alert("생년월일을 입력하세요.");
+			return false;
+		}
+		
+		f.submit();
+	}
+	
+</script>
 <style type="text/css">
 	.searchIdFormBox
 	{
@@ -37,15 +96,14 @@ SearchPasswordForm.jsp
 </head>
 <body>
 <div class="searchIdFormBox">
-	<form action="" class="searchIdForm">
+	<form action="" class="searchPwdForm" name="searchPwdForm" id="searchPwdForm">
 		<div class="form-group form-inline">
-			<!-- 직접 입력 선택 시 input 박스 활성화 구현 해야 함 -->
 			<label for="inputEmail">이메일*</label>
-	    	<input type="text" class="form-control" name="inputEmail" id="inputEmail" placeholder="이메일을 입력하세요">
+	    	<input type="text" class="form-control" name="inputEmail" id="inputEmail" placeholder="이메일을 입력하세요" onfocus="this.value=';'">
 			@
-			<input type="text" class="form-control" name="inputEmail2" id="inputEmail2" style="width:100px;" disabled="disabled" value="naver.com">
-			<select name="selectEmail" id="selectEmail" class="form-control">
-				<option value="1">직접입력</option>			
+			<input type="text" class="form-control" name="inputEmail2" id="inputEmail2" style="width:100px;" disabled value="naver.com">
+			<select name="selectEmail" id="selectEmail" class="form-control" onchange="email_change()">
+				<option value="0">직접입력</option>			
 				<option value="naver.com" selected>naver.com</option>
 				<option value="hanmail.net">hanmail.net</option>
 				<option value="nate.com">nate.com</option>
@@ -54,25 +112,11 @@ SearchPasswordForm.jsp
 			</select>    
 	    </div>
 	    <div class="form-group form-inline">
-	    	<label for="">생년월일</label>
-	    	<select name="birthyear" id="birthyear" class="form-control">
-				<option value="year">1999</option>
-				<option value="year">2000</option>
-				<option value="year">2001</option>
-			</select>년
-			<select name="birthmonth" id="birthmonth" class="form-control">
-				<option value="month">1</option>
-				<option value="month">2</option>
-				<option value="month">3</option>
-			</select>월
-			<select name="birthday" id="birthday" class="form-control">
-				<option value="day">1</option>
-				<option value="day">2</option>
-				<option value="day">3</option>
-			</select>일
+	    	<label for="birthday">생년월일*</label>
+	    	<input type="text" class="form-control" id="birthday" name="birthday" placeholder="생년월일을 입력하세요"/>
 	    </div>
 	    <div class="form- group searchBtn">
-			<input type="button" class="btn btn-default" value="찾기"/>
+			<input type="button" class="btn btn-default" value="찾기" onclick="formCheck()"/>
 		</div>
 		<hr />
 	    <div class="form-group result-text">

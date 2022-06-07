@@ -26,7 +26,120 @@ JoinForm.jsp
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script type="text/javascript">	
+	// 이메일 직접 선택 시 인풋 박스 활성화하는 함수
+	function email_change()
+	{
+		//alert("확인");
+		
+		if (document.joinForm.selectEmail.options[document.joinForm.selectEmail.selectedIndex].value=='0')
+		{
+			//alert("확인");
+			
+			document.joinForm.inputEmail2.disabled = false;
+			document.joinForm.inputEmail2.value = "";
+			document.joinForm.inputEmail2.focus();
+		}
+		else
+		{
+			document.joinForm.inputEmail2.disabled = true;
+			document.joinForm.inputEmail2.value = document.joinForm.selectEmail.options[document.joinForm.selectEmail.selectedIndex].value;
+		}
+	}
+	
+	// 생년월일 datepicker
+	$(document).ready(function()
+	{
+		//alert("확인");
+		
+		$("#birthday").datepicker(
+		{
+			dateFormat : "yy-mm-dd"
+			, changeMonth : true
+			, changeYear : true
+		});
+	});
+	
+	// 닉네임 최대 글자수 제한 함수
+	// maxLength 지정해서 12자 이상 작성이 안 되는데 경고문구가 뜨면 혼란을 줄 거 같아서 적용 안 함
+	/*
+	function maxLengthCheck(object)
+	{
+		if (object.value.length == object.maxLength)
+		{
+			//alert(document.getElementById("nickSpan"));
+			document.getElementById("nickSpan").style.display = "inline";
+			document.getElementById("nickSpan").style.color = "red";
+		}
+		else
+			document.getElementById("nickSpan").style.color = "black";
+	}
+	*/
+	
+	// 비밀번호 최소 글자수 검사 함수
+	function minLengthCheck(object)
+	{
+		if (object.value.length < 8)
+		{
+			document.getElementById("pwdSpan").style.color = "red";
+		}
+		else
+			document.getElementById("pwdSpan").style.color = "black";
+	}
+	
+	// 회원가입 버튼 클릭 시 작성 여부 확인 후 서브밋 하는 함수
+	function formCheck()
+	{
+		//alert("확인");
+
+		document.getElementById("pwdSpan").style.color = "black";
+		
+		var f = document.forms[0];
+		
+		if(!f.inputNickname.value)
+		{
+			alert("닉네임을 입력하세요.");
+			return false;
+		}
+
+		if(!f.inputEmail.value)
+		{
+			alert("이메일을 입력하세요.");
+			return false;
+		}	
+		
+		if(!f.inputPassword.value)
+		{
+			alert("비밀번호를 입력하세요.");
+			return false;
+		}
+		
+		if(f.inputPassword.value.length < 8)
+		{
+			document.getElementById("pwdSpan").style.display = "inline";
+			document.getElementById("pwdSpan").style.color = "red";
+			
+			return false;
+		}
+		
+		if(!f.birthday.value)
+		{
+			alert("생년월일을 입력하세요.");
+			return false;
+		}
+		
+		f.submit();
+	}
+	
+</script>
 <style type="text/css">
+	span
+	{
+		font-size: small;
+	}
 	.joinFormBox
 	{
 		width: 600px;
@@ -39,21 +152,21 @@ JoinForm.jsp
 </head>
 <body>
 <div class="joinFormBox">
-	<form action="" class="joinForm">
+	<form action="" class="joinForm" name="joinForm">
 		<div class="form-group form-inline">
 			<label for="inputNickname">닉네임*</label>
-	    	<input type="email" class="form-control" id="inputNickname" placeholder="닉네임을 입력하세요">
+	    	<input type="text" class="form-control" name="inputNickname" id="inputNickname" maxlength="12" placeholder="닉네임을 입력하세요" onkeydown="inputNickChk()">
 	    	<input type="button" class="btn btn-default" value="중복 확인"/>
-	    	<br /><span>12자 이내의 닉네임을 입력하세요.</span>
+	    	<input type="hidden" name="duplication" value="uncheck"/><!-- 중복체크 여부 확인용 -->
+	    	<br /><span id="nickSpan" style="display: none;">닉네임은 12자까지 입력할 수 있습니다.</span>
 	    </div>
 		<div class="form-group form-inline">
-			<!-- 직접 입력 선택 시 input 박스 활성화 구현 해야 함 -->
 			<label for="inputEmail">이메일*</label>
-	    	<input type="text" class="form-control" name="inputEmail" id="inputEmail" placeholder="이메일을 입력하세요">
+	    	<input type="text" class="form-control" name="inputEmail" id="inputEmail" placeholder="이메일을 입력하세요" onfocus="this.value=';'">
 			@
-			<input type="text" class="form-control" name="inputEmail2" id="inputEmail2" style="width:100px;" disabled="disabled" value="naver.com">
-			<select name="selectEmail" id="selectEmail" class="form-control">
-				<option value="1">직접입력</option>			
+			<input type="text" class="form-control" name="inputEmail2" id="inputEmail2" style="width:100px;" disabled value="naver.com">
+			<select name="selectEmail" id="selectEmail" class="form-control" onchange="email_change()">
+				<option value="0">직접입력</option>			
 				<option value="naver.com" selected>naver.com</option>
 				<option value="hanmail.net">hanmail.net</option>
 				<option value="nate.com">nate.com</option>
@@ -64,27 +177,13 @@ JoinForm.jsp
 	    </div>
 	    <div class="form-group form-inline">
 	    	<label for="inputPassword">비밀번호*</label>
-	    	<input type="password" class="form-control" id="inputPassword" placeholder="비밀번호를 입력하세요"/>
-	    	<br /><span>8~12자 이내의 비밀번호를 입력하세요.</span>
+	    	<input type="password" class="form-control" name="inputPassword" id="inputPassword" maxlength="20" placeholder="비밀번호를 입력하세요"  oninput="minLengthCheck(this)"/>
+	    	<br /><span id="pwdSpan">8~20자 이내의 비밀번호를 입력하세요.</span>
 	    </div>
 	    <div class="form-group form-inline">
 	    	<!-- 해당 년도 기준 +-10 선택할 수 있도록 구현해야 함 -->
-	    	<label for="">생년월일*</label>
-	    	<select name="birthyear" id="birthyear" class="form-control">
-				<option value="year">1999</option>
-				<option value="year">2000</option>
-				<option value="year">2001</option>
-			</select>년
-			<select name="birthmonth" id="birthmonth" class="form-control">
-				<option value="month">1</option>
-				<option value="month">2</option>
-				<option value="month">3</option>
-			</select>월
-			<select name="birthday" id="birthday" class="form-control">
-				<option value="day">1</option>
-				<option value="day">2</option>
-				<option value="day">3</option>
-			</select>일
+	    	<label for="birthday">생년월일*</label>
+	    	<input type="text" class="form-control" id="birthday" name="birthday" placeholder="생년월일을 입력하세요"/>
 	    </div>
 		<div class="form-group form-inline">
 			<label for="gender">성별*</label>
@@ -201,8 +300,8 @@ JoinForm.jsp
 			</label>
 		</div>
 		<div class="form-group joinBtn">
-			<!-- 회원가입 버튼 누르면 메인으로 이동 -->
-			<input type="button" class="btn btn-default" value="회원가입"/>
+			<!-- 회원가입 완료 시 메인으로 이동 -->
+			<input type="button" class="btn btn-default" value="회원가입" onclick="formCheck()"/>
 		</div>
 	</form>
 </div>

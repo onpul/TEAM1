@@ -4,7 +4,8 @@ JoinForm.jsp
 메인페이지 > 상단 메뉴 > 회원가입
 
 회원가입 완료 후 메인화면으로 이동 처리
---><%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
+-->
+<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%
 	request.setCharacterEncoding("UTF-8");
@@ -30,6 +31,75 @@ JoinForm.jsp
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script type="text/javascript">	
+	
+	// 닉네임 특수문자 제외, 12자 이내 입력하도록
+	function maxLengthCheck(object)
+	{
+		var regExp = /[ \{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]/gi;
+		
+		// 12자 이내
+		if (object.value.length == object.maxLength)
+		{
+			//alert(document.getElementById("nickSpan"));
+			document.getElementById("nickSpan").style.color = "red";
+		}
+		// 특수문자 입력
+		else if (regExp.test(object.value))
+		{
+			document.getElementById("nickSpan").style.color = "red";
+			object.value = object.value.substring(0, object.length-1);
+		}
+		else
+			document.getElementById("nickSpan").style.color = "black";
+	}
+	
+	// 닉네임 중복 검사 여부
+	function inputNickChk()
+	{
+		//alert("확인");
+		// 닉네임 칸에 새로 입력할 때마다 중복확인 여부를 uncheck로
+		document.joinForm.duplication.value = "nickUncheck";
+	}
+	
+	// 닉네임 중복 체크
+	$(function()
+	{
+		$("#duplicationBtn").click(function()
+		{
+			//alert("확인");
+			
+			var params = $("#inputNickname").val();
+			// serialize() : 폼 태그내의 항목들을 자동으로 읽어와 queryString 형식으로 변환 
+			
+			alert(params);
+			
+			$.ajax(
+			{
+				type:"POST"
+				, url:"수신하게 될 페이지"
+				, data:params
+				, success:function(args)
+				{
+					if (args == 0)
+					{
+						alert("사용가능한 닉네임입니다.");
+					}
+					else if (args == 1) 
+					{
+						alert("이미 사용중인 닉네임입니다.");
+					}
+				}
+				, error:function(e)
+				{
+					alert(e.responseText);
+				}
+				
+			});
+			
+			
+		});
+	});
+		
 	// 이메일 직접 선택 시 인풋 박스 활성화하는 함수
 	function email_change()
 	{
@@ -40,7 +110,7 @@ JoinForm.jsp
 			//alert("확인");
 			
 			document.joinForm.inputEmail2.disabled = false;
-			document.joinForm.inputEmail2.value = "";
+			document.joinForm.inputEmail2.value = "@";
 			document.joinForm.inputEmail2.focus();
 		}
 		else
@@ -62,22 +132,6 @@ JoinForm.jsp
 			, changeYear : true
 		});
 	});
-	
-	// 닉네임 최대 글자수 제한 함수
-	// maxLength 지정해서 12자 이상 작성이 안 되는데 경고문구가 뜨면 혼란을 줄 거 같아서 적용 안 함
-	/*
-	function maxLengthCheck(object)
-	{
-		if (object.value.length == object.maxLength)
-		{
-			//alert(document.getElementById("nickSpan"));
-			document.getElementById("nickSpan").style.display = "inline";
-			document.getElementById("nickSpan").style.color = "red";
-		}
-		else
-			document.getElementById("nickSpan").style.color = "black";
-	}
-	*/
 	
 	// 비밀번호 최소 글자수 검사 함수
 	function minLengthCheck(object)
@@ -131,8 +185,53 @@ JoinForm.jsp
 			return false;
 		}
 		
+		if(!f.duplication.value != "nickCheck")
+		{
+			alert("아이디 중복체크를 해 주세요.");
+			return false;
+		}
+		
 		f.submit();
 	}
+	
+	// 회원가입 제이쿼리 에이젝스 처리
+	$(function()
+	{
+		$("#joinBtn").click(function()
+		{
+			//alert("확인");
+			
+			// 보낼 데이터 구성
+			var params = $("form[name=joinForm]").serialize();
+			// serialize() : 폼 태그내의 항목들을 자동으로 읽어와 queryString 형식으로 변환 
+			
+			//alert(params);
+			
+			$.ajax(
+			{
+				type:"POST"
+				, url:"수신하게 될 페이지"
+				, data:params
+				, success:function(args)
+				{
+					if (args == 0)
+					{
+						alert("회원가입이 정상적으로 처리되었습니다.");
+					}
+					else if (args == 1) 
+					{
+						alert("탈퇴일로부터 3개월 이후에 회원가입이 가능합니다.");
+					}
+				}
+				, beforeSend:formCheck
+				, error:function(e)
+				{
+					alert(e.responseText);
+				}
+			});
+			
+		});
+	});
 	
 </script>
 <style type="text/css">
@@ -142,7 +241,7 @@ JoinForm.jsp
 	}
 	.joinFormBox
 	{
-		width: 600px;
+		width: 700px;
 	}
 	.joinBtn
 	{
@@ -155,29 +254,28 @@ JoinForm.jsp
 	<form action="" class="joinForm" name="joinForm">
 		<div class="form-group form-inline">
 			<label for="inputNickname">닉네임*</label>
-	    	<input type="text" class="form-control" name="inputNickname" id="inputNickname" maxlength="12" placeholder="닉네임을 입력하세요" onkeydown="inputNickChk()">
-	    	<input type="button" class="btn btn-default" value="중복 확인"/>
-	    	<input type="hidden" name="duplication" value="uncheck"/><!-- 중복체크 여부 확인용 -->
-	    	<br /><span id="nickSpan" style="display: none;">닉네임은 12자까지 입력할 수 있습니다.</span>
+	    	<input type="text" class="form-control" name="inputNickname" id="inputNickname" maxlength="12" placeholder="닉네임을 입력하세요" oninput="maxLengthCheck(this)" onkeydown="inputNickChk()">
+	    	<input type="button" class="btn btn-default" value="중복 확인" id="duplicationBtn"/>
+	    	<input type="hidden" name="duplication" id="duplication" value="nickUncheck"/><!-- 중복체크 여부 확인용 -->
+	    	<br /><span id="nickSpan" style="">특수문자 제외 12자 이내의 닉네임을 입력하세요.</span>
 	    </div>
 		<div class="form-group form-inline">
 			<label for="inputEmail">이메일*</label>
 	    	<input type="text" class="form-control" name="inputEmail" id="inputEmail" placeholder="이메일을 입력하세요" onfocus="this.value=';'">
-			@
-			<input type="text" class="form-control" name="inputEmail2" id="inputEmail2" style="width:100px;" disabled value="naver.com">
+			<input type="text" class="form-control" name="inputEmail2" id="inputEmail2" style="width:120px;" disabled value="@naver.com">
 			<select name="selectEmail" id="selectEmail" class="form-control" onchange="email_change()">
 				<option value="0">직접입력</option>			
-				<option value="naver.com" selected>naver.com</option>
-				<option value="hanmail.net">hanmail.net</option>
-				<option value="nate.com">nate.com</option>
-				<option value="yahoo.co.kr">yahoo.co.kr</option>
-				<option value="gmail.com">gmail.com</option>
+				<option value="@naver.com" selected>@naver.com</option>
+				<option value="@hanmail.net">@hanmail.net</option>
+				<option value="@nate.com">@nate.com</option>
+				<option value="@yahoo.co.kr">@yahoo.co.kr</option>
+				<option value="@gmail.com">@gmail.com</option>
 			</select>    
 			<br /><span>등록하신 이메일은 로그인 시 아이디로 사용됩니다.</span>
 	    </div>
 	    <div class="form-group form-inline">
 	    	<label for="inputPassword">비밀번호*</label>
-	    	<input type="password" class="form-control" name="inputPassword" id="inputPassword" maxlength="20" placeholder="비밀번호를 입력하세요"  oninput="minLengthCheck(this)"/>
+	    	<input type="password" class="form-control" name="inputPassword" id="inputPassword" maxlength="20" placeholder="비밀번호를 입력하세요" oninput="minLengthCheck(this)"/>
 	    	<br /><span id="pwdSpan">8~20자 이내의 비밀번호를 입력하세요.</span>
 	    </div>
 	    <div class="form-group form-inline">
@@ -301,7 +399,7 @@ JoinForm.jsp
 		</div>
 		<div class="form-group joinBtn">
 			<!-- 회원가입 완료 시 메인으로 이동 -->
-			<input type="button" class="btn btn-default" value="회원가입" onclick="formCheck()"/>
+			<input type="button" class="btn btn-default" value="회원가입" id="joinBtn"/>
 		</div>
 	</form>
 </div>

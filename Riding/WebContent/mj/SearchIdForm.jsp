@@ -29,19 +29,50 @@ SearchIdForm.jsp
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script type="text/javascript">
 
-	//생년월일 datepicker
 	$(document).ready(function()
 	{
 		//alert("확인");
 		
+		//생년월일 datepicker
 		$("#birthday").datepicker(
 		{
 			dateFormat : "yy-mm-dd"
 			, changeMonth : true
 			, changeYear : true
 		});
-	});
-
+		
+		$("#searchBtn").click(function()
+		{
+			//alert("확인");
+			
+			var params = $("form[name=searchIdForm]").serialize();
+			// serialize() : 폼 태그내의 항목들을 자동으로 읽어와 queryString 형식으로 변환 
+			
+			$.ajax(
+			{
+				type:"POST"
+				, url:"수신하게 될 페이지"
+				, data:params
+				, success:function(args)
+				{
+					if (args == 0)
+					{
+						$("#resultText").html("<span>회원가입 시 등록한 아이디는 " + args + " 입니다.</span>");
+					}
+					else if (args == null) 
+					{
+						$("#resultText").html("<span>회원정보를 찾을 수 없습니다.</span>");
+					}
+				}
+				, beforeSend:formCheck
+				, error:function(e)
+				{
+					alert(e.responseText);
+				}
+			});
+		});
+	});	
+	
 	// 찾기 버튼 클릭 시 작성 여부 확인 후 서브밋 하는 함수
 	function formCheck()
 	{
@@ -68,7 +99,7 @@ SearchIdForm.jsp
 	{
 		width: 400px;
 	}
-	.goLoginBtn, .result-text, .searchBtn
+	.goLoginBtn, .resultText, .searchBtn
 	{
 		text-align: center;
 	}
@@ -76,7 +107,7 @@ SearchIdForm.jsp
 </head>
 <body>
 <div class="searchIdFormBox">
-	<form action="" class="searchIdForm">
+	<form action="" class="searchIdForm" id="searchIdForm">
 		<div class="form-group form-inline">
 			<label for="inputNickname">닉네임*</label>
 	    	<input type="email" class="form-control" id="inputNickname" placeholder="닉네임을 입력하세요">
@@ -86,17 +117,17 @@ SearchIdForm.jsp
 	    	<input type="text" class="form-control" id="birthday" name="birthday" placeholder="생년월일을 입력하세요"/>
 	    </div>
 	    <div class="form-group searchBtn">
-			<input type="button" class="btn btn-default" value="찾기" onclick="formCheck()"/>
+			<input type="button" class="btn btn-default" value="찾기" id="searchBtn"/>
 		</div>
 		<hr />
-	    <div class="form-group result-text">
+	    <div class="form-group resultText">
 	    	<!-- 아이디 찾기 성공 시 노출 -->
 	    	<p>회원가입 시 등록한 아이디는 chmj072@gmail.com 입니다.</p>
 	    	<!-- 아이디 찾기 실패 시 노출 -->
 	    	<p>회원정보를 찾을 수 없습니다.</p>
 	    </div>
 	    <div class="form-group goLoginBtn">
-			<input type="button" class="btn btn-default" value="로그인 화면으로 돌아가기"/>
+			<input type="button" class="btn btn-default" id="goLoginBtn" onclick="location.href='loginForm.action'" value="로그인 화면으로 돌아가기"/>
 		</div>
 	</form>
 </div>

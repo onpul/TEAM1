@@ -23,36 +23,55 @@ Main.jsp
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+	function penaltyCheck()
+	{
+		//alert("확인");
+		
+		// 접속한 회원이 패널티 적용 중인지 검색하는 조건문
+		
+		// 패널티가 적용 중이라면
+		alert("패널티가 적용 중이므로 모임을 생성할 수 없습니다.");
+	}
+</script>
 <style type="text/css">
 	.calendar-box
 	{
 		background-color: yellow;
+		height: 500px;
 	}
 	.map-box
 	{
 		background-color: orange;
+		height: 466px;
 	}
 	.btn-box
 	{
 		text-align: right;
 	}
-	
+	.select-box
+	{
+		width: 70%;
+	}
 </style>
 </head>
 <body>
 <div class="row">
 	<!-- 달력 들어갈 div -->
-	<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 calendar-box">
-		달력 들어갈 div
+	<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 ">
+		<div class="calendar-box">달력 들어갈 div</div>
 	</div>
 	
 	<!-- 지도 들어갈 div -->
 	<!-- 회원일 경우 적용 -->
 	<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-		<select name="" id="" class="form-control">
-			<option value="">맛집 보기</option>
-			<option value="">편의시설 보기</option>
-		</select>
+		<div class="select-box">
+			<select name="" id="" class="form-control">
+				<option value="">맛집 보기</option>
+				<option value="">편의시설 보기</option>
+			</select>
+		</div>
+		
 		<div class="map-box">
 			지도 들어갈 div
 		</div>
@@ -73,7 +92,7 @@ Main.jsp
 <!-- 회원일 경우 적용 -->
 <div class="row btn-box"> 
 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-		<input type="button" class="btn btn-default" value="모임 생성하기"/>
+		<input type="button" class="btn btn-default" value="모임 생성하기" onclick="penaltyCheck()"/>
 	</div>
 </div>
 

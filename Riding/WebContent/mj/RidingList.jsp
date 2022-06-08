@@ -25,6 +25,93 @@ RidingList.jsp
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+
+	$(function()
+	{
+		$("#myRidingBtn").click(function()
+		{
+			//alert("확인");
+			
+			// 사용자의 라이딩 스타일 받아오기 전 모든 체크를 해제
+			$("input:radio[name='gender']").prop("checked", false);
+			$("input:radio[name='age']").prop("checked", false);
+			$("input:radio[name='speed']").prop("checked", false);
+			$("input:radio[name='step']").prop("checked", false);
+			$("input:radio[name='eat']").prop("checked", false);
+			$("input:radio[name='dinning']").prop("checked", false);
+			$("input:radio[name='mood']").prop("checked", false);
+			
+			// 사용자의 라이딩 스타일을 받아와 checked 적용
+			myRidingCheck();
+		});
+	});
+	
+	function myRidingCheck()
+	{
+		//alert("확인");
+		
+		//alert(document.getElementsByName("gender"));
+		
+		// 라디오 버튼 분류 별로 변수에 담기
+		var genderGroup = document.getElementsByName("gender");
+		var ageGroup = document.getElementsByName("age");
+		var speedGroup = document.getElementsByName("speed");
+		var stepGroup = document.getElementsByName("step");
+		var eatGroup = document.getElementsByName("eat");
+		var dinningGroup = document.getElementsByName("dinning");
+		var moodGroup = document.getElementsByName("mood");
+		
+		// 사용자의 라이딩 스타일 받아오기
+		var gender = 1;
+		var age = 2;
+		var speed = 0;
+		var step = 3;
+		var eat = 1;
+		var dinning = 0;
+		var mood = 0;
+		
+		// 받아온 라이딩 스타일 적용(checked)
+		genderGroup[gender].checked = true;
+		ageGroup[age].checked = true;
+		speedGroup[speed].checked = true;
+		stepGroup[step].checked = true;
+		eatGroup[eat].checked = true;
+		dinningGroup[dinning].checked = true;
+		moodGroup[mood].checked = true;
+	}
+	
+	$(function()
+	{
+		$("#openRidingBtn").click(function()
+		{
+			//alert("확인");
+			
+			// 패널티 적용 여부 확인해서 패널티 있으면 경고창, 없으면 라이딩 생성 요청
+			$.ajax(
+			{
+				type:"POST"
+				, url:"수신하게 될 페이지"
+				, success:function(args)
+				{
+					if (args == 0)
+					{
+						location.href = "ridingForm.action";
+					}
+					else if (args == 1) 
+					{
+						alert("패널티가 적용 중이므로 모임을 생성할 수 없습니다.");
+					}
+				}
+				, error:function(e)
+				{
+					alert(e.responseText);
+				}
+			});
+		}); 
+	});
+	
+</script>
 <style type="text/css">
 </style>
 </head>
@@ -36,7 +123,7 @@ RidingList.jsp
 </div>
 <div>
 	<div class="form-group">
-		<label for="gender" class="">성별</label>
+		<label for="gender" >성별</label>
 		<label class="radio-inline">
 			<input type="radio" name="gender" id="gender" value="all" checked="checked"> 전체
 		</label>
@@ -138,7 +225,7 @@ RidingList.jsp
 		</label>
 	</div>
 	<div class="form-group myRidingBtn">
-		<input type="button" class="btn btn-default" value="나의 라이딩스타일 적용"/>
+		<input type="button" class="btn btn-default" id="myRidingBtn" value="나의 라이딩스타일 적용"/>
 	</div>
 </div>
 <div>
@@ -192,7 +279,7 @@ RidingList.jsp
 			<td><input type="button" value="신고"/></td>
 		</tr>
 	</table>
-	<input type="button" class="btn btn-default" value="라이딩 모임 만들기"/>
+	<input type="button" class="btn btn-default" id="openRidingBtn" value="라이딩 모임 만들기"/>
 </div>
 </body>
 </html>

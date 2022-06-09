@@ -3,6 +3,7 @@
 	request.setCharacterEncoding("UTF-8");
 	String cp = request.getContextPath();
 %>
+
 <!DOCTYPE html>
 <html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -14,18 +15,26 @@
 		$("#sendLetter").click(function()
 		{
 			//alert() 뜨고 LetterSendForm.jsp로 이동하는 액션처리
-			alert("LetterSendForm.jsp로 이동합니다.");
+			//alert("LetterSendForm.jsp로 이동합니다.");
+			location.replace('LetterSendForm.jsp?user=1');
 		});
 		
 		$("#closeBtn").click(function()
 		{
-			alert("서브창 닫는 액션처리");
+			location.replace('LetterList.jsp');
 		});
 		
 		$("#deleteBtn").click(function()
 		{
 			// 사용자 응답을 받는 형태로 변경 예정.(확인 / 취소)
-			alert("정말 삭제하시겠습니까?");
+			//alert("정말 삭제하시겠습니까?");
+			var result = confirm("해당 쪽지를 정말 삭제하시겠습니까? \n 삭제 시, 복구가 불가능합니다.");
+			
+			if(result)
+				//쪽지삭제 컨트롤러로 이동.(거기서 액션처리하고 리다이렉트로 LetterList.jsp 이동)
+				//location.replace('deleteletter.action');
+				alert("삭제되었습니다.");
+					
 		});
 		
 	});
@@ -40,44 +49,66 @@
 <!-- Letter.jsp -->
 <!-- 쪽지 상세 내용 조회 -->
 <!-- 서브창 형태로 열림. -->
-<div>
-	보낸 사람 : <span>홍길동</span>
-</div>
-<div>
-	받은 시간 : <span>2022-05-21 21:29</span> 
-</div>
 
+<!-- main div -->
 <div>
-	제목 : <span>안녕하세요.</span> 
-</div>
-
-<div>
-	내용
+	<div>
+		<table border="3">
+			<tr>
+				<td>보낸사람</td>
+				<td>홍길동</td>
+			</tr>
+			
+			<tr>
+				<td>받은 시간</td>
+				<td>2022-05-21 21:29</td>
+			</tr>
+			
+			<tr>
+				<td>제목</td>
+				<td>안녕하세요.</td>
+			</tr>
+			
+			<tr>
+				<td colspan="2">내용</td>
+			</tr>
+			
+			<tr>
+				<td colspan="2">
+					안녕하세요 <br> 홍길동입니다.
+				</td>
+			</tr>
+		</table>
+	</div>
+		
 	<br />
-	<span>
-		안녕하세요. 홍길동입니다.
-	</span>
-</div>
+	
+	<div>
+		<!-- 쪽지 보내기 페이지로 이동. -->
+		<!-- LetterSendForm.jsp -->
+		<button type="button" class="btn btn-primary" id="sendLetter">답장</button>
+	</div>
+	
+	<div>
+		<!-- 서브창 닫는 버튼 -->
+		<button type="button" class="btn btn-primary" id="closeBtn">닫기</button>
+	</div>
+	
+	<div>
+	
+		<!-- 정말 삭제하겠냐고 물어보는 alert() 뜨기 -->
+		<!-- 사용자 응답에 따라 삭제되었습니다 / 취소되었습니다. -->
+		<button type="button" class="btn btn-primary" id="deleteBtn">삭제</button>
+	</div>
+	
+	<div>
+		<span id="helpBlock" class="help-block">
+		※누적된 쪽지가 100개를 초과하는 경우, <br>
+		가장 오래된 쪽지부터 자동으로 삭제됩니다.
+		</span>
+	</div>
+</div><!-- main div close -->
 
-<div>
-	<!-- 쪽지 보내기 페이지로 이동. -->
-	<!-- LetterSendForm.jsp -->
-	<button class="btn btn-primary" id="sendLetter">답장</button>
-	
-	<!-- 서브창 닫는 버튼 -->
-	<button class="btn btn-default" id="closeBtn">닫기</button>
-	
-	<!-- 정말 삭제하겠냐고 물어보는 alert() 뜨기 -->
-	<!-- 사용자 응답에 따라 삭제되었습니다 / 취소되었습니다. -->
-	<button class="btn btn-default" id="deleteBtn">삭제</button>
-</div>
 
-<div>
-	<span id="helpBlock" class="help-block">
-	※누적된 쪽지가 100개를 초과하는 경우,
-	가장 오래된 쪽지부터 자동으로 삭제됩니다.
-	</span>
-	
-</div>
 </body>
 </html>

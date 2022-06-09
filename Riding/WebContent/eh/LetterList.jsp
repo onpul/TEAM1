@@ -14,8 +14,24 @@
 		$("#deleteBtn").click(function()
 		{
 			// 사용자 응답을 받는 형태로 변경 예정.(확인 / 취소)
-			alert("정말 삭제하시겠습니까?");
+			//alert("정말 삭제하시겠습니까?");
+			var result = confirm("쪽지를 정말 삭제하시겠습니까?");
+			
+			if (result)
+			{
+				$("#form").submit();
+				alert("삭제되었습니다.");
+			}
+			else
+				alert("취소되었습니다.");
 		});
+		
+		$("#writeBtn").click(function()
+		{
+			location.replace('Letter.jsp');
+		});
+		
+		
 		
 	});
 </script>
@@ -26,60 +42,95 @@
 <title>LetterList.jsp</title>
 </head>
 <body>
-<!-- 쪽지 리스트 조회 페이지 -->
-<!-- LetterList.jsp -->
 <div>
-	쪽지
-</div>
-
-<div>
-	<select>
-		<option>전체쪽지</option>
-		<option>받은쪽지</option>
-		<option>보낸쪽지</option>
-	</select>
+	<!-- 쪽지 리스트 조회 페이지 -->
+	<!-- LetterList.jsp -->
 	
-	<a href="">쪽지쓰기</a>
-</div>
-
-<div>
-	보낸사람
-	제목
-</div>
-
-<div>
-	<form class="form-horizontal">
-		<div>
-			<label>
-				<input type="checkbox" name="삭제대상" value="쪽지ID">
-				<span>홍길동</span>
-				<span>안녕하세요.</span>
-			</label>
-		</div>
-		
-		
-		<div>
-			<label>
-				<input type="checkbox" name="삭제대상" value="쪽지ID">
-				<span>임시완</span>
-				<span>어쩌고</span>
-			</label>
-		</div>
-		
-		
-		<div>
-			<label>
-				<input type="checkbox" name="삭제대상" value="쪽지ID">
-				<span>자비스</span>
-				<span>하이요</span>
-			</label>
-		</div>
-		
-		
+	<div>
+		<p>쪽지</p>
+	</div>
+	
+	<div>
+		<!-- Ajax 처리 필요 -->
+		<select>
+			<option selected="selected">전체 쪽지</option>
+			<option>받은 쪽지</option>
+			<option>보낸 쪽지</option>
+		</select>
+	</div>
+	
+	<div>
+		<button type="button" class="btn btn-default" id="writeBtn">쪽지쓰기</button>
+	</div>
+	
+	<div>
+		<!-- letterDeleteController 필요!! -->
+		<form action="" method="get" id="form">
+			<table>
+				<tr>
+					<th></th>
+					<th>보낸 사람</th>
+					<th>제목</th>
+				</tr>
+				<!--                        Controller로 이동하도록 요청주소 변경 예정 -->
+				<tr onclick="location.href='Letter.jsp?id=1'">
+					<td>
+						<input type="checkbox" name="letter" value="1">
+					</td>
+					<td>홍길동</td>
+					<td>안녕하세요.</td>
+				</tr>
+				
+				<!--                        Controller로 이동하도록 요청주소 변경 예정 -->
+				<tr onclick="location.href='Letter.jsp?id=2'">
+					<td>
+						<input type="checkbox" name="letter" value="2">
+					</td>
+					<td>남주혁</td>
+					<td>2521</td>
+				</tr>
+				
+				<!--                        Controller로 이동하도록 요청주소 변경 예정 -->
+				<tr onclick="location.href='Letter.jsp?id=3'">
+					<td>
+						<input type="checkbox" name="letter" value="3">
+					</td>
+					<td>홍체리</td>
+					<td>2주남았네</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	
+	<div>
 		<span>1 2 3</span>
-		<br />
-		<button class="btn btn-default" id="deleteBtn">삭제</button>
-	</form>
+	</div>
+	
+	<div>
+		<button type="button" id="deleteBtn">삭제</button>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </div>
 </body>
 </html>

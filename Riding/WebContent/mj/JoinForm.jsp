@@ -37,6 +37,8 @@ JoinForm.jsp
 	{
 		var regExp = /[ \{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]/gi;
 		
+		// ★닉네임 욕설 필터링 정규식 추가해야 함★
+		
 		// 12자 이내
 		if (object.value.length == object.maxLength)
 		{

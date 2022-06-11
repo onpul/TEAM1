@@ -42,19 +42,22 @@ SearchPasswordForm.jsp
 			$.ajax(
 			{
 				type:"POST"
-				, url:"수신하게 될 페이지"
+				, url:"searchpassword.action"
 				, data:params
-				, success:function(args)
+				, success:function(data)
 				{
-					if (args == 0)
+					//alert("success 넘어옴");
+					if (data != null)
 					{
-						str = args.substr(0, 3);
+						//alert("여기");
+						//alert(data);
+						data = data.substr(0, 4);
 						
-						$("#resultText").html("<span>회원가입 시 등록한 비밀번호는 " + str + "**** 입니다.</span>");
+						$(".resultText").html("<span>회원가입 시 등록한 비밀번호는 " + data + "**** 입니다.</span>");
 					}
-					else if (args == null) 
+					else if (data == null) 
 					{
-						$("#resultText").html("<span>회원정보를 찾을 수 없습니다.</span>");
+						$(".resultText").html("<span>회원정보를 찾을 수 없습니다.</span>");
 					}
 				}
 				, beforeSend:formCheck
@@ -75,14 +78,14 @@ SearchPasswordForm.jsp
 		{
 			//alert("확인");
 			
-			document.searchPwdForm.inputEmail2.disabled = false;
-			document.searchPwdForm.inputEmail2.value = "@";
-			document.searchPwdForm.inputEmail2.focus();
+			document.searchPwdForm.email2.disabled = false;
+			document.searchPwdForm.email2.value = "@";
+			document.searchPwdForm.email2.focus();
 		}
 		else
 		{
-			document.searchPwdForm.inputEmail2.disabled = true;
-			document.searchPwdForm.inputEmail2.value = document.searchPwdForm.selectEmail.options[document.searchPwdForm.selectEmail.selectedIndex].value;
+			document.searchPwdForm.email2.disabled = true;
+			document.searchPwdForm.email2.value = document.searchPwdForm.selectEmail.options[document.searchPwdForm.selectEmail.selectedIndex].value;
 		}
 	}
 
@@ -106,7 +109,7 @@ SearchPasswordForm.jsp
 
 		var f = document.forms[0];
 
-		if(!f.inputEmail.value)
+		if(!f.email.value)
 		{
 			alert("이메일을 입력하세요.");
 			return false;
@@ -118,7 +121,7 @@ SearchPasswordForm.jsp
 			return false;
 		}
 		
-		f.submit();
+		//f.submit();
 	}
 	
 </script>
@@ -137,9 +140,9 @@ SearchPasswordForm.jsp
 <div class="searchIdFormBox">
 	<form action="" class="searchPwdForm" name="searchPwdForm" id="searchPwdForm">
 		<div class="form-group form-inline">
-			<label for="inputEmail">이메일*</label>
-	    	<input type="text" class="form-control" name="inputEmail" id="inputEmail" placeholder="이메일을 입력하세요" onfocus="this.value=';'">
-			<input type="text" class="form-control" name="inputEmail2" id="inputEmail2" style="width:120px;" disabled value="@naver.com">
+			<label for="email">이메일*</label>
+	    	<input type="text" class="form-control" name="email" id="email" placeholder="이메일을 입력하세요" onfocus="this.value=';'">
+			<input type="text" class="form-control" name="email2" id="email2" style="width:120px;" disabled value="@naver.com">
 			<select name="selectEmail" id="selectEmail" class="form-control" onchange="email_change()">
 				<option value="0">직접입력</option>			
 				<option value="@naver.com" selected>@naver.com</option>
@@ -154,17 +157,17 @@ SearchPasswordForm.jsp
 	    	<input type="text" class="form-control" id="birthday" name="birthday" placeholder="생년월일을 입력하세요"/>
 	    </div>
 	    <div class="form- group searchBtn">
-			<input type="button" class="btn btn-default" value="찾기" onclick="formCheck()"/>
+			<input type="button" class="btn btn-default" value="찾기" id="searchBtn"/>
 		</div>
 		<hr />
 	    <div class="form-group resultText">
 	    	<!-- 비밀번호 찾기 성공 시 노출 -->
-	    	<p>회원가입 시 등록한 비밀번호는 java**** 입니다.</p>
+	    	<!-- <p>회원가입 시 등록한 비밀번호는 java**** 입니다.</p> -->
 	    	<!-- 비밀번호 찾기 실패 시 노출 -->
-			<p>회원정보를 찾을 수 없습니다.</p>
+			<!-- <p>회원정보를 찾을 수 없습니다.</p> -->
 	    </div>
 	    <div class="form-group goLoginBtn">
-			<input type="button" class="btn btn-default" onclick="location.href='loginForm.action'" value="로그인 화면으로 돌아가기"/>
+			<input type="button" class="btn btn-default" onclick="location.href='loginform.action'" value="로그인 화면으로 돌아가기"/>
 		</div>
 	</form>
 </div>

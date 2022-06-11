@@ -91,14 +91,15 @@ RidingList.jsp
 			$.ajax(
 			{
 				type:"POST"
-				, url:"수신하게 될 페이지"
-				, success:function(args)
+				, url:"penaltycheck.action"
+				, data:"회원코드"
+				, success:function(data)
 				{
-					if (args == 0)
+					if (data == 0)
 					{
 						location.href = "ridingForm.action";
 					}
-					else if (args == 1) 
+					else if (data > 0) 
 					{
 						alert("패널티가 적용 중이므로 모임을 생성할 수 없습니다.");
 					}
@@ -128,6 +129,9 @@ RidingList.jsp
 			<input type="radio" name="gender" id="gender" value="all" checked="checked"> 전체
 		</label>
 		<label class="radio-inline">
+			<input type="radio" name="gender" id="gender" value="noLimit"> 제한 없음
+		</label>
+		<label class="radio-inline">
 			<input type="radio" name="gender" id="gender" value="male"/>남성
 		</label>
 		<label class="radio-inline">
@@ -138,6 +142,9 @@ RidingList.jsp
 		<label for="age">연령대</label>
 		<label class="radio-inline">
 			<input type="radio" name="age" id="age" value="all" checked="checked"> 전체
+		</label>
+		<label class="radio-inline">
+			<input type="radio" name="age" id="age" value="noLimit"> 제한 없음
 		</label>
 		<label class="radio-inline">
 			<input type="radio" name="age" id="age" value="20"/>20대
@@ -161,6 +168,9 @@ RidingList.jsp
 			<input type="radio" name="speed" id="speed" value="all" checked="checked"> 전체
 		</label>
 		<label class="radio-inline">
+			<input type="radio" name="speed" id="speed" value="noLimit"> 제한 없음
+		</label>
+		<label class="radio-inline">
 			<input type="radio" name="speed" id="speed" value="20미만"/>20미만
 		</label>
 		<label class="radio-inline">
@@ -174,6 +184,9 @@ RidingList.jsp
 		<label for="step">숙련도</label>
 		<label class="radio-inline">
 			<input type="radio" name="step" id="step" value="all" checked="checked"> 전체
+		</label>
+		<label class="radio-inline">
+			<input type="radio" name="step" id="step" value="noLimit"> 제한 없음
 		</label>
 		<label class="radio-inline">
 			<input type="radio" name="step" id="step" value="1년 미만" />1년 미만
@@ -194,6 +207,9 @@ RidingList.jsp
 			<input type="radio" name="eat" id="eat" value="all" checked="checked"> 전체
 		</label>
 		<label class="radio-inline">
+			<input type="radio" name="eat" id="eat" value="noLimit"> 제한 없음
+		</label>
+		<label class="radio-inline">
 			<input type="radio" name="eat" id="eat" value="밥 안 먹고 달려요"/>밥 안 먹고 달려요
 		</label>
 		<label class="radio-inline">
@@ -206,6 +222,9 @@ RidingList.jsp
 			<input type="radio" name="dinning" id="dinning" value="all" checked="checked"> 전체
 		</label>
 		<label class="radio-inline">
+			<input type="radio" name="dinning" id="dinning" value="nolimit"> 제한 없음
+		</label>
+		<label class="radio-inline">
 			<input type="radio" name="dinning" id="dinning" value="끝나고 회식 안 해요"/>끝나고 회식 안 해요
 		</label>
 		<label class="radio-inline">
@@ -216,6 +235,9 @@ RidingList.jsp
 		<label for="mood">분위기</label>
 		<label class="radio-inline">
 			<input type="radio" name="mood" id="mood" value="all" checked="checked"> 전체
+		</label>
+		<label class="radio-inline">
+			<input type="radio" name="mood" id="mood" value="nolimit"> 제한 없음
 		</label>
 		<label class="radio-inline">
 			<input type="radio" name="mood" id="mood" value="침묵이 좋아요"/>침묵이 좋아요

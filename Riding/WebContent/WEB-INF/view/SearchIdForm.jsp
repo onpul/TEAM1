@@ -51,17 +51,19 @@ SearchIdForm.jsp
 			$.ajax(
 			{
 				type:"POST"
-				, url:"수신하게 될 페이지"
+				, url:"searchid.action"
 				, data:params
-				, success:function(args)
+				, success:function(data)
 				{
-					if (args == 0)
+					if (data != null)
 					{
-						$("#resultText").html("<span>회원가입 시 등록한 아이디는 " + args + " 입니다.</span>");
+						//alert("data = " + data);
+						//alert("확인");
+						$(".resultText").html("<span>회원가입 시 등록한 아이디는 " + data + " 입니다.</span>");
 					}
-					else if (args == null) 
+					else if (data == null) 
 					{
-						$("#resultText").html("<span>회원정보를 찾을 수 없습니다.</span>");
+						$(".resultText").html("<span>회원정보를 찾을 수 없습니다.</span>");
 					}
 				}
 				, beforeSend:formCheck
@@ -70,6 +72,7 @@ SearchIdForm.jsp
 					alert(e.responseText);
 				}
 			});
+			
 		});
 	});	
 	
@@ -79,7 +82,7 @@ SearchIdForm.jsp
 		//alert("확인");
 		var f = document.forms[0];
 		
-		if(!f.inputNickname.value)
+		if(!f.nickname.value)
 		{
 			alert("닉네임을 입력하세요.");
 			return false;
@@ -90,7 +93,7 @@ SearchIdForm.jsp
 			return false;
 		}
 		
-		f.submit();
+		//f.submit();
 	}
 	
 </script>
@@ -107,10 +110,10 @@ SearchIdForm.jsp
 </head>
 <body>
 <div class="searchIdFormBox">
-	<form action="" class="searchIdForm" id="searchIdForm">
+	<form action="" class="searchIdForm" name="searchIdForm" id="searchIdForm">
 		<div class="form-group form-inline">
 			<label for="inputNickname">닉네임*</label>
-	    	<input type="email" class="form-control" id="inputNickname" placeholder="닉네임을 입력하세요">
+	    	<input type="email" class="form-control" id="nickname" name="nickname" placeholder="닉네임을 입력하세요">
 	    </div>
 	    <div class="form-group form-inline">
 	    	<label for="birthday">생년월일*</label>
@@ -122,12 +125,12 @@ SearchIdForm.jsp
 		<hr />
 	    <div class="form-group resultText">
 	    	<!-- 아이디 찾기 성공 시 노출 -->
-	    	<p>회원가입 시 등록한 아이디는 chmj072@gmail.com 입니다.</p>
+	    	<!-- <p>회원가입 시 등록한 아이디는 chmj072@gmail.com 입니다.</p> -->
 	    	<!-- 아이디 찾기 실패 시 노출 -->
-	    	<p>회원정보를 찾을 수 없습니다.</p>
+	    	<!-- <p>회원정보를 찾을 수 없습니다.</p> -->
 	    </div>
 	    <div class="form-group goLoginBtn">
-			<input type="button" class="btn btn-default" id="goLoginBtn" onclick="location.href='loginForm.action'" value="로그인 화면으로 돌아가기"/>
+			<input type="button" class="btn btn-default" id="goLoginBtn" onclick="location.href='loginform.action'" value="로그인 화면으로 돌아가기"/>
 		</div>
 	</form>
 </div>

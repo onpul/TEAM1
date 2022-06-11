@@ -35,6 +35,45 @@ RidingDetail.jsp
 		background-color: lightgray;
 	}
 </style>
+<script type="text/javascript">
+	$(document).ready(function()
+	{
+		//alert("확인");
+		
+		$("#attendBtn").click(function()
+		{
+			alert("확인");
+			
+			$.ajax(
+			{
+				type:"POST"
+				, url:"gendercheck.action"
+				, data:"회원코드"
+				, success:function(data)
+				{
+					if (genderOption == null || data == genderOption)
+					{
+						location.href = "라이딩대기실.action"
+					}
+					else if (data != genderOption) 
+					{
+						switch (genderOption)
+						{
+							case "male" : genderOption = "남성"; break;
+							case "female" : genderOption = "여성"; break;
+						}
+						alert("해당 모임은 " + genderOption + "만 참여할 수 있습니다.");
+					}
+				}
+				, error:function(e)
+				{
+					alert(e.responseText);
+				}
+			});
+			
+		});
+	});
+</script>
 </head>
 <body>
 <div>
@@ -87,7 +126,7 @@ RidingDetail.jsp
 					<ul>
 						<li>여성</li>
 						<!-- 친구관계일 때는 친구 버튼 보이지 않게 구현 -->
-						<li><input type="button" class="btn btn-default" value="친구 추가"/> <input type="button" class="btn btn-default" value="신고"/></li>
+						<li><input type="button" class="btn btn-default" value="친구 추가"/></li>
 					</ul>
 				</li>
 			</ul>
@@ -104,7 +143,7 @@ RidingDetail.jsp
 				<li>
 					<ul>
 						<li>여성</li>
-						<li><input type="button" class="btn btn-default" value="친구 추가"/> <input type="button" class="btn btn-default" value="신고"/></li>
+						<li><input type="button" class="btn btn-default" value="친구 추가"/></li>
 					</ul>
 				</li>
 			</ul>
@@ -121,14 +160,15 @@ RidingDetail.jsp
 				<li>
 					<ul>
 						<li>여성</li>
-						<li><input type="button" class="btn btn-default" value="친구 추가"/> <input type="button" class="btn btn-default" value="신고"/></li>
+						<li><input type="button" class="btn btn-default" value="친구 추가"/></li>
 					</ul>
 				</li>
 			</ul>
 		</div>
 		
 		<div>
-			<input type="button" class="btn btn-default" value="목록으로"/> <input type="button" class="btn btn-default" value="참여하기"/>
+			<input type="button" class="btn btn-default" value="목록으로" onclick="ridinglist.action"/> 
+			<input type="button" class="btn btn-default" value="참여하기" id="attendBtn"/>
 		</div>
 	</div>
 </div>

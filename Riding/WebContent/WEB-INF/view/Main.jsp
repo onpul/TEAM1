@@ -147,20 +147,51 @@ Main.jsp
 		
 		// 달력 출력
 		for (var i = 1; i <= lastDate.getDate(); i++)
-		{			
+		{		
+			// 행 추가
 			newCell = newRow.insertCell();
+			
+			// yyyy-mm-dd 형식으로 변환
+			var todayStr = today.getFullYear() + "-" + ((today.getMonth() + 1) > 9 ? (today.getMonth() + 1).toString() : "0" + (today.getMonth() + 1)) + "-" + (i > 9 ? i : "0" + i);
+			//alert(todayStr);
 			
 			var str = "";
 			
-			str += "<div>" + i + "</div>";
-			var day = i;          	
-			str += "<div id='" + day + "'></div>"; 
+			// 추가되는 cell 안에 div 요소 넣기
+			/*
+			<td>
+				<div id="todayStr">
+					<div>i</div>
+					<ul>
+						<li><span class="badge bg-secondary">1</span></li>
+					</ul>
+				</div>
+			</td>
+			*/
+			str += "<div class='dayBox'><div class='item'id=" + todayStr + ">" + i + "</div>"
+			str += "<div class='item'><ul><li class='count'><a href='ridinglist.action?'>"; 
+			str += "<span class='badge bg-secondary'>1</span>";
+			str += "<span class='badge bg-success'>3</span></a></li></ul></div></div>";
 			newCell.innerHTML = str;
 			
-			//alert("tmp = " + tmp);
-			if (tmp%7==0)
+			// 주말 색상 적용			
+			if (tmp % 7 == 6) // 토요일
+				newCell.style.color = "blue";
+			
+			if (tmp % 7 == 0) // 일요일
+				newCell.style.color = "red";
+			
+			tmp = tmp + 1;
+			
+			// 일요일이 될 때 개행
+			if (tmp % 7 == 0)
 			{
 				newRow = calTable.insertRow();
+			}
+			
+			if(today.getFullYear() == date.getFullYear() && today.getMonth() == date.getMonth() && i == date.getDate())
+			{
+				newCell.style.backgroundColor = "lightyellow";
 			}
 		}	
 		
@@ -177,18 +208,19 @@ Main.jsp
 			tmp = tmp + 1;
 		}
 		
+		// --------------------------------------------------------------------------- 달력 구현 
 	}
 	
 </script>
 <style type="text/css">
 	.calendar-box
 	{
-		height: 500px;
+		height: 600px;
 	}
 	.map-box
 	{
 		background-color: orange;
-		height: 466px;
+		height: 566px;
 	}
 	.btn-box
 	{
@@ -198,23 +230,68 @@ Main.jsp
 	{
 		width: 70%;
 	}
+	
+	/* 달력 스타일 */
+	
+	#calendar
+	{
+		height: 600px;
+	}
+	#calendarTr > td
+	{
+		font-weight: bold;
+		text-align: center;
+		vertical-align: middle;
+	}
 	td
 	{
 		width: 20px;
+	}
+	th
+	{
+		font-size: 16px;
+		text-align: center;
+		vertical-align: middle;
+	}
+	a
+	{
+		color: black;
+	}
+	.count
+	{	
+		margin-top: auto;
+		text-align: right;
+	}
+	ul
+	{
+		list-style: none;
+		float: right;
+	}
+	.dayBox
+	{
+		display: flex;
+	    flex-direction: column;
+	    flex-wrap: nowrap;
+	    align-content: space-between;
+	    justify-content: space-between;
+	    align-items: stretch;
+	    height: 100%;
 	}
 </style>
 </head>
 <body>
 <div class="row">
 	<!-- 달력 들어갈 div -->
-	<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 ">
+	<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 ">
 		<div class="calendar-box">
-			<table align="center" id="calendar" class="table table-striped" border="1">
+			<table align="center" id="calendar" class="table table-bordered">
 				<tr>
-					<th colspan="2"><a href="javascript:beforeMonth()" id="before">이전</a></th>
-					<th colspan="3"><div id="yearAndMonth"></div></th>
-					<th colspan="1"><a href="javascript:nextMonth()" id="next">다음</a></th>
-					<th colspan="1"><a href="javascript:thisMonth()">오늘</a></th>
+					<th colspan="6" style="vertical-align: middle;">
+						<a href="javascript:beforeMonth()" class="glyphicon glyphicon-chevron-left" id="before"></a>
+						<span id="yearAndMonth"></span>
+						<a href="javascript:nextMonth()" class="glyphicon glyphicon-chevron-right" id="next"></a>
+					</th>
+					<th colspan="1" style="vertical-align: middle;"><a href="javascript:thisMonth()">오늘</a></th>
 				</tr>
 				<tr id="calendarTr">
 					<td style="color: red;">일</td>
@@ -231,7 +308,7 @@ Main.jsp
 	
 	<!-- 지도 들어갈 div -->
 	<!-- 회원일 경우 적용 -->
-	<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+	<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
 		<div class="select-box">
 			<select name="" id="" class="form-control">
 				<option value="">맛집 보기</option>

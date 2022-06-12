@@ -88,11 +88,12 @@ LoginForm.jsp
 				, data:params
 				, success:function(data)
 				{
-					alert("success 진입 성공");
+					//alert("success 진입 성공");
 					
 					if (data == 0)
 					{
 						location.href = "main.action"
+						//alert(${userID})
 					}
 					else if (data == 1) 
 					{

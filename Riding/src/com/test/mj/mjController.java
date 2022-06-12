@@ -1,5 +1,8 @@
 package com.test.mj;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -7,10 +10,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
+@SessionAttributes("userId") // 세션 객체에 저장
 public class mjController
 {
+	@Autowired
+	private SqlSession sqlSession;
+	
 	// Main.jsp 요청(main.action)
 	@RequestMapping(value = "/main.action", method = RequestMethod.GET)
 	public String main()
@@ -68,16 +76,19 @@ public class mjController
 	// 로그인 액션(login.action)
 	@RequestMapping(value = "/login.action", method = RequestMethod.POST)
 	@ResponseBody
-	public String loginAction(String email, String password)
+	public String loginAction(Model model, String email, String password)
 	{
-		String result = null;
-		
+		// 테스트
 		System.out.println("loginAction 진입");
 		System.out.println("email = " + email);
 		System.out.println("password = " + password);
 		
+		String result = null;
+		String userId = null;
+		
 		// 0 : 로그인 정상 처리
 		// 1 : 일치하는 회원 정보 없음(로그인 실패)
+
 		result = "0";
 		
 		return result;
@@ -175,4 +186,16 @@ public class mjController
 		result = "female";
 		return result;
 	}
+	
+	// 알림 불러오기 액션(notice.action)
+	/*
+	@RequestMapping(value = "/notice.action", method = RequestMethod.POST)
+	@ResponseBody
+	public List<String> notice(String userId)
+	{
+		System.out.println("notice() 진입 성공");
+		
+		IRidingDAO dao = sqlSession.getMapper(IRidingDAO.class);
+	}
+	*/
 }

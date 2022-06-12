@@ -189,13 +189,14 @@ Main.jsp
 				newRow = calTable.insertRow();
 			}
 			
+			// 오늘 날짜 배경 색 적용
 			if(today.getFullYear() == date.getFullYear() && today.getMonth() == date.getMonth() && i == date.getDate())
 			{
 				newCell.style.backgroundColor = "lightyellow";
 			}
 		}	
 		
-		// 공백 제거
+		// 공백 채우기
 		for (var i = 0; i < 35; i++)
 		{
 			if (tmp % 7 == 0)

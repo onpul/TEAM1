@@ -1,5 +1,7 @@
 package com.test.mj;
 
+import java.util.ArrayList;
+
 public interface IRidingDAO
 {
 	// 닉네임 중복 체크
@@ -9,7 +11,7 @@ public interface IRidingDAO
 	public int withdrawCheck(String email, String birthday);
 	
 	// 로그인 액션
-	public int login(String email, String password);
+	public String login(String email, String password);
 	
 	// 아이디 찾기 액션
 	public String searchId(String nickname, String birthday);
@@ -22,4 +24,7 @@ public interface IRidingDAO
 	
 	// 로그인 상태인 회원의 성별 체크 액션
 	public String genderCheck(String userId);
+	
+	// 알림 불러오기 액션
+	//public ArrayList<RidingDTO> list();
 }

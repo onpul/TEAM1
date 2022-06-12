@@ -27,22 +27,20 @@ RidingDetail.jsp
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<style type="text/css">
-	.map-box
-	{
-		width: 500px;
-		height: 400px;
-		background-color: lightgray;
-	}
-</style>
 <script type="text/javascript">
 	$(document).ready(function()
 	{
 		//alert("확인");
+	
+		$("#goList").click(function()
+		{
+			//alert("확인");
+			location.href="/Riding/ridinglist.action";
+		});
 		
 		$("#attendBtn").click(function()
 		{
-			alert("확인");
+			//alert("확인");
 			
 			$.ajax(
 			{
@@ -74,17 +72,61 @@ RidingDetail.jsp
 		});
 	});
 </script>
+<style type="text/css">
+	.memberBox
+	{
+		border: 1px solid lightgray;
+		border-radius: 30px;
+		padding: 20px;
+		list-style: none;
+		display: inline-flex;
+		flex-direction: row;
+	    flex-wrap: nowrap;
+	    align-content: stretch;
+	    justify-content: space-between;
+	    align-items: center;
+	}
+	li
+	{
+		display: block;
+	}
+	img
+	{
+		width: 80px;
+	}
+	.container
+	{
+		text-align: center;
+	}
+	.map-box
+	{
+		margin-left: auto;
+		margin-right: auto;
+		text-align: center;
+		width: 500px;
+		height: 400px;
+		background-color: lightgray;
+	}
+	.property > p
+	{
+		margin-left: auto;
+		margin-right: auto;
+		width: 200px;
+		border: 1px solid gray;
+		border-radius: 30px;
+	}
+</style>
 </head>
 <body>
-<div>
-	<ul>
-		<li><h1>20대 라이더 여기여기 붙어라</h1></li>
-		<li>참석 가능</li>
-	</ul>
-	<ul>
-		<li>여성</li>
-		<li>끝나고 회식해요</li>
-	</ul>
+<div class="container">
+	<div>
+		<h1>20대 라이더 여기여기 붙어라</h1>
+		<div class="property">
+			<p>참석가능</p>
+			<p>여성</p>
+			<p>끝나고 회식해요</p>
+		</div>
+	</div>
 
 	<div>
 		<h3>경로 보기</h3>
@@ -114,8 +156,8 @@ RidingDetail.jsp
 		<h3>멤버 정보</h3>
 		<!-- 사용자 프로필 -->
 		<div>
-			<ul>
-				<li>프로필 사진 들어갈 공간</li>
+			<ul class="memberBox">
+				<li><img src="https://bigxdata.io/common/img/default_profile.png" alt="" class="img-circle"/></li>
 				<li>
 					<ul>
 						<li>방장 달리는 고양이 🚲🧢</li>
@@ -132,8 +174,8 @@ RidingDetail.jsp
 			</ul>
 		</div>
 		<div>
-			<ul>
-				<li>프로필 사진 들어갈 공간</li>
+			<ul class="memberBox">
+				<li><img src="https://bigxdata.io/common/img/default_profile.png" alt="" class="img-circle"/></li>
 				<li>
 					<ul>
 						<li>방장 달리는 고양이 🚲🧢</li>
@@ -143,14 +185,15 @@ RidingDetail.jsp
 				<li>
 					<ul>
 						<li>여성</li>
+						<!-- 친구관계일 때는 친구 버튼 보이지 않게 구현 -->
 						<li><input type="button" class="btn btn-default" value="친구 추가"/></li>
 					</ul>
 				</li>
 			</ul>
 		</div>
 		<div>
-			<ul>
-				<li>프로필 사진 들어갈 공간</li>
+			<ul class="memberBox">
+				<li><img src="https://bigxdata.io/common/img/default_profile.png" alt="" class="img-circle"/></li>
 				<li>
 					<ul>
 						<li>방장 달리는 고양이 🚲🧢</li>
@@ -160,14 +203,14 @@ RidingDetail.jsp
 				<li>
 					<ul>
 						<li>여성</li>
+						<!-- 친구관계일 때는 친구 버튼 보이지 않게 구현 -->
 						<li><input type="button" class="btn btn-default" value="친구 추가"/></li>
 					</ul>
 				</li>
 			</ul>
 		</div>
-		
 		<div>
-			<input type="button" class="btn btn-default" value="목록으로" onclick="ridinglist.action"/> 
+			<input type="button" class="btn btn-default" value="목록으로" id="goList"/> 
 			<input type="button" class="btn btn-default" value="참여하기" id="attendBtn"/>
 		</div>
 	</div>

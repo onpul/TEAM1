@@ -15,13 +15,31 @@
 	{
 		$("#profilePhoto").click(function()
 		{
-			alert("profilePhotoUpdateForm.jsp 서브창이 뜨는 형태");
+			window.open("ProfilePhotoUpdateForm.jsp","","width=400px,height=400px");
 		});
 		
 		$("#oneWord").click(function()
 		{
-			alert("OneWordUpdateForm.jsp 서브창이 뜨는 형태");
+			window.open("OneWordUpdateForm.jsp","","width=400px,height=400px");
 		});
+		
+		$("#nickName").click(function()
+		{
+			window.open("NickNameUpdateForm.jsp","","width=400px,height=400px");
+		});
+		
+		$("#changePwd").click(function()
+		{
+			$("#newPwd").prop("readonly",false);
+			$("#newPwd").css("background-color","white");
+		});
+		
+		$("#newPwd").click(function()
+		{
+			$("#newPwdCheck").prop("readonly",false);
+			$("#newPwdCheck").css("background-color","white");
+		});
+		
 		
 		$("#updateBtn").click(function()
 		{
@@ -35,7 +53,20 @@
 			// alert("비밀번호가 일치하지 않습니다.")
 			// 현재 비밀번호 칸을 clear 한 뒤, focus 두고
 			// MyInfoUpdateForm.jsp에 남아있기
-			alert("수정이 완료되었습니다.");
+			
+			var dbNowPwd = "1234";
+			
+			if ($("#nowPwd").val()!=dbNowPwd)
+			{
+				alert("비밀번호가 일치하지 않습니다.");
+			}
+			else
+			{
+				alert("수정이 완료되었습니다.");
+				$("#myForm").submit();
+			}
+			
+			
 		});
 		
 		$("#cancellBtn").click(function()
@@ -54,78 +85,56 @@
 
 
 <!-- 맨 윗 줄 -->
-<div>
-<!-- 
-	프로필 사진과 한마디는 해당 칸을 누르면
-	선택하는 서브창이 열려서 거기서 선택한걸 가지고
-	변경되는 ajax 처리.
--->
-	<div id="profilePhoto">
-		프로필 사진
-	</div>
+<div class="container">
+	<div class="col col-xs-12" style="text-align: center;">
+		<div id="profilePhoto">
+			프로필 사진
+		</div>
 	
-	<div id="oneWord">
-		한마디
+		<div id="oneWord">
+			한마디
+		</div>
+		
+		<div id="nickName">
+			홍체리
+		</div>
 	</div>
-</div>
-
-<!-- 다음 줄 -->
-<div>
-	<form class="form-horizontal">
-		<!-- 첫 줄 -->
-		<div>
-			<!-- left -->
-			<div>
-				닉네임
-			</div>
-			<!-- right -->
-			<div>
-				<input type="text" value="홍체리">
-			</div>
-		</div>
 		
-		<!-- 두 번째줄 -->
-		<div>
-			<!-- left -->
+	<div class="col col-xs-12">
+		<form action="" method="get" id="myForm">
+			<table class="table table-bordered">
+				<tr>
+					<th>현재 비밀번호</th>
+					<td>
+						<input type="password" id="nowPwd"/>
+						<button type="button" id="changePwd">
+							비밀번호 변경하기
+						</button>
+					</td>
+				</tr>
+				
+				<tr>
+					<th>변경할 비밀번호</th>
+					<td>
+						<input type="password" id="newPwd" readonly="readonly"
+						style="background-color: gray;"/>
+					</td>
+				</tr>
+				
+				<tr>
+					<th>비밀번호 확인</th>
+					<td>
+						<input type="password" id="newPwdCheck" readonly="readonly"
+						style="background-color: gray;"/>
+					</td>
+				</tr>
+			</table>
 			<div>
-				현재 비밀번호
+				<button type="submit" class="btn btn-primary" id="updateBtn">수정하기</button>
+				<button type="submit" class="btn btn-primary" id="cancellBtn">취소</button>
 			</div>
-			<!-- right -->
-			<div>
-				<input type="password" value="1234567">
-			</div>
-		</div>
-		
-		<!-- 세 번째줄 -->
-		<div>
-			<!-- left -->
-			<div>
-				변경할 비밀번호
-			</div>
-			<!-- right -->
-			<div>
-				<input type="password" value="5959595">
-			</div>
-		</div>
-		
-		<!-- 네 번째줄 -->
-		<div>
-			<!-- left -->
-			<div>
-				현재 비밀번호
-			</div>
-			<!-- right -->
-			<div>
-				<input type="password" value="5959595">
-			</div>
-		</div>
-		
-		<!-- 다섯 번째 줄 -->
-		<div>
-			<button type="submit" class="btn btn-primary" id="updateBtn">수정하기</button>
-			<button type="submit" class="btn btn-primary" id="cancellBtn">취소</button>
-		</div>
-	</form>	
+		</form>
+	</div>
 </div>
 </body>
 </html>

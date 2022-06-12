@@ -10,119 +10,197 @@
 <title>MyPageMain.jsp</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+	
+	$(function()
+	{
+		$("#myRidingList").click(function()
+		{
+			//나의 라이딩 스타일 조회하기
+			//alert("RidingStyleListUpdateForm.jsp 로 이동.")
+			location.replace("RidingStyleListUpdateForm.jsp");
+		});
+		
+		$("#currenRidingList").click(function()
+		{
+			//참여 중인 라이딩 조회하기
+			//alert("ParticipateRidingList.jsp 로 이동.")
+			location.replace("ParticipateRidingList.jsp");
+		});
+
+		$("#succRiding").click(function()
+		{
+			//완료한 라이딩 평가하기
+			//방장이면, EvaluationLeaderForm.jsp 로 이동
+			//참여자이면,EvaluationMemberForm.jsp 로 이동
+			//alert(" EvaluationLeaderForm.jsp 로 이동.")
+			location.replace("EvaluationLeaderForm.jsp");
+		});
+		
+		$("#ridingRecordList").click(function()
+		{
+			//라이딩 기록 조회하기
+			//alert(" MyRidingRecordList.jsp 로 이동.")
+			location.replace("MyRidingRecordList.jsp");
+		});
+		
+		$("#comeOnList").click(function()
+		{
+			//초대장 조회하기
+			alert(" Invite.jsp 로 이동.")
+		});
+		
+		$("#friList").click(function()
+		{
+			//친구 목록 조회하기
+			alert(" Friend.jsp  로 이동.")
+		});
+		
+		$("#scoreList").click(function()
+		{
+			//등급 및 점수 조회하기
+			//alert(" MyRationAndScoreList.jsp  로 이동.")
+			location.replace("MyRationAndScoreList.jsp");
+		});
+		
+		$("#reviewList").click(function()
+		{
+			//작성한 게시글 조회하기
+			//alert(" MyReviewList.jsp  로 이동.")
+			location.replace("MyReviewList.jsp");
+		});
+		
+		$("#penaltyList").click(function()
+		{
+			//나에게 적용된 패널티 조회하기
+			//alert(" MyPenaltyList.jsp  로 이동.")
+			location.replace("MyPenaltyList.jsp");
+		});
+		
+		
+		
+		
+		
+		$("#MyInfoUpdateForm").click(function()
+		{
+			//개인정보 수정하기
+			//alert(" MyInfoUpdateForm.jsp  로 이동.")
+			location.replace("MyInfoUpdateForm.jsp");
+		});
+		
+		$("#MemberSecession").click(function()
+		{
+			//회원 탈퇴하기
+			//alert(" MemberSecession.jsp  로 이동.")
+			window.open("MemberSecession.jsp","","width=400px,height=400px");
+		});
+		
+		
+		
+	});
+	
+</script>
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<style type="text/css">
+	
+	*{font-size: large;}
+
+</style>
 </head>
 <body>
 
 <!-- 마이페이지 메인 -->
 <!-- MyPageMain.jsp -->
 
-
-<!-- 맨윗부분 -->
-<div>
-	<!-- left -->
-	<div>
-		<div>
-			프로필 사진
+<div class="container">
+	<!-- 맨윗부분 -->
+	<div class="row">
+		<!-- left -->
+		<div class="col-xs-4" style="background-color: aqua;">
+			<div style="text-align: center;">
+				<!-- 프로필 아이콘 이미지로 변경예정 -->
+				<div class="glyphicon glyphicon-user"></div> 
+			</div>
+			<div style="text-align: center;">
+				<span>cherry5813@naver.com</span>
+			</div>
 		</div>
-		<div>
-			이메일 주소
-		</div>
-	</div>
-	
-	<!-- right -->
-	<div>
-		<!-- right안에 left -->
-		<div>
-			<div>
-				닉네임
+		
+		<!-- center -->
+		<div class="col-xs-4" style="background-color:yellow;">
+			<div style="text-align: center;">
+				<span>체리</span>
 			</div>
 			
-			<div>
-				한마디
+			<div style="text-align: center;">
+				<span>오늘도 라이딩~!!!</span>
 			</div>								
 		</div>
 		
-		<!-- right안에 right -->
-		<div>
-			<div>
-				등급
+		<!-- right -->
+		<div class="col-xs-4">	
+			<div style="text-align: center;">
+				<div>자전거 이미지</div>
 			</div>
 			
-			<div>
-				공헌도
+			<div style="text-align: center;">
+				<div>헬멧 이미지</div>
 			</div>
 		</div>
 	</div>
-</div>
-
-
-<!-- 다음 줄 -->
-<div>
-	<div id="RidingStyleListUpdateForm">
-		<!-- RidingStyleListUpdateForm.jsp 로 이동. -->
-		나의 라이딩 스타일 조회하기
+	
+	
+	<div class="row" style="background-color: silver;">
+		<div class="col-xs-12">
+			<li style="list-style: none;">
+				<!-- RidingStyleListUpdateForm.jsp 로 이동. -->
+				<ul><span id="myRidingList">나의 라이딩 스타일 조회하기</span></ul>
+				
+				<!-- ParticipateRidingList.jsp 로 이동. -->
+				<ul><span id="currenRidingList">참여 중인 라이딩 조회하기</span></ul>
+				
+				<!-- 방장이면, EvaluationLeaderForm.jsp 로 이동 -->
+				<!-- 참여자이면,EvaluationMemberForm.jsp 로 이동  -->
+				<ul><span id="succRiding">완료한 라이딩 평가하기</span></ul>
+				
+				<!-- MyRidingRecordList.jsp 로 이동 -->
+				<ul><span id="ridingRecordList">라이딩 기록 조회하기</span></ul>
+				
+				<!-- Invite.jsp 로 이동. -->
+				<ul><span id="comeOnList">초대장 조회하기</span></ul>
+				
+				<!-- Friend.jsp 로 이동. -->
+				<ul><span id="friList">친구 목록 조회하기</span></ul>
+				
+				<!-- MyRationAndScoreList.jsp 로 이동. -->
+				<ul><span id="scoreList">등급 및 점수 조회하기</span></ul>
+				
+				<!-- MyReviewList.jsp 로 이동. -->
+				<ul><span id="reviewList">작성한 게시글 조회하기</span></ul>
+				
+				<!-- MyPenaltyList.jsp 로 이동. --> 
+				<ul><span id="penaltyList">나에게 적용된 패널티 조회하기</span></ul>
+				
+			</li>
+		</div>
 	</div>
 	
-	<div id="ParticipateRidingList">
-		<!-- ParticipateRidingList.jsp 로 이동. -->
-		참여 중인 라이딩 조회하기
-	</div>
-	
-	<!-- 방장 / 참여자 일때 구분해서 페이지 이동. -->
-	<div id="EvaluationLeaderForm">
-		<!-- 방장이면, EvaluationLeaderForm.jsp 로 이동 -->
-		<!-- 참여자이면,EvaluationMemberForm.jsp 로 이동  -->
-		완료한 라이딩 평가하기
-	</div>
-	
-	<div id="MyRidingRecordList">
-		<!-- MyRidingRecordList.jsp 로 이동 -->
-		라이딩 기록 조회하기
-	</div>
-	
-	<div id="Invite">
-		<!-- Invite.jsp 로 이동. -->
-		초대장 조회하기
-	</div>
-	
-	<div id="Friend">
-		<!-- Friend.jsp 로 이동. -->
-		친구 목록 조회하기
-	</div>
-	
-	<div id="MyRationAndScoreList">
-		<!-- MyRationAndScoreList.jsp 로 이동. -->
-		등급 및 점수 조회하기
-	</div>
-	
-	<div id="MyReviewList">
-		<!-- MyReviewList.jsp 로 이동. -->
-		작성한 게시글 조회하기
-	</div>
-	
-	<div id="MyPenaltyList">
-		<!-- MyPenaltyList.jsp 로 이동. --> 
-		나에게 적용된 패널티 조회하기
-	</div>
-</div>
-
-<!-- 그 다음 줄 -->
-
-<div>
-	<!-- left -->
-	<div>
-		<!-- MyInfoUpdateForm.jsp 로 이동. -->
-		<button id="MyInfoUpdateForm">개인정보 수정하기</button>
-	</div>
-	
-	<!-- right -->
-	<div>
-		<!-- MemberSecession.jsp 로 이동. -->
-		<button id="MemberSecession">회원 탈퇴하기</button>
+	<div class="row" style="background-color:green;">
+		<!-- left -->
+		<div class="col-xs-6" style="text-align: center;">
+			<!-- MyInfoUpdateForm.jsp 로 이동. -->
+			<button id="MyInfoUpdateForm" class="btn btn-outline-primary">개인정보 수정하기</button>
+		</div>
+		
+		<!-- right -->
+		<div class="col-xs-6" style="text-align: center;">
+			<!-- MemberSecession.jsp 로 이동. -->
+			<button id="MemberSecession" class="btn btn-outline-primary">회원 탈퇴하기</button>
+		</div>
 	</div>
 </div>
-
 </body>
 </html>

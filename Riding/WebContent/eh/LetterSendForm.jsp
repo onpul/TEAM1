@@ -14,20 +14,21 @@
 <script type="text/javascript">
 	$(function()
 	{
-		$("#searchBtn").click(function()
+		//검색
+		$("#searchUserBtn").click(function()
 		{
-			window.open("LetterSendForm2.jsp","","width=400px,height=400px");
-		})
-		$("#submitBtn").click(function()
-		{
-			// alert()뜨고 기존 LetterList.jsp로 돌아가는 버튼
-			
-			//쪽지보내기 Controller로 이동.
-			
-			alert("전송이 완료되었습니다.");
-			location.replace("LetterList.jsp");
+			var searchUser = $("#searchUser").val();
+			var url = "LetterSendForm2.jsp?searchUser=" + searchUser;
+			window.open(url,"","width=400px,height=400px");
 		});
 		
+		//전송
+		$("#submitBtn").click(function()
+		{
+			$("#myForm").submit();
+		});
+		
+		// 취소
 		$("#notSaveBtn").click(function()
 		{
 			var result = confirm("작성하신 내용은 저장되지 않습니다. \n 정말로 취소하시겠습니까?");
@@ -35,6 +36,8 @@
 			if(result)
 				location.replace("LetterList.jsp");
 		});
+		
+		
 		
 	});
 </script>
@@ -55,31 +58,17 @@
 <!-- LetterSendForm.jsp -->
 
 <!-- main div -->
-<div>
-	<form>
-		<div>
-			<span>받는 사람(ID)</span>
-			<input type="text" id="searchUser" 
-			placeholder="검색할 친구 닉네임 혹은 ID">
+<div class="container">
+	<form action="LetterSendForm2.jsp" method="get" id="myForm">
+		<div class="form-group">
+			<label for="searchUser">받는 사람(ID)</label>
+			<input type="text" id="searchUser" placeholder="검색할 친구 닉네임 혹은 ID" />
+			<button type="button" class="btn btn-default" id="searchUserBtn">검색</button>
+			<textarea rows="80" cols="80" id="content"></textarea>
 		</div>
-		
-		<div>
-			<button type="button" id="searchBtn">검색</button>
-		</div>
-	
-		<br />
-	
-		<div>
-			<textarea class="form-control" rows="5">내용입력칸.</textarea>
-		</div>
-		
-		<br />
-		
-		<div>
+			
+		<div style="text-align: center;">
 			<button type="button" class="btn btn-primary" id="submitBtn">전송</button>
-		</div>
-		
-		<div>
 			<button type="button" class="btn btn-default" id="notSaveBtn">취소</button>
 		</div>
 	</form>

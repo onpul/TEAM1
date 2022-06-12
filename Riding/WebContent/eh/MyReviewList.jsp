@@ -7,6 +7,23 @@
 <html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+	$(function()
+	{
+		// 상세내용 보기
+		$(".reviewBtn").click(function()
+		{
+			var reviewId = $(this).val();
+			alert("DetailReview.jsp로 reviewId 들고 이동.");
+			//location.replace("DetailReview.jsp?reviewId="+reviewId);
+		});
+		// 마이페이지로 이동
+		$("#myPageMain").click(function()
+		{
+			location.replace("MyPageMain.jsp");
+		});
+	});
+</script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <head>
@@ -16,31 +33,48 @@
 <body>
 <!-- 내가 작성한 후기 게시글 조회 -->
 <!--  MyReviewList.jsp-->
-<div>
-<!-- 가로로 나열 -->
-	번호
-	제목
-	작성일
-	조회수
-</div>
+<div class="container">
 
-<!-- dao에서 list로 가져와서 c:foreach로 받아와서 뿌리는 곳 -->
-<div>
-	<span>1</span>
-	<span>홍대맛집</span>
-	<span>2022-04-23</span>
-	<span>1</span>
+	<table class="table table-bordered">
+		<tr>
+			<th>번호</th>
+			<th>제목</th>
+			<th>작성일</th>
+			<th>조회수</th>
+			<th>상세내용 보기</th>
+		</tr>
+		
+		<tr>
+			<td>1</td>
+			<td>홍대맛집</td>
+			<td>2022-04-23</td>
+			<td>1</td>
+			<td>
+				<button type="button" class="btn btn-default reviewBtn" value="1">
+					상세내용 보기
+				</button>
+			</td>
+		</tr>
+		
+		<tr>
+			<td>2</td>
+			<td>엄청맛집</td>
+			<td>2022-04-23</td>
+			<td>10</td>
+			<td>
+				<button type="button" class="btn btn-default reviewBtn" value="1">
+					상세내용 보기
+				</button>
+			</td>
+		</tr>
+	</table>
 	
-	<span>2</span>
-	<span>엄청맛집</span>
-	<span>2022-04-23</span>
-	<span>10</span>
+	<div class="col col-xs-12" style="text-align: right;">
+		<!-- MyPageMain.jsp 로 이동. -->
+		<button id="myPageMain" class="btn btn-default">마이페이지로 이동</button>
+	</div>
+	
+	
 </div>
-
-<div>
-	<!-- MyPageMain.jsp 로 이동. -->
-	<button id="myPageMain">마이페이지로 이동</button>
-</div>
-
 </body>
 </html>

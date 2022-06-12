@@ -11,6 +11,12 @@
 <script type="text/javascript">
 	$(function()
 	{
+		$(".letterBtn").click(function()
+		{
+			var letterId = $(this).val();
+			location.replace("Letter.jsp?letterId="+letterId);
+		});
+
 		$("#deleteBtn").click(function()
 		{
 			// 사용자 응답을 받는 형태로 변경 예정.(확인 / 취소)
@@ -25,14 +31,6 @@
 			else
 				alert("취소되었습니다.");
 		});
-		
-		$("#writeBtn").click(function()
-		{
-			location.replace('Letter.jsp');
-		});
-		
-		
-		
 	});
 </script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -42,72 +40,80 @@
 <title>LetterList.jsp</title>
 </head>
 <body>
-<div>
+<div class="container">
 	<!-- 쪽지 리스트 조회 페이지 -->
 	<!-- LetterList.jsp -->
 	
-	<div>
-		<p>쪽지</p>
+	<div class="col col-xs-12" style="text-align: center;">
+		<span style="font-weight: bold;">쪽지</span>
 	</div>
 	
-	<div>
-		<!-- Ajax 처리 필요 -->
-		<select>
-			<option selected="selected">전체 쪽지</option>
-			<option>받은 쪽지</option>
-			<option>보낸 쪽지</option>
+	<div class="col col-xs-12">
+		<select class="select" name="letterListOption" id="letterListOption">
+			<option value="all" selected="selected">전체 쪽지</option>
+			<option value="send">받은 쪽지</option>
+			<option value="receive">보낸 쪽지</option>
 		</select>
 	</div>
-	
-	<div>
+		
+	<div class="col col-xs-12" style="text-align: right;">
 		<button type="button" class="btn btn-default" id="writeBtn">쪽지쓰기</button>
 	</div>
 	
-	<div>
-		<!-- letterDeleteController 필요!! -->
-		<form action="" method="get" id="form">
-			<table>
+	<div class="col col-xs-12">
+		<form action="">
+		<br />
+			<table class="table table-bordered">
 				<tr>
 					<th></th>
 					<th>보낸 사람</th>
 					<th>제목</th>
-				</tr>
-				<!--                        Controller로 이동하도록 요청주소 변경 예정 -->
-				<tr onclick="location.href='Letter.jsp?id=1'">
-					<td>
-						<input type="checkbox" name="letter" value="1">
-					</td>
-					<td>홍길동</td>
-					<td>안녕하세요.</td>
+					<th>쪽지 상세내용 보기</th>
 				</tr>
 				
-				<!--                        Controller로 이동하도록 요청주소 변경 예정 -->
-				<tr onclick="location.href='Letter.jsp?id=2'">
-					<td>
-						<input type="checkbox" name="letter" value="2">
+				<tr>
+					<td style="text-align: center;">
+						<input type="checkbox" name="letter" value="1"/>
 					</td>
-					<td>남주혁</td>
-					<td>2521</td>
+					<td>
+						홍길동
+					</td>
+					<td>
+						안녕하세요.
+					</td>
+					<td>
+						<button type="button" class="btn btn-default letterBtn" value="1">
+							보기
+						</button>
+					</td>
 				</tr>
 				
-				<!--                        Controller로 이동하도록 요청주소 변경 예정 -->
-				<tr onclick="location.href='Letter.jsp?id=3'">
-					<td>
-						<input type="checkbox" name="letter" value="3">
+				<tr>
+					<td style="text-align: center;">
+						<input type="checkbox" name="letter" value="2"/>
 					</td>
-					<td>홍체리</td>
-					<td>2주남았네</td>
+					<td>
+						남주혁
+					</td>
+					<td>
+						저번에 같이 라이딩했던 사람입니다.
+					</td>
+					<td>
+						<button type="button" class="btn btn-default letterBtn" value="2">
+							보기
+						</button>
+					</td>
 				</tr>
 			</table>
 		</form>
 	</div>
 	
-	<div>
+	<div class="col col-xs-12" style="text-align: center;">
 		<span>1 2 3</span>
 	</div>
 	
-	<div>
-		<button type="button" id="deleteBtn">삭제</button>
+	<div class="col col-xs-12" style="text-align: right;">
+		<button type="button" id="deleteBtn" class="btn btn-default">삭제</button>
 	</div>
 	
 	

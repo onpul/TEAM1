@@ -51,9 +51,9 @@
 <!-- 서브창 형태로 열림. -->
 
 <!-- main div -->
-<div>
-	<div>
-		<table border="3">
+<div class="container">
+	<div class="col col-xs-12">
+		<table class="table table-default">
 			<tr>
 				<td>보낸사람</td>
 				<td>홍길동</td>
@@ -83,25 +83,18 @@
 		
 	<br />
 	
-	<div>
+	<div class="col col-xs-12" style="text-align: center;">
 		<!-- 쪽지 보내기 페이지로 이동. -->
 		<!-- LetterSendForm.jsp -->
-		<button type="button" class="btn btn-primary" id="sendLetter">답장</button>
-	</div>
-	
-	<div>
+		<button type="button" class="btn btn-default" id="sendLetter">답장</button>
+		
 		<!-- 서브창 닫는 버튼 -->
-		<button type="button" class="btn btn-primary" id="closeBtn">닫기</button>
-	</div>
-	
-	<div>
+		<button type="button" class="btn btn-default" id="closeBtn">닫기</button>
 	
 		<!-- 정말 삭제하겠냐고 물어보는 alert() 뜨기 -->
 		<!-- 사용자 응답에 따라 삭제되었습니다 / 취소되었습니다. -->
-		<button type="button" class="btn btn-primary" id="deleteBtn">삭제</button>
-	</div>
-	
-	<div>
+		<button type="button" class="btn btn-default" id="deleteBtn">삭제</button>
+		
 		<span id="helpBlock" class="help-block">
 		※누적된 쪽지가 100개를 초과하는 경우, <br>
 		가장 오래된 쪽지부터 자동으로 삭제됩니다.

@@ -10,46 +10,69 @@
 <title>MyRigingRecord.jsp</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+	$(function()
+	{
+		$("#ridingList").click(function()
+		{
+			location.replace("MyRidingRecordList.jsp");
+		});
+		
+		// 마이페이지로 이동.
+		$("#myPageMain").click(function()
+		{
+			location.replace("MyPageMain.jsp");
+		});
+	});
+</script>
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 </head>
 <body>
 <!-- 라이딩 기록 상세보기 페이지 -->
 <!-- MyRigingRecord.jsp -->
-<div>
-	모임명
-	<span>새벽반</span>
-</div>
-<div>
-	기간
-	<span>2022-05-23 12:00 ~ 2022-05-24 09:00</span>
-</div>
 
-<div>
-	방장
-	<span>happy</span><span>(happy@test.com)</span>
-</div>
-
-<div>
-	참여자 이름
-	<div>
-		happy(happy@test.com)
-		<br>
-		돈(money@test.com)
-		<br />
-		좋아좋아(love@test.com)
-		<br />
-		탈퇴회원
+<div class="container">
+	<div class="col col-xs-12">
+		<table class="table-bordered">
+			<tr>
+				<th>모임명</th>
+				<th>기간</th>
+				<th>방장</th>
+				<th>참여자 이름</th>
+				<th>경로</th>
+			</tr>
+			
+			<tr>
+				<td>새벽반</td>
+				<td>2022-05-23 12:00 ~ 2022-05-24 09:00</td>
+				<td>happy(happy@test.com)</td>
+				<td>
+					happy(happy@test.com) <br>
+					돈(money@test.com) <br />
+					좋아좋아(love@test.com) <br />
+					탈퇴회원 <br />
+				</td>
+				<td>
+					<div>
+						경로
+					</div>
+				</td>
+			</tr>
+		</table>
 	</div>
-</div>
-
-<div>
-	경로
-</div>
-
-<div>
+	
+	<div class="col col-xs-12" style="text-align: right;">
 	<!-- MyPageMain.jsp 로 이동. -->
-	<button id="myPageMain">마이페이지로 이동</button>
+	<button id="ridingList" class="btn btn-default">라이딩기록리스트로 이동</button>
+	<button id="myPageMain" class="btn btn-default">마이페이지로 이동</button>
+	
+	
 </div>
+</div>
+
+
 </body>
 </html>

@@ -10,32 +10,84 @@
 <title>ParticipateRiding.jsp</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+	$(function()
+	{
+		// 도움말 
+		$("#plz").mouseover(function()
+		{
+			$("#plzDiv").css("display","block");
+		});
+		
+		$("#plz").mouseout(function()
+		{
+			$("#plzDiv").css("display","none");
+		});
+		
+		$("#nowRiding").click(function()
+		{
+			alert("해당 라이딩 모임 상세보기로 이동.");
+		});
+		
+		// 마이페이지로 이동
+		$("#myPageMain").click(function()
+		{
+			location.replace("MyPageMain.jsp");
+		});
+	});
+</script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+<!-- 부트스트랩 아이콘  -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 </head>
 <body>
 <!-- 참여중인 라이딩 조회 페이지 -->
 <!-- ParticipateRiding.jsp -->
-<div>
-	모임명
-	기간
-	모임상태
+
+<div class="container">
+	<div>
+		<table class="table table-bordered">
+			<tr>
+				<th>모임명</th>
+				<th>기간</th>
+				<th>모임상태 
+					<!-- 도움말 -->
+					<span class="bi bi-question-circle-fill" id="plz">
+						<div id="plzDiv" style="display: none; color: red;">
+							모집중이란 ? 모든 사용자가 참가가능한 모임의 상태 <br>
+							모집완료란? 참가 불가능하고 참여자들은 준비를 해야하는 상태 <br>
+							확정이란? 모든 참여자가 준비했고 확정되어서 출발상세장소를 확인할 수 있어요.<br>
+						</div>
+					</span>
+				</th>
+				<th>모임으로 이동</th>
+			</tr>
+			
+			<tr>
+				<td>혜화역 라이딩 모임</td>
+				<td>2022-05-23 12:00 ~ 2022-05-24 09:00</td>
+				<td>모집중</td>
+				<td>
+					<button type="button" id="nowRiding" class="btn btn-default">
+						모음으로 이동
+					</button>
+				</td>
+			</tr>
+			
+		</table>
+	</div>
+	
+		
+	<div style="text-align: right;">
+		<!-- MyPageMain.jsp 로 이동. -->
+		<button id="myPageMain">마이페이지로 이동</button>
+	</div>
+
 </div>
 
-<!-- c:foreach로 뿌리는 부분 -->
-<div>
-	<!-- 해당 라이딩 모임을 클릭하면 그 모임 상세보기 페이지로 이동 -->
-	<!-- RidingDetail.jsp -->
-	<span>혜화역 라이딩 모임</span>
-	<span>2022-05-23 12:00 ~ 2022-05-24 09:00</span>
-	<span>모집중</span>
-	<!-- 도움말 마우스 올리면 내용 보이기 액션 -->
-	<span>도움말</span>
-</div>
 
-<div>
-	<!-- MyPageMain.jsp 로 이동. -->
-	<button id="myPageMain">마이페이지로 이동</button>
-</div>
 </body>
 </html>

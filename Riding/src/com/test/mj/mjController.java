@@ -188,14 +188,19 @@ public class mjController
 	}
 	
 	// 알림 불러오기 액션(notice.action)
-	/*
 	@RequestMapping(value = "/notice.action", method = RequestMethod.POST)
 	@ResponseBody
 	public List<String> notice(String userId)
 	{
 		System.out.println("notice() 진입 성공");
 		
-		IRidingDAO dao = sqlSession.getMapper(IRidingDAO.class);
+		//IRidingDAO dao = sqlSession.getMapper(IRidingDAO.class);
+		
+		List<String> result = new ArrayList<String>();
+		
+		result.add("알림1");
+		result.add("알림2");
+		
+		return result;
 	}
-	*/
 }

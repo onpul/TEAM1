@@ -69,7 +69,7 @@ LoginForm.jsp
 			return false;
 		}
 		
-		f.submit();
+		//f.submit();
 		loginCheck();
 	}
 	
@@ -100,6 +100,7 @@ LoginForm.jsp
 						alert("회원정보를 찾을 수 없습니다.");
 					}
 				}
+				, beforeSend:formCheck
 				, error:function(e)
 				{
 					alert(e.responseText);

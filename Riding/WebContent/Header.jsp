@@ -41,7 +41,11 @@ Header.jsp
 			, success:function(data)
 			{
 				alert("success 진입");
-				$("#notice").html(data);
+				
+				$(data).each(function()
+				{
+					$("#notice").html(data[1]);
+				});
 			}
 			, error:function(e)
 			{

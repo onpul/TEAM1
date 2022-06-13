@@ -26,5 +26,5 @@ public interface IRidingDAO
 	public String genderCheck(String userId);
 	
 	// 알림 불러오기 액션
-	//public ArrayList<RidingDTO> list();
+	public ArrayList<RidingDTO> list(String userId);
 }

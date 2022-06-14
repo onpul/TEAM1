@@ -32,7 +32,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ON W.USER_ID = P.USER_ID
 		WHERE P.EMAIL = #{email}
 		  AND P.BIRTHDAY = #{birthday}
+		  AND TRUNC(MONTHS_BETWEEN(SYSDATE, WITHDRAW_DATE)) <![CDATA[<]]> 3
 	</select>
 	
+	<!-- 닉네임 중복 체크 -->
+	<select id="duplicationNickCheck" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM PROFILE
+		WHERE NICKNAME = #{nickname}
+	</select>
 
 </mapper>

@@ -10,8 +10,8 @@ JoinForm.jsp
 ●todo●
 - 비속어 필터링 추가(완료)
 - 회원가입 시 입력한 생년월일, 성별에 따라 라이딩 스타일의 연령대, 성별 옵션이 노출되도록(완료)
-- 닉네임 중복 체크
-- 탈퇴회원은 3개월 이후에 가입할 수 있도록 탈퇴회원 판별하여 경고창
+- 닉네임 중복 체크(완료)
+- 탈퇴회원은 3개월 이후에 가입할 수 있도록 탈퇴회원 판별하여 경고창(완료, 3개월인진 아직 판별 불가능)
 -->
 <%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
@@ -143,6 +143,7 @@ JoinForm.jsp
 				, data:{"nickname" : $("#nickname").val()}
 				, success:function(data)
 				{
+					alert("data = " + data);
 					if (data == 0)
 					{
 						alert("사용가능한 닉네임입니다.");
@@ -152,6 +153,7 @@ JoinForm.jsp
 					else if (data == 1) 
 					{
 						alert("이미 사용 중인 닉네임입니다.");
+						$("#nickname").val("");
 					}
 				}
 				, error:function(e)
@@ -362,10 +364,12 @@ JoinForm.jsp
 			$.ajax(
 			{
 				type:"POST"
+				, asynx:true
 				, url:"join.action"
 				, data:params
 				, success:function(data)
 				{
+					alert("성공");
 					alert(data);
 					if (data == 0)
 					{
@@ -405,7 +409,7 @@ JoinForm.jsp
 </head>
 <body>
 <div class="joinFormBox">
-	<form action="join.action" class="joinForm" name="joinForm" method="get">
+	<form class="joinForm" name="joinForm">
 		<div class="form-group form-inline">
 			<label for="nickname">닉네임*</label>
 	    	<input type="text" class="form-control" name="nickname" id="nickname" maxlength="12" placeholder="닉네임을 입력하세요" oninput="maxLengthCheck(this)" onkeydown="inputNickChk()">

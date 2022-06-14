@@ -38,7 +38,7 @@ public class mjController
 	}
 	
 	// 회원가입(join.action)
-	@RequestMapping(value="/join.action")
+	@RequestMapping(value="/join.action", method = RequestMethod.POST)
 	@ResponseBody
 	public String join(UserDTO dto)
 	{
@@ -57,7 +57,6 @@ public class mjController
 		System.out.println("getUser_id = " + dto.getUser_id());
 		
 		int result = 0;
-		
 		
 		IRidingDAO dao = sqlSession.getMapper(IRidingDAO.class);
 		
@@ -86,6 +85,8 @@ public class mjController
 		else // 탈퇴한 회원이 아니라면 회원가입 진행
 		{
 			System.out.println("탈퇴한 회원이 아니다!");
+			
+			System.out.println("------------회원가입 액션------------");
 			dao.join(dto);
 			
 			// 회원가입한 user_id 를 set
@@ -94,6 +95,7 @@ public class mjController
 			//System.out.println("dao.getuser() = " + dao.getuser());
 			
 			// 개인정보 입력
+			System.out.println("------------개인정보 입력------------");
 			dao.profile(dto);
 			
 			return "0";
@@ -108,12 +110,22 @@ public class mjController
 		System.out.println("duplicationNickCheckAction() 진입 ");
 		System.out.println("nickname = " + nickname);
 		
-		// 0 : 사용가능한 닉네임(중복X)
-		// 1 : 중복된 닉네임
-		return "0"; 
+		IRidingDAO dao = sqlSession.getMapper(IRidingDAO.class);
+		
+		int result = 0;
+		
+		result = dao.duplicationNickCheck(nickname);
+		
+		if (result > 0)
+		{
+			return "1";
+		}
+		else
+			return "0";
 	}
 	
 	// 탈퇴회원 체크 시 요청(withdrawcheck.action)
+	/*
 	@RequestMapping(value="/withdrawcheck.action", method = RequestMethod.POST)
 	@ResponseBody
 	public String withdrawCheckAction(String email, String birthday)
@@ -126,6 +138,7 @@ public class mjController
 		// 1 : 탈퇴회원(3개월 이내, 가입 불가능)
 		return "/join.action";
 	}
+	*/
 	
 	// 로그인 폼 요청(loginform.action)
 	@RequestMapping(value = "/loginform.action", method = RequestMethod.GET)

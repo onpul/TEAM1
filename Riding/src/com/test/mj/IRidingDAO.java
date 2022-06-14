@@ -5,22 +5,22 @@ import org.apache.ibatis.annotations.Param;
 public interface IRidingDAO
 {
 	// 회원가입
-	public int join(UserDTO dto);
+	public int join(UserDTO dto); // 완
 	
 	// 회원가입한 회원의 user_id 알아오기
-	public int getuser();
+	public int getuser(); // 완
 	
 	// 개인정보
-	public int profile(UserDTO dto);
+	public int profile(UserDTO dto); // 완
 	
 	// 닉네임 중복 체크
-	public int duplicationNickCheck(String nickname);
+	public int duplicationNickCheck(@Param("nickname")String nickname); // 완
 	
 	// 3개월 이내의 탈퇴 회원 체크
-	public int withdrawCheck(@Param("email")String email, @Param("birthday")String birthday);
+	public int withdrawCheck(@Param("email")String email, @Param("birthday")String birthday); // 완
 	
 	// 로그인 액션
-	public String login(String email, String password);
+	public String login(String email, String password); 
 	
 	// 아이디 찾기 액션
 	public String searchId(String nickname, String birthday);

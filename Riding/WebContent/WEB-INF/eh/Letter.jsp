@@ -16,12 +16,15 @@
 		{
 			//alert() 뜨고 LetterSendForm.jsp로 이동하는 액션처리
 			//alert("LetterSendForm.jsp로 이동합니다.");
-			location.replace('LetterSendForm.jsp?user=1');
+			
+			// 컨트롤러에서 받아서 변수에 담아서 GET 방식으로 처리.
+			// 어차피 홍길동 한명만 뜸.
+			location.replace('letterresendform.action?user=100');
 		});
 		
 		$("#closeBtn").click(function()
 		{
-			location.replace('LetterList.jsp');
+			location.replace('letterlist.action');
 		});
 		
 		$("#deleteBtn").click(function()

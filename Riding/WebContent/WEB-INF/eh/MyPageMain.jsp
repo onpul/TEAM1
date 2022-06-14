@@ -19,14 +19,14 @@
 		{
 			//나의 라이딩 스타일 조회하기
 			//alert("RidingStyleListUpdateForm.jsp 로 이동.")
-			location.replace("RidingStyleListUpdateForm.jsp");
+			location.replace("ridingstylelistupdateform.action");
 		});
 		
 		$("#currenRidingList").click(function()
 		{
 			//참여 중인 라이딩 조회하기
 			//alert("ParticipateRidingList.jsp 로 이동.")
-			location.replace("ParticipateRidingList.jsp");
+			location.replace("participateridinglist.action");
 		});
 
 		$("#succRiding").click(function()
@@ -35,14 +35,14 @@
 			//방장이면, EvaluationLeaderForm.jsp 로 이동
 			//참여자이면,EvaluationMemberForm.jsp 로 이동
 			//alert(" EvaluationLeaderForm.jsp 로 이동.")
-			location.replace("EvaluationLeaderForm.jsp");
+			location.replace("evaluationleaderform.action");
 		});
 		
 		$("#ridingRecordList").click(function()
 		{
 			//라이딩 기록 조회하기
 			//alert(" MyRidingRecordList.jsp 로 이동.")
-			location.replace("MyRidingRecordList.jsp");
+			location.replace("myridingrecordlist.action");
 		});
 		
 		$("#comeOnList").click(function()
@@ -61,21 +61,21 @@
 		{
 			//등급 및 점수 조회하기
 			//alert(" MyRationAndScoreList.jsp  로 이동.")
-			location.replace("MyRationAndScoreList.jsp");
+			location.replace("myrationandscorelist.action");
 		});
 		
 		$("#reviewList").click(function()
 		{
 			//작성한 게시글 조회하기
 			//alert(" MyReviewList.jsp  로 이동.")
-			location.replace("MyReviewList.jsp");
+			location.replace("myreviewlist.action");
 		});
 		
 		$("#penaltyList").click(function()
 		{
 			//나에게 적용된 패널티 조회하기
 			//alert(" MyPenaltyList.jsp  로 이동.")
-			location.replace("MyPenaltyList.jsp");
+			location.replace("mypenaltylist.action");
 		});
 		
 		
@@ -86,14 +86,20 @@
 		{
 			//개인정보 수정하기
 			//alert(" MyInfoUpdateForm.jsp  로 이동.")
-			location.replace("MyInfoUpdateForm.jsp");
+			location.replace("myinfoupdateform.action");
 		});
 		
 		$("#MemberSecession").click(function()
 		{
 			//회원 탈퇴하기
 			//alert(" MemberSecession.jsp  로 이동.")
-			window.open("MemberSecession.jsp","","width=400px,height=400px");
+			window.open("membersecession.action","","width=400px,height=400px");
+		});
+		
+		
+		$("#tempBtn").click(function()
+		{
+			window.open("letterlist.action","","width=400px,height=400px");
 		});
 		
 		
@@ -200,6 +206,12 @@
 			<!-- MemberSecession.jsp 로 이동. -->
 			<button id="MemberSecession" class="btn btn-outline-primary">회원 탈퇴하기</button>
 		</div>
+	</div>
+	
+	<div>
+		<button type="button" id="tempBtn">
+			쪽지 조회하기 (임시버튼)
+		</button>	
 	</div>
 </div>
 </body>

@@ -28,7 +28,7 @@
 		$("#myPageMain").click(function()
 		{
 			
-			location.replace("MyPageMain.jsp");
+			location.replace("mypagemain.action");
 			
 		});
 	});

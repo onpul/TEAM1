@@ -23,15 +23,7 @@
 		});
 		
 		// 도움말 
-		$("#plz").mouseover(function()
-		{
-			$("#plzDiv").css("display","block");
-		});
-		
-		$("#plz").mouseout(function()
-		{
-			$("#plzDiv").css("display","none");
-		});
+		$("[data-toggle='tooltip']").tooltip();
 		
 		
 		
@@ -52,11 +44,11 @@
 				var result = confirm("변경사항이 저장되지 않습니다. \n 정말로 페이지를 이동하시겠습니까?");
 					if (result)
 					{
-						location.replace("MyPageMain.jsp");
+						location.replace("mypagemain.action");
 					}
 			}
 			else
-				location.replace("MyPageMain.jsp");
+				location.replace("mypagemain.action");
 			
 		})
 	});
@@ -114,11 +106,9 @@
 				<label for="suk3"><input type="radio" name="suk" value="suk3" id="suk3">3 ~ 5년</label>
 				<label for="suk6"><input type="radio" name="suk" value="suk6" id="suk6">6년 이상</label>
 				<!-- 도움말 -->
-				<span class="bi bi-question-circle-fill" id="plz">
-					<div id="plzDiv" style="display: none; color: red;">
-						숙련도란 ? 남들에게 말할 수 있는 경력에 대한 년도 입니다 ~ 
-					</div>
-				</span>
+				
+				<a href="#" data-toggle="tooltip" 
+				title="숙련도란?남들에게 말할 수 있는 객관적인 경력입니다." class="bi bi-question-circle-fill" ></a>
 			</div>
 			
 			<div class="radio">

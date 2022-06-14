@@ -14,16 +14,8 @@
 <script type="text/javascript">
 	$(function()
 	{
-		// 도움말 
-		$("#plz").mouseover(function()
-		{
-			$("#plzDiv").css("display","block");
-		});
-		
-		$("#plz").mouseout(function()
-		{
-			$("#plzDiv").css("display","none");
-		});
+		//도움말
+		$("[data-toggle='tooltip']").tooltip();
 		
 		$("#nowRiding").click(function()
 		{
@@ -33,7 +25,7 @@
 		// 마이페이지로 이동
 		$("#myPageMain").click(function()
 		{
-			location.replace("MyPageMain.jsp");
+			location.replace("mypagemain.action");
 		});
 	});
 </script>
@@ -54,14 +46,15 @@
 				<th>모임명</th>
 				<th>기간</th>
 				<th>모임상태 
-					<!-- 도움말 -->
-					<span class="bi bi-question-circle-fill" id="plz">
-						<div id="plzDiv" style="display: none; color: red;">
-							모집중이란 ? 모든 사용자가 참가가능한 모임의 상태 <br>
-							모집완료란? 참가 불가능하고 참여자들은 준비를 해야하는 상태 <br>
-							확정이란? 모든 참여자가 준비했고 확정되어서 출발상세장소를 확인할 수 있어요.<br>
-						</div>
-					</span>
+				<!-- 도움말 -->
+				<a href="#" 
+				data-toggle="tooltip"
+				data-placement="bottom" 
+				title="모집중이란 ? 모든 사용자가 참가가능한 모임의 상태 
+					&#10;모집완료란? 참가 불가능하고 참여자들은 준비를 해야하는 상태 
+					&#10;확정이란? 모든 참여자가 준비했고 확정되어서 출발상세장소를 확인할 수 있어요." 
+					class="bi bi-question-circle-fill"></a>
+					
 				</th>
 				<th>모임으로 이동</th>
 			</tr>

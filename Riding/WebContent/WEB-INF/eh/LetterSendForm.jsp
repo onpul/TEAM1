@@ -18,13 +18,26 @@
 		$("#searchUserBtn").click(function()
 		{
 			var searchUser = $("#searchUser").val();
-			var url = "LetterSendForm2.jsp?searchUser=" + searchUser;
+			var url = "lettersendform2.action?searchUser=" + searchUser;
 			window.open(url,"","width=400px,height=400px");
 		});
 		
 		//전송
 		$("#submitBtn").click(function()
 		{
+			alert("여기");
+			//alert($("#searchUser").val()=="");
+			/*
+			$("#myForm").submit(function()
+			{
+				alert("욕");
+				if ($("#searchUser").val()=="")
+				{
+					alert("받는 사람을 입력하세요.");
+					return false;
+				}
+			});
+			*/
 			$("#myForm").submit();
 		});
 		
@@ -34,7 +47,7 @@
 			var result = confirm("작성하신 내용은 저장되지 않습니다. \n 정말로 취소하시겠습니까?");
 			
 			if(result)
-				location.replace("LetterList.jsp");
+				location.replace("letterlist.action");
 		});
 		
 		
@@ -47,7 +60,6 @@
 	textarea {
     width: 100%;
     height: 6.25em;
-    border: none;
     resize: none;
   }
 	
@@ -59,12 +71,13 @@
 
 <!-- main div -->
 <div class="container">
-	<form action="LetterSendForm2.jsp" method="get" id="myForm">
+	<form action="LetterSendForm.jsp" method="get" id="myForm">
 		<div class="form-group">
 			<label for="searchUser">받는 사람(ID)</label>
-			<input type="text" id="searchUser" placeholder="검색할 친구 닉네임 혹은 ID" />
+			<input type="text" id="searchUser" placeholder="검색할 친구 닉네임 혹은 ID" name="searchUser"/>
 			<button type="button" class="btn btn-default" id="searchUserBtn">검색</button>
-			<textarea rows="80" cols="80" id="content"></textarea>
+			<br /><label>내용작성하기</label>
+			<textarea rows="80" cols="80" id="content" name="content"></textarea>
 		</div>
 			
 		<div style="text-align: center;">

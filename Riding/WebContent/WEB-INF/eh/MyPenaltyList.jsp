@@ -19,7 +19,7 @@
 		// 마이페이지로 이동.
 		$("#myPageMain").click(function()
 		{
-			location.replace("MyPageMain.jsp");
+			location.replace("mypagemain.action");
 		});
 	});
 </script>

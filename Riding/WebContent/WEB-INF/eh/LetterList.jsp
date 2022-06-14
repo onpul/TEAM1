@@ -14,7 +14,7 @@
 		$(".letterBtn").click(function()
 		{
 			var letterId = $(this).val();
-			location.replace("Letter.jsp?letterId="+letterId);
+			location.replace("letter.action?letterId="+letterId);
 		});
 
 		$("#deleteBtn").click(function()
@@ -30,6 +30,11 @@
 			}
 			else
 				alert("취소되었습니다.");
+		});
+		
+		$("#writeBtn").click(function()
+		{
+			location.replace("lettersendform.action");
 		});
 	});
 </script>

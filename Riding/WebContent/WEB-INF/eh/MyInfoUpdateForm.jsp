@@ -15,18 +15,19 @@
 	{
 		$("#profilePhoto").click(function()
 		{
-			window.open("ProfilePhotoUpdateForm.jsp","","width=400px,height=400px");
+			window.open("profilephotoupdateform.action","","width=400px,height=400px");
 		});
 		
 		$("#oneWord").click(function()
 		{
-			window.open("OneWordUpdateForm.jsp","","width=400px,height=400px");
+			window.open("onewordupdateform.action","","width=400px,height=400px");
 		});
 		
 		$("#nickName").click(function()
 		{
-			window.open("NickNameUpdateForm.jsp","","width=400px,height=400px");
+			window.open("nicknameupdateform.action","","width=400px,height=400px");
 		});
+		
 		
 		$("#changePwd").click(function()
 		{
@@ -38,6 +39,11 @@
 		{
 			$("#newPwdCheck").prop("readonly",false);
 			$("#newPwdCheck").css("background-color","white");
+		});
+		
+		$("#newPwdCheck").keyup(function()
+		{
+			alert("키보드업");
 		});
 		
 		
@@ -126,6 +132,8 @@
 					<td>
 						<input type="password" id="newPwdCheck" readonly="readonly"
 						style="background-color: gray;"/>
+						<span id="pwdCheckMsg" style="display: none; color: red; font-size: small;">
+						비밀번호가 일치하지 않습니다.</span>
 					</td>
 				</tr>
 			</table>

@@ -7,7 +7,6 @@
 <html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-
 <script type="text/javascript">
 	$(function()
 	{
@@ -17,8 +16,7 @@
 			
 			if(result)
 			{
-				//$("#form").submit();
-				alert("EvaluationInsert.jsp 로 form 내용 가지고 submit");
+				$("#form").submit();
 				alert("제출이 완료 되었습니다. 감사합니다.");
 			}
 			else
@@ -33,7 +31,7 @@
 			
 			if(result)
 			{
-				location.replace('MyPageMain.jsp');
+				location.replace('mypagemain.action');
 			}
 			else
 				alert("취소되었습니다.");
@@ -44,7 +42,7 @@
 			// Report.jsp 
 			// 신고폼으로 이동. 
 			//location.replace('Report.jsp ');
-			alert("Report.jsp 으로 이동.");
+			alert("신고하기 폼으로 이동.");
 		});
 	});
 </script>
@@ -77,7 +75,7 @@
 	<!-- 다음줄 center에 위치 -->
 	<!-- 평가폼 -->
 	<div>	
-		<form id="form" action="EvaluationInsert.jsp" method="get">
+		<form id="form" action="" method="get">
 			<div class="col col-xs-12 checkbox">
 				<br />
 				<span style="font-weight: bold;">결석한 사람을 체크해 주세요.</span>
@@ -89,6 +87,11 @@
 				<label for="user3"><input type="checkbox" name="attendance" value="user3" id="user3">바나나1</label>
 				<label for="user4"><input type="checkbox" name="attendance" value="user4" id="user4">영희1</label>
 				</div>
+			
+			<div class="col col-xs-12">
+				<br />
+				<label for="leaderCheck"><input type="checkbox" name="leaderCheck" id=leaderCheck" checked="checked">방장은 출석하였나요?</label>
+			</div>
 			
 			<div class="col col-xs-12">
 				<br />

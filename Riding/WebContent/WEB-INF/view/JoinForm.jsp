@@ -353,27 +353,26 @@ JoinForm.jsp
 	{
 		$("#joinBtn").click(function()
 		{
-			//alert("확인");
+			alert("확인");
 			
 			// 보낼 데이터 구성
 			var params = $("form[name=joinForm]").serialize();
 			// serialize() : 폼 태그내의 항목들을 자동으로 읽어와 queryString 형식으로 변환 
-			
-			//alert(params);
 			
 			$.ajax(
 			{
 				type:"POST"
 				, url:"join.action"
 				, data:params
-				, success:function(args)
+				, success:function(data)
 				{
-					if (args == 0)
+					alert(data);
+					if (data == 0)
 					{
 						alert("회원가입이 정상적으로 처리되었습니다.");
 						location.href = "loginform.action";
 					}
-					else if (args == 1) 
+					else if (data == 1) 
 					{
 						alert("탈퇴일로부터 3개월 이후에 회원가입이 가능합니다.");
 						location.href = "main.action";
@@ -385,10 +384,9 @@ JoinForm.jsp
 					alert(e.responseText);
 				}
 			});
-			
+		
 		});
 	});
-	
 </script>
 <style type="text/css">
 	span

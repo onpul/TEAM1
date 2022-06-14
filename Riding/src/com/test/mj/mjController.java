@@ -40,7 +40,7 @@ public class mjController
 	// 회원가입(join.action)
 	@RequestMapping(value="/join.action")
 	@ResponseBody
-	public int join(UserDTO dto)
+	public String join(UserDTO dto)
 	{
 		// 테스트
 		System.out.println("------------join() 진입------------");
@@ -57,6 +57,7 @@ public class mjController
 		System.out.println("getUser_id = " + dto.getUser_id());
 		
 		int result = 0;
+		
 		
 		IRidingDAO dao = sqlSession.getMapper(IRidingDAO.class);
 		
@@ -80,7 +81,7 @@ public class mjController
 		if (result > 0)
 		{
 			System.out.println("탈퇴한 회원이다!");
-			return result;
+			return "1";
 		}
 		else // 탈퇴한 회원이 아니라면 회원가입 진행
 		{
@@ -95,7 +96,7 @@ public class mjController
 			// 개인정보 입력
 			dao.profile(dto);
 			
-			return result;
+			return "0";
 		}
 	}
 	

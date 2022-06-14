@@ -128,21 +128,25 @@
 		<div class="col-xs-4" style="background-color: aqua;">
 			<div style="text-align: center;">
 				<!-- 프로필 아이콘 이미지로 변경예정 -->
-				<div class="glyphicon glyphicon-user"></div> 
+				<div class="glyphicon glyphicon-user">${pi_address }</div> 
 			</div>
 			<div style="text-align: center;">
-				<span>cherry5813@naver.com</span>
+				<!-- <span>cherry5813@naver.com</span> -->
+				<span>${email }</span>
+				
 			</div>
 		</div>
 		
 		<!-- center -->
 		<div class="col-xs-4" style="background-color:yellow;">
 			<div style="text-align: center;">
-				<span>체리</span>
+				<!-- <span>체리</span> -->
+				<span>${nickname }</span>
 			</div>
 			
 			<div style="text-align: center;">
-				<span>오늘도 라이딩~!!!</span>
+				<!-- <span>오늘도 라이딩~!!!</span> -->
+				<span>${oneword }</span>
 			</div>								
 		</div>
 		

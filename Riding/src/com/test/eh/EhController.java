@@ -1,23 +1,21 @@
 package com.test.eh;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-
 @Controller
-public class EhController
+public class ehController
 {
-	private QuestionDAO questionDAO;
-	
-	// 마이페이지메인 뷰 
+	// 마이페이지메인 뷰 --> 따로 컨트롤러 만듬.
+	/*
 	@RequestMapping(value = "/mypagemain.action", method = RequestMethod.GET)
 	public String myPageMainView()
 	{
 		String view = "/WEB-INF/eh/MyPageMain.jsp";
 		return view;
 	}
+	*/
 	
 	
 	// 개인정보수정폼 뷰
@@ -73,12 +71,9 @@ public class EhController
 	
 	//평가(방장) 뷰
 	@RequestMapping(value = "/evaluationleaderform.action", method = RequestMethod.GET)
-	public String evaluationLeaderForm(Model model)
+	public String evaluationLeaderForm()
 	{
 		String view = "/WEB-INF/eh/EvaluationLeaderForm.jsp";
-		questionDAO = new QuestionDAO();
-		
-		model.addAttribute("list", questionDAO.list());
 		
 		return view;
 	}
@@ -183,8 +178,4 @@ public class EhController
 		String view = "/WEB-INF/eh/LetterSendForm2.jsp";
 		return view;
 	}
-	
-	//--------------------------------
-	
-	
 }

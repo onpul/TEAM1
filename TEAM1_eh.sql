@@ -100,3 +100,319 @@ SELECT Q_CONTENT
 FROM QUESTION;
 --> 한 줄 구성
 SELECT Q_CONTENT FROM QUESTION
+
+
+-- 시퀀스 필요
+SELECT *
+FROM EVALUATION_GRADE;
+
+SELECT *
+FROM CONTRIBUTION_GRADE;
+
+----------------시퀀스 생성
+CREATE SEQUENCE SEQ_EVALUATION_GRADE
+NOCACHE;
+-- Sequence SEQ_EVALUATION_GRADE이(가) 생성되었습니다.
+CREATE SEQUENCE SEQ_CONTRIBUTION_GRADE
+NOCACHE;
+-- Sequence SEQ_CONTRIBUTION_GRADE이(가) 생성되었습니다.
+
+--------------- 데이터입력
+DESC EVALUATION_GRADE;
+INSERT INTO EVALUATION_GRADE(E_GRADE_ID, GRADE_NAME)
+VALUES(SEQ_EVALUATION_GRADE.NEXTVAL, '다이아전거');
+INSERT INTO EVALUATION_GRADE(E_GRADE_ID, GRADE_NAME)
+VALUES(SEQ_EVALUATION_GRADE.NEXTVAL, '금전거');
+INSERT INTO EVALUATION_GRADE(E_GRADE_ID, GRADE_NAME)
+VALUES(SEQ_EVALUATION_GRADE.NEXTVAL, '은전거');
+INSERT INTO EVALUATION_GRADE(E_GRADE_ID, GRADE_NAME)
+VALUES(SEQ_EVALUATION_GRADE.NEXTVAL, '동전거');
+INSERT INTO EVALUATION_GRADE(E_GRADE_ID, GRADE_NAME)
+VALUES(SEQ_EVALUATION_GRADE.NEXTVAL, '돌전거');
+
+--확인
+SELECT *
+FROM EVALUATION_GRADE;
+/*
+1	다이아전거
+2	금전거
+3	은전거
+4	동전거
+5	돌전거
+*/
+
+DROP SEQUENCE SEQ_CONTRIBUTION_GRADE;
+
+
+
+DESC CONTRIBUTION_GRADE;
+
+INSERT INTO CONTRIBUTION_GRADE(C_GRADE_ID, GRADE_NAME)
+VALUES(SEQ_CONTRIBUTION_GRADE.NEXTVAL, '다이아헬멧');
+INSERT INTO CONTRIBUTION_GRADE(C_GRADE_ID, GRADE_NAME)
+VALUES(SEQ_CONTRIBUTION_GRADE.NEXTVAL, '금헬멧');
+INSERT INTO CONTRIBUTION_GRADE(C_GRADE_ID, GRADE_NAME)
+VALUES(SEQ_CONTRIBUTION_GRADE.NEXTVAL, '은헬멧');
+INSERT INTO CONTRIBUTION_GRADE(C_GRADE_ID, GRADE_NAME)
+VALUES(SEQ_CONTRIBUTION_GRADE.NEXTVAL, '동헬멧');
+
+
+SELECT *
+FROM CONTRIBUTION_GRADE;
+
+COMMIT;
+
+
+
+--------------------------------------------------------------------------------
+-- 마이페이지에서 보여주는 요소 
+-- 회원프로필아이콘, 이메일, 닉네임
+-- ================= ======= =======
+--   PROFILE_IMG     PROFILE  PROFILE
+
+-- 한마디, 매너등급,                     공헌도 등급
+-- ======  ========                      =============
+-- PROFILE  EVALUATION_GRADE               CONTRIBUTION_GRADE
+
+SELECT *
+FROM USER_TABLES;
+
+SELECT *
+FROM MEMBER;
+
+SELECT *
+FROM PROFILE
+WHERE USER_ID=2;
+
+SELECT *
+FROM PROFILE_IMG;
+
+
+SELECT *
+FROM CONTRIBUTION_GRADE;
+
+
+SELECT *
+FROM EVALUATION_GRADE;
+
+--------------------------------------------------------------------------------
+-- 마이페이지에서 보여주는 요소 
+-- 회원프로필아이콘, 이메일, 닉네임
+-- ================= ======= =======
+--   PROFILE_IMG     PROFILE  PROFILE
+
+-- 한마디, 매너등급,                     공헌도 등급
+-- ======  ========                      =============
+-- PROFILE  EVALUATION_GRADE               CONTRIBUTION_GRADE
+
+
+SELECT P.USER_ID AS USER_ID
+    ,P.EMAIL AS EMAIL
+    ,P.NICKNAME AS NICKNAME
+    ,P.ONEWORD AS ONEWORD
+    ,PI.PI_ADDRESS
+FROM
+(
+    SELECT USER_ID ,EMAIL, NICKNAME
+    , NVL(INTRODUCE,' ') AS ONEWORD
+    , PIMG_ID
+    FROM PROFILE
+    WHERE USER_ID = 2
+)P JOIN PROFILE_IMG PI
+ON P.PIMG_ID = PI.PIMG_ID;
+
+-- 마이페이지 뷰 생성
+/*
+CREATE OR REPLACE VIEW VIEW_MYPAGEMAIN
+AS
+SELECT P.USER_ID AS USER_ID
+    ,P.EMAIL AS EMAIL
+    ,P.NICKNAME AS NICKNAME
+    ,P.ONEWORD AS ONEWORD
+    ,PI.PI_ADDRESS
+FROM
+(
+    SELECT USER_ID ,EMAIL, NICKNAME
+    , NVL(INTRODUCE,' ') AS ONEWORD
+    , PIMG_ID
+    FROM PROFILE
+    WHERE USER_ID = 2
+)P JOIN PROFILE_IMG PI
+ON P.PIMG_ID = PI.PIMG_ID;
+
+-- 마이페이지 뷰 완성
+SELECT USER_ID, EMAIL, NICKNAME, ONEWORD, PI_ADDRESS
+FROM VIEW_MYPAGEMAIN;
+*/
+DROP VIEW VIEW_MYPAGEMAIN;
+
+COMMIT;
+
+-- 회원생성코드 받으면 SELECT 하는 프로시저 생성
+-- EXEC PRC_MYPAGE_S('2')
+-- !! 프로시저 안에서 SELECT 문은 커서 !! 
+/*
+CREATE OR REPLACE PROCEDURE PRC_MYPAGE_S
+(V_USER_ID  IN MEMBER.USER_ID%TYPE)
+IS
+BEGIN
+    SELECT P.USER_ID AS USER_ID
+    ,P.EMAIL AS EMAIL
+    ,P.NICKNAME AS NICKNAME
+    ,P.ONEWORD AS ONEWORD
+    ,PI.PI_ADDRESS
+    FROM
+    (
+        SELECT USER_ID ,EMAIL, NICKNAME
+        , NVL(INTRODUCE,' ') AS ONEWORD
+        , PIMG_ID
+        FROM PROFILE
+        WHERE USER_ID = V_USER_ID
+    )P JOIN PROFILE_IMG PI
+    ON P.PIMG_ID = PI.PIMG_ID
+END;
+*/  
+--------------------------------------------------------------------------------
+-- 마이페이지에서 등급 보여주기 
+-- 프로시저 만들기
+-- 1. 평가기록 테이블 (EVALUATION_RECORD)
+--    에서 참여한 회원정보ID
+
+
+COMMIT;
+
+--------------------------------------------------------------------------------
+COMMIT;
+-- 마이페이지에서 등급 보여주기 
+-- 평가기록 테이블에서 점수 누적해서 if 문 돌리기
+SELECT *
+FROM EVALUATION_RECORD;
+-- 시퀀스 생성
+CREATE SEQUENCE SEQ_EVALUATION_RECORD
+NOCACHE;
+--Sequence SEQ_EVALUATION_RECORD이(가) 생성되었습니다.
+
+SELECT *
+FROM RIDING;
+-- 시퀀스 생성
+CREATE SEQUENCE SEQ_RIDING
+NOCACHE;
+--Sequence SEQ_RIDING이(가) 생성되었습니다.
+
+SELECT *
+FROM PARTICIPATED_MEMBER;
+
+--시퀀스 생성
+CREATE SEQUENCE SEQ_PARTICIPATED_MEMBER
+NOCACHE;
+--Sequence SEQ_PARTICIPATED_MEMBER이(가) 생성되었습니다.
+
+
+COMMIT;
+
+DESC USER_SEQUENCES;
+
+SELECT *
+FROM USER_SEQUENCES
+WHERE SEQUENCE_NAME = 'SEQ_RIDING';
+
+--------------------------------------------------------------------------------
+-- 마이페이지에서 등급 보여주기 
+-- 평가기록 테이블에서 점수 누적해서 if 문 돌리기
+DESC PARTICIPATED_MEMBER;
+
+SELECT P_MEMBER_ID
+FROM PARTICIPATED_MEMBER
+WHERE USER_ID = '2';
+
+DESC EVALUATION_RECORD;
+
+SELECT P_MEMBER_ID, 
+FROM EVALUATION_RECORD
+WHERE P_MEMBER_ID = (SELECT P_MEMBER_ID
+                     FROM PARTICIPATED_MEMBER
+                     WHERE USER_ID = '2');
+                     
+        
+
+-----------------------------------------------------------------
+-- 참여중인 라이딩 스타일 조회
+-- 다인모임ID / 모임명 / 기간 / 모임상태 /
+-- RIDING       RIDING   RIDING   RIDING  
+
+DESC RIDING;
+
+SELECT SYSDATE-48
+FROM DUAL;
+
+SELECT RIDING_ID, RIDING_NAME
+    ,(START_DATE || END_DATE) AS DATE
+    ,CASE WHEN START_DATE <= SYSDATE-48
+FROM RIDING;
+
+
+--------------------------------------------------------------------------------
+--MYPAGEVIEW 생성
+CREATE OR REPLACE VIEW VIEW_MYPAGEMAIN
+AS
+SELECT P.USER_ID AS USER_ID
+    ,P.EMAIL AS EMAIL
+    ,P.NICKNAME AS NICKNAME
+    ,P.ONEWORD AS ONEWORD
+    ,PI.PI_ADDRESS
+FROM
+(
+    SELECT USER_ID ,EMAIL, NICKNAME
+    , NVL(INTRODUCE,' ') AS ONEWORD
+    , PIMG_ID
+    FROM PROFILE
+)P JOIN PROFILE_IMG PI
+ON P.PIMG_ID = PI.PIMG_ID;
+--View VIEW_MYPAGEMAIN이(가) 생성되었습니다.
+
+--테스트
+SELECT USER_ID,EMAIL,NICKNAME,ONEWORD,PI_ADDRESS
+FROM VIEW_MYPAGEMAIN
+WHERE USER_ID = '2';
+
+
+COMMIT;
+
+-----------------------------------------------------------------
+-- 참여중인 라이딩 스타일 조회
+-- 다인모임ID / 모임명 / 기간 / 모임상태 /
+-- RIDING       RIDING   RIDING   RIDING  
+
+DESC RIDING;
+
+SELECT TO_DATE('2022-06-20 14:00:00','YYYY-MM-DD HH24:MI:SS') - 49/24
+FROM DUAL;
+
+SELECT RIDING_ID, RIDING_NAME
+    ,(START_DATE || END_DATE) AS PERIOD
+    ,CASE WHEN SYSDATE <= TO_DATE(START_DATE,'YYYY-MM-DD HH24:MI:SS') - 49/24 THEN '모임참가가능'
+          WHEN SYSDATE <= TO_DATE(START_DATE,'YYYY-MM-DD HH24:MI:SS') - 48/24 THEN '준비요청기간'
+          WHEN SYSDATE <= START_DATE THEN '준비요청기간'
+          ELSE '알수없음'
+          END STATUS
+FROM RIDING;
+
+CREATE OR REPLACE VIEW VIEW_PARTICIRIDING_LIST
+AS
+SELECT RIDING_ID, RIDING_NAME
+    ,(START_DATE || END_DATE) AS PERIOD
+    ,CASE WHEN SYSDATE <= TO_DATE(START_DATE,'YYYY-MM-DD HH24:MI:SS') - 49/24 THEN '모임참가가능'
+          WHEN SYSDATE <= TO_DATE(START_DATE,'YYYY-MM-DD HH24:MI:SS') - 48/24 THEN '준비요청기간'
+          WHEN SYSDATE <= START_DATE THEN '준비요청기간'
+          ELSE '알수없음'
+          END STATUS
+FROM RIDING;
+
+SELECT RIDING_ID, RIDING_NAME,PERIOD,STATUS
+FROM VIEW_PARTICIRIDING_LIST;
+
+COMMIT;
+
+--------------------------------------------------------------------------------
+
+

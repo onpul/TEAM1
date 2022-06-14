@@ -1,14 +1,23 @@
 package com.test.mj;
 
-import java.util.ArrayList;
+import org.apache.ibatis.annotations.Param;
 
 public interface IRidingDAO
 {
+	// 회원가입
+	public int join(UserDTO dto);
+	
+	// 회원가입한 회원의 user_id 알아오기
+	public int getuser();
+	
+	// 개인정보
+	public int profile(UserDTO dto);
+	
 	// 닉네임 중복 체크
 	public int duplicationNickCheck(String nickname);
 	
 	// 3개월 이내의 탈퇴 회원 체크
-	public int withdrawCheck(String email, String birthday);
+	public int withdrawCheck(@Param("email")String email, @Param("birthday")String birthday);
 	
 	// 로그인 액션
 	public String login(String email, String password);
@@ -26,5 +35,5 @@ public interface IRidingDAO
 	public String genderCheck(String userId);
 	
 	// 알림 불러오기 액션
-	public ArrayList<RidingDTO> list(String userId);
+	//public ArrayList<RidingDTO> list(String userId);
 }

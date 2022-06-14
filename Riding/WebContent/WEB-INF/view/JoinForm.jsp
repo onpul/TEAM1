@@ -214,21 +214,21 @@ JoinForm.jsp
 		//alert(value);
 		
 		// 선택한 성별 value
-		var gender = value;
+		var sex = value;
 		//alert(gender);
 		
 		// 선택한 성별에 따라 라디오 박스 동적으로 노출
 		var content = "";
 		
-		if (gender == "male")
+		if (sex == "m")
 		{
 			//alert("male");
-			content = "<input type=\"radio\" name=\"gender\" id=\"genderGroup\" value=\"male\"/>남성";
+			content = "<input type=\"radio\" name=\"sex_p_id\" id=\"sex_p_id\" value=\"1\"/>남성";
 		}
-		else if (gender == "female") 
+		else if (sex == "f") 
 		{
 			//alert("female");
-			content = "<input type=\"radio\" name=\"gender\" id=\"genderGroup\" value=\"female\"/>여성";
+			content = "<input type=\"radio\" name=\"sex_p_id\" id=\"sex_p_id\" value=\"2\"/>여성";
 		}
 		
 		document.getElementById("genderOption").innerHTML = content;
@@ -260,28 +260,28 @@ JoinForm.jsp
 		if (ageGroup == 10)
 		{
 			//alert("10");
-			content = "<input type=\"radio\" name=\"age\" id=\"ageGroup\" value=\"10\"/>10대"
+			content = "<input type=\"radio\" name=\"age_p_id\" id=\"age_p_id\" value=\"1\"/>10대"
 		}
 		else if (ageGroup == 20) 
 		{
 			//alert("20");
-			content = "<input type=\"radio\" name=\"age\" id=\"ageGroup\" value=\"20\"/>20대"
+			content = "<input type=\"radio\" name=\"age_p_id\" id=\"age_p_id\" value=\"2\"/>20대"
 		}
 		else if (ageGroup == 30)
 		{
-			content = "<input type=\"radio\" name=\"age\" id=\"ageGroup\" value=\"30\"/>30대"
+			content = "<input type=\"radio\" name=\"age_p_id\" id=\"age_p_id\" value=\"3\"/>30대"
 		}
 		else if (ageGroup == 40)
 		{
-			content = "<input type=\"radio\" name=\"age\" id=\"ageGroup\" value=\"40\"/>40대"
+			content = "<input type=\"radio\" name=\"age_p_id\" id=\"age_p_id\" value=\"4\"/>40대"
 		}
 		else if (ageGroup == 50)
 		{
-			content = "<input type=\"radio\" name=\"age\" id=\"ageGroup\" value=\"50\"/>50대"
+			content = "<input type=\"radio\" name=\"age_p_id\" id=\"age_p_id\" value=\"5\"/>50대"
 		}
 		else if (ageGroup >= 60)
 		{
-			content = "<input type=\"radio\" name=\"age\" id=\"ageGroup\" value=\"60\"/>60대 이상"
+			content = "<input type=\"radio\" name=\"age_p_id\" id=\"age_p_id\" value=\"6\"/>60대 이상"
 		}
 		
 		//alert(content);
@@ -312,13 +312,13 @@ JoinForm.jsp
 			return false;
 		}	
 		
-		if(!f.inputPassword.value)
+		if(!f.password.value)
 		{
 			alert("비밀번호를 입력하세요.");
 			return false;
 		}
 		
-		if(f.inputPassword.value.length < 8)
+		if(f.password.value.length < 8)
 		{
 			document.getElementById("pwdSpan").style.display = "inline";
 			document.getElementById("pwdSpan").style.color = "red";
@@ -333,7 +333,7 @@ JoinForm.jsp
 		}
 		
 		//alert(f.gender.value);
-		if(f.gender.value == "선택")
+		if(f.sex.value == "선택")
 		{
 			alert("성별을 선택하세요.");
 			return false;
@@ -364,7 +364,7 @@ JoinForm.jsp
 			$.ajax(
 			{
 				type:"POST"
-				, url:"withdrawcheck.action"
+				, url:"join.action"
 				, data:params
 				, success:function(args)
 				{
@@ -407,7 +407,7 @@ JoinForm.jsp
 </head>
 <body>
 <div class="joinFormBox">
-	<form action="" class="joinForm" name="joinForm">
+	<form action="join.action" class="joinForm" name="joinForm" method="get">
 		<div class="form-group form-inline">
 			<label for="nickname">닉네임*</label>
 	    	<input type="text" class="form-control" name="nickname" id="nickname" maxlength="12" placeholder="닉네임을 입력하세요" oninput="maxLengthCheck(this)" onkeydown="inputNickChk()">
@@ -416,7 +416,8 @@ JoinForm.jsp
 	    	<br /><span id="nickSpan" style="">특수문자 제외 12자 이내의 닉네임을 입력하세요.</span>
 	    </div>
 		<div class="form-group form-inline">
-			<label for="inputEmail">이메일*</label>
+			<label for="email">이메일*</label>
+			<!-- 
 	    	<input type="text" class="form-control" name="email" id="email" placeholder="이메일을 입력하세요" onfocus="this.value=';'">
 			<input type="text" class="form-control" name="email2" id="email2" style="width:120px;" disabled value="@naver.com">
 			<select name="selectEmail" id="selectEmail" class="form-control" onchange="email_change()">
@@ -427,11 +428,14 @@ JoinForm.jsp
 				<option value="@yahoo.co.kr">@yahoo.co.kr</option>
 				<option value="@gmail.com">@gmail.com</option>
 			</select>    
+			-->
+			<input type="text" class="form-control" name="email" id="email" placeholder="이메일을 입력하세요">
+			
 			<br /><span>등록하신 이메일은 로그인 시 아이디로 사용됩니다.</span>
 	    </div>
 	    <div class="form-group form-inline">
 	    	<label for="inputPassword">비밀번호*</label>
-	    	<input type="password" class="form-control" name="inputPassword" id="inputPassword" maxlength="20" placeholder="비밀번호를 입력하세요" oninput="minLengthCheck(this)"/>
+	    	<input type="password" class="form-control" name="password" id="password" maxlength="20" placeholder="비밀번호를 입력하세요" oninput="minLengthCheck(this)"/>
 	    	<br /><span id="pwdSpan">8~20자 이내의 비밀번호를 입력하세요.</span>
 	    </div>
 	    <div class="form-group form-inline">
@@ -440,20 +444,20 @@ JoinForm.jsp
 	    	<input type="text" class="form-control" id="birthday" name="birthday" placeholder="생년월일을 입력하세요" onchange="ageOption()"/>
 	    </div>
 		<div class="form-group form-inline">
-			<label for="gender">성별*</label>
-			<select name="gender" id="gender" class="form-control" onchange="genderOption(this.value)">
+			<label for="sex">성별*</label>
+			<select name="sex" id="sex" class="form-control" onchange="genderOption(this.value)">
 				<option>선택</option>
-				<option value="male">남성</option>
-				<option value="female">여성</option>
+				<option value="m">남성</option>
+				<option value="f">여성</option>
 			</select>
 		</div>
 		<hr />
 		<div class="form-group">
 			<h3>라이딩 스타일 <small>마이페이지에서 수정할 수 있습니다.</small></h3>
-			<label for="gendergroup" class="">성별</label>
+			<label for="sex_preference" class="">성별</label>
 			<!-- 본인과 동일한 성별의 옵션만 노출되게 구현해야 함 -->
 			<label class="radio-inline">
-				<input type="radio" name="gender" id="genderGroup" value="nolimit" checked="checked"> 제한 없음
+				<input type="radio" name="sex_p_id" id="sex_p_id" value="0" checked="checked"> 제한 없음
 			</label>
 			<label class="radio-inline">
 				<div id="genderOption"></div>
@@ -463,81 +467,83 @@ JoinForm.jsp
 			<label for="age">연령대</label>
 			<!-- 본인과 동일한 연령대의 옵션만 노출되게 구현해야 함 -->
 			<label class="radio-inline">
-				<input type="radio" name="age" id="ageGroup" value="nolimit" checked="checked"> 제한 없음
+				<input type="radio" name="age_p_id" id="age_p_id" value="0" checked="checked"> 제한 없음
 			</label>
 			<!-- 선택한 생년월일에 따라 동적으로 연령대 옵션 노출 -->
 			<label class="radio-inline">
 				<div id="ageOption"></div>
 			</label>
 		</div>
+		<!-- 
 		<div class="form-group">
 			<label for="speed">속도</label>
 			<label class="radio-inline">
-				<input type="radio" name="speed" id="speed" value="nolimit" checked="checked"> 제한 없음
+				<input type="radio" name="speed" id="speed" value="0" checked="checked"> 제한 없음
 			</label>
 			<label class="radio-inline">
-				<input type="radio" name="speed" id="speed" value="20미만"/>20미만
+				<input type="radio" name="speed" id="speed" value="1"/>20미만
 			</label>
 			<label class="radio-inline">
-				<input type="radio" name="speed" id="speed" value="20이상 24미만"/>20이상 24미만
+				<input type="radio" name="speed" id="speed" value="2"/>20이상 24미만
 			</label>
 			<label class="radio-inline">
-				<input type="radio" name="speed" id="speed" value="24이상"/>24이상
+				<input type="radio" name="speed" id="speed" value="3"/>24이상
 			</label>
 		</div>
 		<div class="form-group">
 			<label for="step">숙련도</label>
 			<label class="radio-inline">
-				<input type="radio" name="step" id="step" value="nolimit" checked="checked"> 제한 없음
+				<input type="radio" name="step" id="step" value="0" checked="checked"> 제한 없음
 			</label>
 			<label class="radio-inline">
-				<input type="radio" name="step" id="step" value="1년 미만" />1년 미만
+				<input type="radio" name="step" id="step" value="1" />1년 미만
 			</label>
 			<label class="radio-inline">
-				<input type="radio" name="step" id="step" value="1~3년" />1~3년
+				<input type="radio" name="step" id="step" value="2" />1~3년
 			</label>
 			<label class="radio-inline">
-				<input type="radio" name="step" id="step" value="3~5년" />3~5년
+				<input type="radio" name="step" id="step" value="3" />3~5년
 			</label>
 			<label class="radio-inline">
-				<input type="radio" name="step" id="step" value="6년 이상" />6년 이상
+				<input type="radio" name="step" id="step" value="4" />6년 이상
 			</label>
-			<!-- 숙련도 관련 정보 제공 아이콘 추가해야 함 -->
+			숙련도 관련 정보 제공 아이콘 추가해야 함
 		</div>
+		-->
 		<div class="form-group">
 			<label for="eat">식사 여부</label>
 			<label class="radio-inline">
-				<input type="radio" name="eat" id="eat" value="nolimit" checked="checked"> 제한 없음
+				<input type="radio" name="eat_p_id" id="eat" value="0" checked="checked"> 제한 없음
 			</label>
 			<label class="radio-inline">
-				<input type="radio" name="eat" id="eat" value="밥 안 먹고 달려요"/>밥 안 먹고 달려요
+				<input type="radio" name="eat_p_id" id="eat" value="1"/>밥 안 먹고 달려요
 			</label>
 			<label class="radio-inline">
-				<input type="radio" name="eat" id="eat" value="밥 먹고 달려요"/>밥 먹고 달려요
+				<input type="radio" name="eat_p_id" id="eat" value="2"/>밥 먹고 달려요
 			</label>
 		</div>
 		<div class="form-group">
-			<label for="dinning">회식 여부</label>
+			<label for="dining">회식 여부</label>
 			<label class="radio-inline">
-				<input type="radio" name="dinning" id="dinning" value="nolimit" checked="checked"> 제한 없음
+				<input type="radio" name="dining_p_id" id="dining" value="0" checked="checked"> 제한 없음
 			</label>
 			<label class="radio-inline">
-				<input type="radio" name="dinning" id="dinning" value="끝나고 회식 안 해요"/>끝나고 회식 안 해요
+				<input type="radio" name="dining_p_id" id="dining" value="1"/>끝나고 회식 안 해요
 			</label>
 			<label class="radio-inline">
-				<input type="radio" name="dinning" id="dinning" value="끝나고 회식해요"/>끝나고 회식해요
+				<input type="radio" name="dining_p_id" id="dining" value="2"/>끝나고 회식해요
 			</label>
 		</div>
 		<div class="form-group">
 			<label for="mood">분위기</label>
 			<label class="radio-inline">
-				<input type="radio" name="mood" id="mood" value="nolimit" checked="checked"> 제한 없음
+				<input type="radio" name="mood_p_id" id="mood" value="0" checked="checked"> 제한 없음
 			</label>
 			<label class="radio-inline">
-				<input type="radio" name="mood" id="mood" value="침묵이 좋아요"/>침묵이 좋아요
+				<input type="radio" name="mood_p_id" id="mood" value="1"/>침묵이 좋아요
 			</label>
 			<label class="radio-inline">
-				<input type="radio" name="mood" id="mood" value="친목이 좋아요"/>친목이 좋아요
+				<input type="radio" name="mood_p_id" id="mood" value="2"/>친목이 좋아요
 			</label>
 		</div>
 		<div class="form-group joinBtn">

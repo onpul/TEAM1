@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
-@SessionAttributes("userId") // 세션 객체에 저장
+//@SessionAttributes("userId") // 세션 객체에 저장
 public class mjController
 {
 	@Autowired
@@ -35,6 +35,68 @@ public class mjController
 		String result = null;
 		result = "WEB-INF/view/JoinForm.jsp";
 		return result;
+	}
+	
+	// 회원가입(join.action)
+	@RequestMapping(value="/join.action")
+	@ResponseBody
+	public int join(UserDTO dto)
+	{
+		// 테스트
+		System.out.println("------------join() 진입------------");
+		System.out.println("getAge_p_id = " + dto.getAge_p_id());
+		System.out.println("getBirthday = " + dto.getBirthday());
+		System.out.println("getDining_p_id = " + dto.getDining_p_id());
+		System.out.println("getEat_p_id = " + dto.getEat_p_id());
+		System.out.println("getEmail = " + dto.getEmail());
+		System.out.println("getMood_p_id = " + dto.getMood_p_id());
+		System.out.println("getNickname = " + dto.getNickname());
+		System.out.println("getPassword = " + dto.getPassword());
+		System.out.println("getSex = " + dto.getSex());
+		System.out.println("getSex_p_id = " + dto.getSex_p_id());
+		System.out.println("getUser_id = " + dto.getUser_id());
+		
+		int result = 0;
+		
+		IRidingDAO dao = sqlSession.getMapper(IRidingDAO.class);
+		
+		// 탈퇴한 회원인지 체크
+		try
+		{
+			System.out.println("------------탈퇴한 회원 체크------------");
+			System.out.println("dto.getEmail() = " + dto.getEmail());
+			
+			result = dao.withdrawCheck(dto.getEmail(), dto.getBirthday());
+			
+			System.out.println("dto.getBirthday() = " + dto.getBirthday());
+			System.out.println("result = " + result);
+			
+		} catch (Exception e)
+		{
+			System.out.println(e.toString());
+		}
+		
+		// 탈퇴한 회원이라면
+		if (result > 0)
+		{
+			System.out.println("탈퇴한 회원이다!");
+			return result;
+		}
+		else // 탈퇴한 회원이 아니라면 회원가입 진행
+		{
+			System.out.println("탈퇴한 회원이 아니다!");
+			dao.join(dto);
+			
+			// 회원가입한 user_id 를 set
+			dto.setUser_id(dao.getuser());
+			
+			//System.out.println("dao.getuser() = " + dao.getuser());
+			
+			// 개인정보 입력
+			dao.profile(dto);
+			
+			return result;
+		}
 	}
 	
 	// 닉네임 중복체크 버튼 클릭 시 요청(nickcheck.action)
@@ -61,7 +123,7 @@ public class mjController
 		
 		// 0 : 회원가입 정상 처리
 		// 1 : 탈퇴회원(3개월 이내, 가입 불가능)
-		return "0";
+		return "/join.action";
 	}
 	
 	// 로그인 폼 요청(loginform.action)

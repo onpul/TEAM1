@@ -16,6 +16,10 @@ Header.jsp
 <!-- 제이쿼리 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
+<!-- datepicker 용 -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+
 <!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
@@ -24,10 +28,6 @@ Header.jsp
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-
-<!-- datepicker 용 -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <style type="text/css">
 	img{width:20px;}
@@ -91,57 +91,42 @@ Header.jsp
       	</ul>
 		<ul class="nav navbar-nav navbar-right">
 			<!-- 알림, 쪽지는 회원일 경우에만 적용 /  -->
-			
-			<%--
 			<c:choose>
-			<c:when test="${sessionScope.access!=null }">  
-			--%>
+			<c:when test="${sessionScope.user_id!=null }">  
 	   		<li>
 	   			<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">알림<span class="badge"> 12</span> <span class="caret"></span></a>
 	   			<ul class="dropdown-menu" role="menu">
 			       <li><a href="#">패널티가 적용되었습니다.</a></li>
 			       <li><a href="#">[짱구]님이 초대하셨습니다.</a></li>
-			       <div id="notice">
-			       </div>
+			       <!-- <div id="notice">
+			       </div> -->
 			    </ul>   
 	   		</li>
 	   		<li>
 	   			<a href="#">쪽지<span class="badge"> 4</span></a>
 	   		</li>
-	   		<%-- </c:when> --%>
-	   		<%-- <c:otherwise> --%> 
+	   		</c:when> 
+	   		</c:choose>
+	   		
 	   		<li class="dropdown">
 	     		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><img src="https://bigxdata.io/common/img/default_profile.png" alt="" class="img-circle"/></a>
+				<!-- 
 				<ul class="dropdown-menu" role="menu">
-			       <li><a href="#">마이페이지</a></li>
-			       <li><a href="#">로그아웃</a></li>
-			       <%-- 
-			       <c:choose>
-			       <c:when test="${sessionScope.access==null }">  
-			       --%>
-			       <!-- 
-			       비회원 적용 메뉴
-			       <li><a href="#">로그인</a></li>
-			       <li><a href="#">회원가입</a></li> 
-			       -->
-			       <%--  
-			       </c:when>
-			       <c:otherwise> 
-			       --%>
-			       <!-- 
-			       관리자 적용 메뉴
-			       <li><a href="#">관리</a></li>
-			       -->
-			       <%-- 
-			       </c:otherwise>
-			       </c:choose>
-			       --%>
+					회원 적용 메뉴
+			        <li><a href="#">마이페이지</a></li>
+			        <li><a href="#">로그아웃</a></li>
+			        
+			        비회원 적용 메뉴
+			        <li><a href="#">로그인</a></li>
+			        <li><a href="#">회원가입</a></li> 
+			        
+			        관리자 적용 메뉴
+			        <li><a href="#">관리</a></li>
+				</ul>
+				-->
+				<ul class="dropdown-menu" role="menu">
 				</ul>
         	</li>
-        	<%-- 
-        	</c:otherwise>
-        	</c:choose>
-		    --%>
 		</ul>
 		</div><!-- /.navbar-collapse -->
 	</div><!-- /.container-fluid -->

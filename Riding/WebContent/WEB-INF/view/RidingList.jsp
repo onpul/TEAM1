@@ -301,5 +301,7 @@ RidingList.jsp
 	</table>
 	<input type="button" class="btn btn-default" id="openRidingBtn" value="라이딩 모임 만들기"/>
 </div>
+<!-- 푸터 -->
+<jsp:include page="Footer.jsp" />
 </body>
 </html>

@@ -1,18 +1,23 @@
 package com.test.mj;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.ognl.ObjectMethodAccessor;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @SessionAttributes("userId") // 세션 객체에 저장
@@ -280,6 +285,21 @@ public class mjController
 		return result;
 	}
 	
+	// 로그아웃 액션(logout.action)
+	@RequestMapping(value = "/logout.action", method = RequestMethod.GET)
+	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView mav = new ModelAndView();
+		
+		HttpSession session = request.getSession();
+		
+		session.removeAttribute("user_id");
+		
+		mav.setViewName("redirect:main.action");
+		
+		return mav;
+	}
+	
 	// 라이딩 리스트 페이지 요청(ridinglist.action)
 	@RequestMapping(value = "/ridinglist.action", method = RequestMethod.GET)
 	public String ridingList()
@@ -324,16 +344,16 @@ public class mjController
 	// 알림 불러오기 액션(notice.action)
 	@RequestMapping(value = "/notice.action", method = RequestMethod.POST)
 	@ResponseBody
-	public List<String> notice(String userId)
+	public Object notice(int user_id, Model model)
 	{
-		System.out.println("notice() 진입 성공");
+		System.out.println("-----notice() 진입 성공-----");
+		System.out.println("user_id = " + user_id);
 		
-		//IRidingDAO dao = sqlSession.getMapper(IRidingDAO.class);
+		String result = null;
 		
-		List<String> result = new ArrayList<String>();
+		IRidingDAO dao = sqlSession.getMapper(IRidingDAO.class);
 		
-		result.add("알림1");
-		result.add("알림2");
+		List<NoticeDTO> noticeList = dao.noticeList(user_id);
 		
 		return result;
 	}

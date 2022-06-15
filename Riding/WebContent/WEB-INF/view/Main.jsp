@@ -17,15 +17,6 @@ Main.jsp
 <title>Main.jsp</title>
 <!-- 제이쿼리 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-<!-- 합쳐지고 최소화된 최신 CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-
-<!-- 부가적인 테마 -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-
-<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 
 	// 접속한 회원의 패널티 적용 여부 확인	
@@ -284,9 +275,11 @@ Main.jsp
 </style>
 </head>
 <body>
+<!-- 헤더 -->
 <div>
 	<c:import url="Header.jsp"></c:import>
 </div>
+
 <div class="row">
 	<!-- 달력 들어갈 div -->
 	<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 ">
@@ -353,5 +346,8 @@ Main.jsp
 	<input type="button" class="btn btn-default" value="관리자 페이지로 이동"/>
 </div>
 -->
+
+<!-- 푸터 -->
+<jsp:include page="Footer.jsp" />
 </body>
 </html>

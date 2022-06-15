@@ -1,5 +1,8 @@
 package com.test.mj;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface IRidingDAO
@@ -41,5 +44,8 @@ public interface IRidingDAO
 	public String genderCheck(String userId);
 	
 	// 알림 불러오기 액션
-	//public ArrayList<RidingDTO> list(String userId);
+	public List<NoticeDTO> noticeList(@Param("user_id")int user_id);
+	
+	// 알림 개수 
+	public int noticeCount(@Param("user_id")int user_id);
 }

@@ -551,6 +551,8 @@ JoinForm.jsp
 			<input type="button" class="btn btn-default" value="회원가입" id="joinBtn"/>
 		</div>
 	</form>
+<!-- 푸터 -->
+<jsp:include page="Footer.jsp" />
 </div>
 </body>
 </html>

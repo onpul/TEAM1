@@ -8,6 +8,7 @@ Header.jsp
 	request.setCharacterEncoding("UTF-8");
 	String cp = request.getContextPath();
 %>
+<c:set var="user_id" value="${user_id}" scope="session"/> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,8 +18,8 @@ Header.jsp
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <!-- datepicker 용 -->
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" referrerpolicy="no-referrer" /> 
 
 <!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -30,39 +31,43 @@ Header.jsp
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
 <style type="text/css">
+	body {height: 100%;}
 	img{width:20px;}
 </style>
 <script type="text/javascript">
-	/*
+
 	$(document).ready(function()
 	{
+		var user_id = ${user_id};
+		
+		//location.href = "notice.action?user_id="+user_id;
 		//alert("확인");
+		
+		//alert(user_id);
 		
 		$.ajax(
 		{
 			type:"POST"
-			, url:"notice.action"
-			, data:"회원코드"
+			, asynx:false
+			, url:"notice.action?user_id="+user_id
 			, success:function(data)
 			{
 				alert("success 진입");
-				
-				$(data).each(function()
-				{
-					$("#notice").html(data[1]);
-				});
+				alert(data);
 			}
 			, error:function(e)
 			{
 				alert(e.responseText);
 			}
 		});
+		
 	});
-	*/
+	
 </script>
 </head>
 <body>
-<span>로그인한 user_id : ${sessionScope.user_id}</span>
+<span style="color:blue;">[테스트용 구문]로그인한 user_id : ${sessionScope.user_id}</span>
+noticeCount = ${noticeCount }
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -94,37 +99,37 @@ Header.jsp
 			<c:choose>
 			<c:when test="${sessionScope.user_id!=null }">  
 	   		<li>
-	   			<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">알림<span class="badge"> 12</span> <span class="caret"></span></a>
+	   			<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">알림<span class="badge"> ${noticeCount }</span> <span class="caret"></span></a>
 	   			<ul class="dropdown-menu" role="menu">
-			       <li><a href="#">패널티가 적용되었습니다.</a></li>
-			       <li><a href="#">[짱구]님이 초대하셨습니다.</a></li>
-			       <!-- <div id="notice">
-			       </div> -->
+			       	<!--  
+			       	<li><a class="dropdown-item" href="#">패널티가 적용되었습니다.</a></li>
+			        <li><a class="dropdown-item" href="#">[짱구]님이 초대하셨습니다.</a></li> 
+			        -->
 			    </ul>   
 	   		</li>
 	   		<li>
-	   			<a href="#">쪽지<span class="badge"> 4</span></a>
+	   			<a href="#">쪽지<span class="badge"> 12</span></a>
 	   		</li>
 	   		</c:when> 
 	   		</c:choose>
-	   		
 	   		<li class="dropdown">
 	     		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><img src="https://bigxdata.io/common/img/default_profile.png" alt="" class="img-circle"/></a>
-				<!-- 
 				<ul class="dropdown-menu" role="menu">
-					회원 적용 메뉴
-			        <li><a href="#">마이페이지</a></li>
-			        <li><a href="#">로그아웃</a></li>
+					<c:choose>
+					<c:when test="${sessionScope.user_id!=null }">  
+			        <li><a class="dropdown-item" href="#">마이페이지</a></li>
+			        <li><a class="dropdown-item" href="logout.action">로그아웃</a></li>
+			        </c:when>
 			        
-			        비회원 적용 메뉴
-			        <li><a href="#">로그인</a></li>
-			        <li><a href="#">회원가입</a></li> 
+			        <c:when test="${sessionScope.user_id==null }">  
+			        <li><a class="dropdown-item" href="loginform.action">로그인</a></li>
+			        <li><a class="dropdown-item" href="joinform.action">회원가입</a></li> 
+			        </c:when>
 			        
-			        관리자 적용 메뉴
-			        <li><a href="#">관리</a></li>
-				</ul>
-				-->
-				<ul class="dropdown-menu" role="menu">
+			        <c:when test="${sessionScope.user_id==0 || sessionScope.user_id==1}">  
+			        <li><a class="dropdown-item" href="#">관리</a></li>
+			        </c:when>
+			    	</c:choose>
 				</ul>
         	</li>
 		</ul>

@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
@@ -12,6 +13,21 @@
 <script type="text/javascript">
 	$(function()
 	{
+		
+		// 일단 이건 됨.
+		/*
+		$("input:checkbox").change(function()
+		{
+			//ajaxRequest(memberList);
+			//alert("체크박스 값 변동");
+			if($(this).is(":checked"))
+				alert("체크박스 : " + $(this).val());
+			
+			
+		});
+		*/
+		
+		// 수정 버튼 클릭
 		$("#submitBtn").click(function()
 		{
 			var result = confirm("제출 시 수정이 불가능합니다. \n 제출하시겠습니까?");
@@ -26,6 +42,7 @@
 				alert("취소되었습니다.");
 		});
 		
+		//취소 버튼 클릭
 		$("#notSaveBtn").click(function()
 		{
 			//사용자 응답받아서 처리하는 코드로 변경 예정.
@@ -40,6 +57,8 @@
 				alert("취소되었습니다.");
 		});
 		
+		
+		// 제출버튼 클릭
 		$("#reportBtn").click(function()
 		{
 			// Report.jsp 
@@ -48,6 +67,7 @@
 			alert("Report.jsp 으로 이동.");
 		});
 	});
+	
 </script>
 
 
@@ -68,84 +88,114 @@
 	<!-- center에 위치 -->
 	<div class="col col-xs-12">
 		<p>모임 평가하기</p>
+		<br />
+		모임이름 : <span>${ridingName }</span>
 	</div>
 	
 	<!-- 다음줄 right에 위치 -->
 	<div class="col col-xs-12" style="text-align: right;">
-		<p>작성자 : <span>김빵빵</span></p>
+		<p>작성자 : <span>${nickname }</span></p>
 	</div>
 
+	<%-- 
 	<div>
 		<h1>테스트</h1>
-		<c:forEach var="str" items="${list }">
-			<h2>str</h2>
-			<br />
-		</c:forEach>
+		<h1>${q1 }</h1>
 	</div>
-	
+	// --%>
 	<!-- 다음줄 center에 위치 -->
 	<!-- 평가폼 -->
 	<div>	
 		<form id="form" action="" method="get">
 			<div class="col col-xs-12 checkbox">
 				<br />
-				<span style="font-weight: bold;">결석한 사람을 체크해 주세요.</span>
+				<span style="font-weight: bold;"> 결석한 사람을 체크해 주세요.</span>
 				<!-- 모두 참여 -->
-				<input type="checkbox" name="attendance" value="userX" id="userX" checked="checked" style="display: none;">
-				<!-- c:foreach 참여자 명단 가져오기 -->
+				<!-- <input type="checkbox" name="attendance" value="userX" id="userX" checked="checked" style="display: none;"> -->
+				
+				<!-- 참여자 명단 보여주기 -->
+				 
+				<c:forEach var="dto" items="${memberList }">
+					<label for="${dto.nickName }"><input type="checkbox" name="attendance" value="${dto.nickName }" id="${dto.nickName }">${dto.nickName }</label>
+				</c:forEach>
+				
+				<!-- 
 				<label for="user1"><input type="checkbox" name="attendance" value="user1" id="user1">사과1</label>
 				<label for="user2"><input type="checkbox" name="attendance" value="user2" id="user2">철수1</label>
 				<label for="user3"><input type="checkbox" name="attendance" value="user3" id="user3">바나나1</label>
 				<label for="user4"><input type="checkbox" name="attendance" value="user4" id="user4">영희1</label>
+				 -->
 				</div>
-			
+				
+			<div id="divTemp"></div>
 			<div class="col col-xs-12">
 				<br />
 				<!-- 본인은 제외. -->
 				<!-- 결석자는 포함. -->
-				<span style="font-weight: bold;">가장 친절한 참여자는 누구였습니까?</span>
-				<select class="form-control" name="kindness">
+				<span style="font-weight: bold;">${q0.q_content }</span>
+				<div id="tempXXX"></div>
+				<select class="form-control" name="kindness" id="kindness">
+				<c:forEach var="dto" items="${memberList }">
+					<option value="${dto.nickName }">${dto.nickName }</option>
+				</c:forEach>
+				<!-- 
 					<option value="user0">없음</option>
 					<option value="user1">사과1</option>
 					<option value="user2">철수1</option>
 					<option value="user3">바나나1</option>
 					<option value="user4">영희1</option>
+				 -->
 				</select>
 			</div>
 			
 			<div class="col col-xs-12">
 			 	<br />
-				<span style="font-weight: bold;">가장 불친절한 참여자는 누구였습니까?</span>
+				<span style="font-weight: bold;">${q1.q_content }</span>
 				<select class="form-control" name="notKindness">
+				<c:forEach var="dto" items="${memberList }">
+					<option value="${dto.nickName }">${dto.nickName }</option>
+				</c:forEach>
+				<!-- 
 					<option value="user0">없음</option>
 					<option value="user1">사과1</option>
 					<option value="user2">철수1</option>
 					<option value="user3">바나나1</option>
 					<option value="user4">영희1</option>
+				-->
 				</select>
 			</div>
 	
 			<div class="col col-xs-12">		
 				<br />
-				<span style="font-weight: bold;">위험하게 라이딩한 참여자는 누구였습니까?</span>
+				<span style="font-weight: bold;">${q2.q_content }</span>
 				<select class="form-control" name="dangerRiding">
+				<c:forEach var="dto" items="${memberList }">
+					<option value="${dto.nickName }">${dto.nickName }</option>
+				</c:forEach>
+				<!-- 
 					<option value="user0">없음</option>
 					<option value="user1">사과1</option>
 					<option value="user2">철수1</option>
 					<option value="user3">바나나1</option>
 					<option value="user4">영희1</option>
+				 //-->
 				</select>
 			</div>
 			
 			<div class="col col-xs-12">	
 				<br />	
-				<span style="font-weight: bold;">완주하지 못한 참여자는 누구였습니까?</span>
+				<span style="font-weight: bold;">${q6.q_content }</span>
 				<select class="form-control" name="notCompletion">
+				<c:forEach var="dto" items="${memberList }">
+					<option value="${dto.nickName }">${dto.nickName }</option>
+				</c:forEach>
+				<!-- 
 					<option value="user0">없음</option>
 					<option value="user1">사과1</option>
 					<option value="user2">철수1</option>
 					<option value="user3">바나나1</option>
 					<option value="user4">영희1</option>
+				// --> 
 				</select>
 			</div>
 			
@@ -153,13 +203,18 @@
 				<br />
 				<!-- 모임의 속성이 숙련도 4~5이고 평속 20이상 
 				     일 때만 활성화됨. -->
-				<span style="font-weight: bold;">실제 숙련도와 다른 참여자는 누구였습니까?</span>
+				<span style="font-weight: bold;">${q7.q_content }</span>
 				<select class="form-control" name="different">
+				<c:forEach var="dto" items="${memberList }">
+					<option value="${dto.nickName }">${dto.nickName }</option>
+				</c:forEach>
+				<!--
 					<option value="user0">없음</option>
 					<option value="user1">사과1</option>
 					<option value="user2">철수1</option>
 					<option value="user3">바나나1</option>
 					<option value="user4">영희1</option>
+				-->
 				</select>
 			</div>
 			

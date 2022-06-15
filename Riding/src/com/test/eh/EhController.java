@@ -1,11 +1,16 @@
 package com.test.eh;
 
+import java.util.ArrayList;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-public class ehController
+public class EhController
 {
 	// 마이페이지메인 뷰 --> 따로 컨트롤러 만듬.
 	/*
@@ -16,6 +21,9 @@ public class ehController
 		return view;
 	}
 	*/
+	
+	@Autowired
+	private SqlSession sqlSession;
 	
 	
 	// 개인정보수정폼 뷰
@@ -71,19 +79,72 @@ public class ehController
 	
 	//평가(방장) 뷰
 	@RequestMapping(value = "/evaluationleaderform.action", method = RequestMethod.GET)
-	public String evaluationLeaderForm()
+	public String evaluationLeaderForm(Model model)
 	{
-		String view = "/WEB-INF/eh/EvaluationLeaderForm.jsp";
 		
+		String view = "/WEB-INF/eh/EvaluationLeaderForm.jsp";
+		//마이바티스 방법으로 dao 인스턴스 생성
+		IEvaluationDAO dao = sqlSession.getMapper(IEvaluationDAO.class);
+		
+		// 평가지 문항 가져오기
+		
+		ArrayList<EvaluationDTO> temp = dao.questionList();
+		
+		for (int i = 0; i < temp.size(); i++)
+		{
+			model.addAttribute("q"+i, temp.get(i));
+		}
+		
+		//model.addAttribute("q_content", dao.questionList());
+		
+		//평가지 작성자 닉네임 가져오기
+		//!! 지금은 user_id 임시로 줌.
+		String user_id = "2";
+		String riding_id="1";
+		model.addAttribute("nickname", dao.nickNameList(user_id));
+		
+		//작성자가 참여한 모임 이름 가져오기
+		model.addAttribute("ridingName", dao.ridingName(user_id));
+		
+		
+		//해당 모임의 참여자 명단 가져오기
+		model.addAttribute("memberList", dao.particiMemberList(riding_id));
 		return view;
 	}
 	
 	
 	//평가(참여자)뷰
 	@RequestMapping(value = "/evaluationmemberform.action", method = RequestMethod.GET)
-	public String evaluationMemberForm()
+	public String evaluationMemberForm(Model model)
 	{
+		// 컨트롤러가 호출하는 뷰 url
 		String view = "/WEB-INF/eh/EvaluationMemberForm.jsp";
+		
+		IEvaluationDAO dao = sqlSession.getMapper(IEvaluationDAO.class);
+		
+		// 평가지 문항 가져오기
+		
+		ArrayList<EvaluationDTO> temp = dao.questionList();
+		
+		for (int i = 0; i < temp.size(); i++)
+		{
+			model.addAttribute("q"+i, temp.get(i));
+		}
+		
+		//model.addAttribute("q_content", dao.questionList());
+		
+		//평가지 작성자 닉네임 가져오기
+		//!! 지금은 user_id 임시로 줌.
+		String user_id = "2";
+		String riding_id="1";
+		model.addAttribute("nickname", dao.nickNameList(user_id));
+		
+		//작성자가 참여한 모임 이름 가져오기
+		model.addAttribute("ridingName", dao.ridingName(user_id));
+		
+		
+		//해당 모임의 참여자 명단 가져오기
+		model.addAttribute("memberList", dao.particiMemberList(riding_id));
 		return view;
 	}
 	

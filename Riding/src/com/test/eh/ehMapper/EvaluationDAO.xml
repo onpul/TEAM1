@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.eh.IEvaluationDAO">
+	
+	<!-- 평가지 문항 조회 -->
+	<select id="questionList" resultType="com.test.eh.EvaluationDTO">
+		SELECT Q_CONTENT
+		FROM QUESTION
+	</select>
+	
+	
+	<!-- 작성자 닉네임 가져오기 -->
+	<select id="nickNameList" resultType="java.lang.String">
+		SELECT NICKNAME
+		FROM PROFILE
+		WHERE USER_ID=#{user_id}
+	</select>
+	
+	<!-- 작성자가 참여한 모임 이름 가져오기 -->
+	<select id="ridingName" resultType="java.lang.String">
+		SELECT RIDING_NAME
+		FROM RIDING R JOIN PROFILE P JOIN PARTICIPATED_MEMBER PM
+		ON P.USER_ID = PM.USER_ID
+		ON PM.RIDING_ID = R.RIDING_ID
+		WHERE P.USER_ID = #{user_id}
+	</select>
+	
+	<!-- 위 모임의 참여자 명단 가져오기 -->
+	<select id="particiMemberList" resultType="com.test.eh.EvaluationDTO">
+		SELECT P.NICKNAME AS NICKNAME
+		FROM PARTICIPATED_MEMBER PM JOIN PROFILE P
+		ON PM.USER_ID = P.USER_ID
+		WHERE RIDING_ID = (SELECT RIDING_ID
+		                   FROM RIDING
+		                   WHERE RIDING_ID = #{riding_id})
+	</select>
+</mapper>

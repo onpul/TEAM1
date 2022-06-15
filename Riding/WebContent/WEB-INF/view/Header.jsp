@@ -24,11 +24,16 @@ Header.jsp
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+<!-- datepicker 용 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 <style type="text/css">
 	img{width:20px;}
 </style>
 <script type="text/javascript">
-
+	/*
 	$(document).ready(function()
 	{
 		//alert("확인");
@@ -53,10 +58,11 @@ Header.jsp
 			}
 		});
 	});
-
+	*/
 </script>
 </head>
 <body>
+<span>로그인한 user_id : ${sessionScope.user_id}</span>
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -67,7 +73,7 @@ Header.jsp
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">PRIDE</a>
+      <a class="navbar-brand" href="main.action">PRIDE</a>
       <!--
       로고 이미지로 대체할 예정  
       <a class="navbar-brand" href="#">

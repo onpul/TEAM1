@@ -3,6 +3,9 @@ Main.jsp
 메인페이지(최초 접속 페이지)
 -->
 <%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page contentType="text/html; charset=UTF-8"%>
 <%
 	request.setCharacterEncoding("UTF-8");
 	String cp = request.getContextPath();
@@ -281,6 +284,9 @@ Main.jsp
 </style>
 </head>
 <body>
+<div>
+	<c:import url="Header.jsp"></c:import>
+</div>
 <div class="row">
 	<!-- 달력 들어갈 div -->
 	<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 ">

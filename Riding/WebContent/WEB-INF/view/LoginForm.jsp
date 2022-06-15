@@ -7,6 +7,9 @@ LoginForm.jsp
 로그인 완료 후 메인페이지로 이동 처리
 -->
 <%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page contentType="text/html; charset=UTF-8"%>
 <%
 	request.setCharacterEncoding("UTF-8");
 	String cp = request.getContextPath();
@@ -70,7 +73,7 @@ LoginForm.jsp
 		}
 		
 		//f.submit();
-		loginCheck();
+		//loginCheck();
 	}
 	
 	// 로그인 액션(ajax)
@@ -78,26 +81,34 @@ LoginForm.jsp
 	{
 		$("#loginBtn").click(function()
 		{
+			alert("확인");
+			
 			var params = $("form[name=loginForm]").serialize();
+			
+			alert(params);
 			
 			$.ajax(
 			{
 				type:"POST"
+				, asynx:true
 				, url:"login.action"
-				, dataType:"JSON"
 				, data:params
 				, success:function(data)
 				{
-					//alert("success 진입 성공");
+					alert("success 진입 성공");
 					
 					if (data == 0)
 					{
 						location.href = "main.action"
-						//alert(${userID})
 					}
 					else if (data == 1) 
 					{
 						alert("회원정보를 찾을 수 없습니다.");
+					}
+					else if (data == 2)
+					{
+						alert("사이트 이용제한 패널티로 인해 로그인 할 수 없습니다.");
+						location.href = "main.action";
 					}
 				}
 				, beforeSend:formCheck
@@ -105,8 +116,8 @@ LoginForm.jsp
 				{
 					alert(e.responseText);
 				}
-				
 			});
+
 			
 		});
 	});
@@ -124,8 +135,11 @@ LoginForm.jsp
 </style>
 </head>
 <body>
+<div>
+	<c:import url="Header.jsp"></c:import>
+</div>
 <div class="loginFormBox">
-	<form action="login.action" method="post" id="loginForm" name="loginForm">
+	<form id="loginForm" name="loginForm" method="post" action=submit>
 		<div class="form-group form-inline">
 			<label for="inputEmail">아이디</label>
 	    	<input type="email" class="form-control" id="email" name="email" placeholder="@pride.com">

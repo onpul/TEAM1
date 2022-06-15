@@ -3,17 +3,19 @@ package com.test.mj;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
-//@SessionAttributes("userId") // 세션 객체에 저장
+@SessionAttributes("userId") // 세션 객체에 저장
 public class mjController
 {
 	@Autowired
@@ -90,7 +92,7 @@ public class mjController
 			dao.join(dto);
 			
 			// 회원가입한 user_id 를 set
-			dto.setUser_id(dao.getuser());
+			dto.setUser_id(dao.getUser());
 			
 			//System.out.println("dao.getuser() = " + dao.getuser());
 			
@@ -152,20 +154,57 @@ public class mjController
 	// 로그인 액션(login.action)
 	@RequestMapping(value = "/login.action", method = RequestMethod.POST)
 	@ResponseBody
-	public String loginAction(Model model, String email, String password)
+	public String loginAction(String email, String password, HttpServletRequest request)
 	{
 		// 테스트
-		System.out.println("loginAction 진입");
+		System.out.println("--------------------loginAction 진입--------------------");
 		System.out.println("email = " + email);
 		System.out.println("password = " + password);
 		
 		String result = null;
-		String userId = null;
 		
-		// 0 : 로그인 정상 처리
-		// 1 : 일치하는 회원 정보 없음(로그인 실패)
+		try
+		{
+			int login = 0;
+			
+			IRidingDAO dao = sqlSession.getMapper(IRidingDAO.class);
+			
+			login = dao.login(email, password);
+			
+			System.out.println("login = " + login);
 
-		result = "0";
+			if (login > 0) // 로그인 정상 처리
+			{
+				// 로그인 한 회원의 user_id 알아내기
+				int user_id = dao.getUserId(email);
+				System.out.println("user_id = " + user_id);
+
+				if (dao.usageRestrictions(user_id)!=0)
+				{
+					System.out.println("---사이트 이용제한 회원임---");
+					result =  "2"; // 사이트 이용제한 회원일 경우
+				}
+				else
+				{
+					System.out.println("---사이트 이용제한 회원 아님---");
+					// 세션 구성
+					HttpSession session = request.getSession();
+					session.setAttribute("user_id", user_id);
+					
+					System.out.println("세션 구성 확인");
+					System.out.println("세션 = " + session.getAttribute("user_id"));
+					result =  "0"; // 정상적으로 로그인 처리
+				}
+			}
+			else // 일치하는 회원 정보 없음(로그인 실패)
+			{
+				System.out.println("---일치하는 회원 정보 없음---");
+				result =  "1";
+			}
+		} catch (Exception e)
+		{
+			System.out.println(e.toString());
+		}
 		
 		return result;
 	}
@@ -186,11 +225,20 @@ public class mjController
 	{
 		String result = null;
 		
-		System.out.println("searchIdAction() 진입 성공");
-		System.out.println("nickname = " + nickname);
-		System.out.println("birthday = " + birthday);
-		
-		result = "chmj072@gmail.com";
+		try
+		{
+			System.out.println("---searchIdAction() 진입 성공---");
+			System.out.println("nickname = " + nickname);
+			System.out.println("birthday = " + birthday);
+			
+			IRidingDAO dao = sqlSession.getMapper(IRidingDAO.class);
+			
+			result = dao.searchId(nickname, birthday);
+			System.out.println("result = " + result);
+		} catch (Exception e)
+		{
+			System.out.println(e.toString());
+		}
 		
 		return result;
 	}
@@ -211,13 +259,23 @@ public class mjController
 	@ResponseBody
 	public String searchPasswordAction(String email, String birthday)
 	{
-		System.out.println("searchPasswordAction() 진입 성공");
+		System.out.println("---searchPasswordAction() 진입 성공---");
 		System.out.println("email = " + email);
 		System.out.println("birthday = " + birthday);
 		
+		IRidingDAO dao = sqlSession.getMapper(IRidingDAO.class);
+		
 		String result = null;
 		
-		result = "java006$";
+		try
+		{
+			result = dao.searchPassword(email, birthday);
+			System.out.println("result = " + result);
+			
+		} catch (Exception e)
+		{
+			System.out.println(e.toString());
+		}
 		
 		return result;
 	}

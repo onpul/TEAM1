@@ -8,7 +8,7 @@ public interface IRidingDAO
 	public int join(UserDTO dto); // 완
 	
 	// 회원가입한 회원의 user_id 알아오기
-	public int getuser(); // 완
+	public int getUser(); // 완
 	
 	// 개인정보
 	public int profile(UserDTO dto); // 완
@@ -20,13 +20,19 @@ public interface IRidingDAO
 	public int withdrawCheck(@Param("email")String email, @Param("birthday")String birthday); // 완
 	
 	// 로그인 액션
-	public String login(String email, String password); 
+	public int login(@Param("email")String email, @Param("password")String password);  // 완
+	
+	// 로그인한 회원의 USER_ID 알아오기
+	public int getUserId(@Param("email")String email); // 완
+	
+	// 사이트 이용 제한 회원 체크
+	public int usageRestrictions(int user_id); // 완
 	
 	// 아이디 찾기 액션
-	public String searchId(String nickname, String birthday);
+	public String searchId(@Param("nickname")String nickname, @Param("birthday")String birthday); // 완
 	
 	// 비밀번호 찾기 액션
-	public String searchPassword(String email, String birthday);
+	public String searchPassword(@Param("email")String email, @Param("birthday")String birthday); // 완
 	
 	// 패널티 적용 체크 액션
 	public int penaltyCheck(String userId);

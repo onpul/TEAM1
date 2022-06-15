@@ -4,6 +4,9 @@ SearchPasswordForm.jsp
 메인 페이지 > 상단 메뉴 > 로그인 > 비밀번호 찾기 폼
 -->
 <%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page contentType="text/html; charset=UTF-8"%>
 <%
 	request.setCharacterEncoding("UTF-8");
 	String cp = request.getContextPath();
@@ -70,6 +73,7 @@ SearchPasswordForm.jsp
 	});	
 
 	//이메일 직접 선택 시 인풋 박스 활성화하는 함수
+	/*
 	function email_change()
 	{
 		//alert("확인");
@@ -88,6 +92,7 @@ SearchPasswordForm.jsp
 			document.searchPwdForm.email2.value = document.searchPwdForm.selectEmail.options[document.searchPwdForm.selectEmail.selectedIndex].value;
 		}
 	}
+	*/
 
 	//생년월일 datepicker
 	$(document).ready(function()
@@ -137,20 +142,14 @@ SearchPasswordForm.jsp
 </style>
 </head>
 <body>
+<div>
+	<c:import url="Header.jsp"></c:import>
+</div>
 <div class="searchIdFormBox">
 	<form action="" class="searchPwdForm" name="searchPwdForm" id="searchPwdForm">
 		<div class="form-group form-inline">
 			<label for="email">이메일*</label>
-	    	<input type="text" class="form-control" name="email" id="email" placeholder="이메일을 입력하세요" onfocus="this.value=';'">
-			<input type="text" class="form-control" name="email2" id="email2" style="width:120px;" disabled value="@naver.com">
-			<select name="selectEmail" id="selectEmail" class="form-control" onchange="email_change()">
-				<option value="0">직접입력</option>			
-				<option value="@naver.com" selected>@naver.com</option>
-				<option value="@hanmail.net">@hanmail.net</option>
-				<option value="@nate.com">@nate.com</option>
-				<option value="@yahoo.co.kr">@yahoo.co.kr</option>
-				<option value="@gmail.com">@gmail.com</option>
-			</select>    
+	    	<input type="text" class="form-control" name="email" id="email" placeholder="이메일을 입력하세요">
 	    </div>
 	    <div class="form-group form-inline">
 	    	<label for="birthday">생년월일*</label>

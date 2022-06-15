@@ -7,6 +7,9 @@ RidingDetail.jsp
 참여하기 누르면 라이딩 대기실로 이동 처리
 -->
 <%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page contentType="text/html; charset=UTF-8"%>
 <%
 	request.setCharacterEncoding("UTF-8");
 	String cp = request.getContextPath();
@@ -118,6 +121,9 @@ RidingDetail.jsp
 </style>
 </head>
 <body>
+<div>
+	<c:import url="Header.jsp"></c:import>
+</div>
 <div class="container">
 	<div>
 		<h1>20대 라이더 여기여기 붙어라</h1>

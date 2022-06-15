@@ -5,6 +5,9 @@ RidingList.jsp
 메인 페이지 > 캘린더 > 모임 리스트
 -->
 <%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page contentType="text/html; charset=UTF-8"%>
 <%
 	request.setCharacterEncoding("UTF-8");
 	String cp = request.getContextPath();
@@ -117,6 +120,9 @@ RidingList.jsp
 </style>
 </head>
 <body>
+<div>
+	<c:import url="Header.jsp"></c:import>
+</div>
 <div class="form-group form-inline">
 	<label for="gender" class="">모임명</label>
 	<input type="text" class="form-control" placeholder="모임명">

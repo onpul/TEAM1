@@ -13,7 +13,9 @@ JoinForm.jsp
 - 닉네임 중복 체크(완료)
 - 탈퇴회원은 3개월 이후에 가입할 수 있도록 탈퇴회원 판별하여 경고창(완료, 3개월인진 아직 판별 불가능)
 -->
-<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%
 	request.setCharacterEncoding("UTF-8");
@@ -167,6 +169,7 @@ JoinForm.jsp
 	});
 		
 	// 이메일 직접 선택 시 인풋 박스 활성화하는 함수
+	/*
 	function email_change()
 	{
 		//alert("확인");
@@ -185,6 +188,7 @@ JoinForm.jsp
 			document.joinForm.email2.value = document.joinForm.selectEmail.options[document.joinForm.selectEmail.selectedIndex].value;
 		}
 	}
+	*/
 	
 	// 생년월일 datepicker
 	$(document).ready(function()
@@ -408,6 +412,9 @@ JoinForm.jsp
 </style>
 </head>
 <body>
+<div>
+	<c:import url="Header.jsp"></c:import>
+</div>
 <div class="joinFormBox">
 	<form class="joinForm" name="joinForm">
 		<div class="form-group form-inline">

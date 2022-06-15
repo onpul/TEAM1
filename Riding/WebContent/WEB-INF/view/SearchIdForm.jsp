@@ -4,6 +4,9 @@ SearchIdForm.jsp
 메인 페이지 > 상단 메뉴 > 로그인 > 아이디 찾기 폼
 -->
 <%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page contentType="text/html; charset=UTF-8"%>
 <%
 	request.setCharacterEncoding("UTF-8");
 	String cp = request.getContextPath();
@@ -31,7 +34,7 @@ SearchIdForm.jsp
 
 	$(document).ready(function()
 	{
-		//alert("확인");
+		alert("확인");
 		
 		//생년월일 datepicker
 		$("#birthday").datepicker(
@@ -43,7 +46,7 @@ SearchIdForm.jsp
 		
 		$("#searchBtn").click(function()
 		{
-			//alert("확인");
+			alert("확인");
 			
 			var params = $("form[name=searchIdForm]").serialize();
 			// serialize() : 폼 태그내의 항목들을 자동으로 읽어와 queryString 형식으로 변환 
@@ -74,6 +77,7 @@ SearchIdForm.jsp
 			});
 			
 		});
+		
 	});	
 	
 	// 찾기 버튼 클릭 시 작성 여부 확인 후 서브밋 하는 함수
@@ -109,8 +113,11 @@ SearchIdForm.jsp
 </style>
 </head>
 <body>
+<div>
+	<c:import url="Header.jsp"></c:import>
+</div> 
 <div class="searchIdFormBox">
-	<form action="" class="searchIdForm" name="searchIdForm" id="searchIdForm">
+	<form class="searchIdForm" name="searchIdForm" id="searchIdForm">
 		<div class="form-group form-inline">
 			<label for="inputNickname">닉네임*</label>
 	    	<input type="email" class="form-control" id="nickname" name="nickname" placeholder="닉네임을 입력하세요">

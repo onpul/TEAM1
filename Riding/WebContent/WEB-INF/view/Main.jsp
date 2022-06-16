@@ -57,12 +57,26 @@ Main.jsp
 	// Sat Jun 11 2022 20:54:35 GMT+0900 (한국 표준시)
 	
 	var date = new Date();
+	alert(date);
+	
+	// 선택한 날짜(달력) 전달용 변수
+	//var checkedYear = "";
+	//var checkedMonth = "";
 	
 	// 문서 로딩과 동시에 달력 그리기
 	$(document).ready(function()
 	{
-		drawCalendar();
+		//var year = today.getFullYear;
+		//var month = today.getMonth;
+		//alert(today);
+		//alert(month);
+		//checkedDate(today);
+		thisMonth();
 	});
+	
+	// 아니 왜 변수에 안 담겨?
+	//alert("checkedYear = " + checkedYear);
+	//alert("checkedMonth = " + checkedMonth);
 	
 	// 이전달
 	function beforeMonth()
@@ -70,7 +84,7 @@ Main.jsp
 		today = new Date(today.getFullYear(), today.getMonth()-1, today.getDate());
 		//alert(today);
 		// Wed May 11 2022 00:00:00 GMT+0900 (한국 표준시)
-		
+		checkedDate(today);
 		drawCalendar(); // 캘린더 그리기
 	}
 	
@@ -80,7 +94,7 @@ Main.jsp
 		today = new Date(today.getFullYear(), today.getMonth()+1, today.getDate());
 		//alert(today);
 		// Mon Jul 11 2022 00:00:00 GMT+0900 (한국 표준시)
-		
+		checkedDate(today);
 		drawCalendar(); // 캘린더 그리기
 	}
 	
@@ -88,7 +102,7 @@ Main.jsp
 	function thisMonth()
 	{
 		today = new Date();
-		
+		checkedDate(today);
 		drawCalendar(); // 캘린더 그리기
 	}
 	
@@ -139,6 +153,8 @@ Main.jsp
 		//alert("lastDate.getDate() = " + lastDate.getDate());
 		//alert("tmp = " + tmp);
 		
+		var todayStr = "";
+		
 		// 달력 출력
 		for (var i = 1; i <= lastDate.getDate(); i++)
 		{		
@@ -146,26 +162,33 @@ Main.jsp
 			newCell = newRow.insertCell();
 			
 			// yyyy-mm-dd 형식으로 변환
-			var todayStr = today.getFullYear() + "-" + ((today.getMonth() + 1) > 9 ? (today.getMonth() + 1).toString() : "0" + (today.getMonth() + 1)) + "-" + (i > 9 ? i : "0" + i);
+			todayStr = today.getFullYear() + "-" + ((today.getMonth() + 1) > 9 ? (today.getMonth() + 1).toString() : "0" + (today.getMonth() + 1)) + "-" + (i > 9 ? i : "0" + i);
 			//alert(todayStr);
-			
 			var str = "";
 			
 			// 추가되는 cell 안에 div 요소 넣기
 			/*
 			<td>
-				<div id="todayStr">
-					<div>i</div>
-					<ul>
-						<li><span class="badge bg-secondary">1</span></li>
-					</ul>
+				<span>16</span>
+				<div class="dayBox">
+					<div class="item" id="2022-06-16">
+						<div class="content">
+							<span class=\"badge bg-secondary\" id=\"openRiding\"></span>	
+							<span class=\"badge bg-secondary\" id=\"closeRiding\"></span>
+						</div>
+					</div>
 				</div>
 			</td>
 			*/
-			str += "<div class='dayBox'><div class='item'id=" + todayStr + ">" + i + "</div>"
-			str += "<div class='item'><ul><li class='count'><a href='ridinglist.action?'>"; 
-			str += "<span class='badge bg-secondary'>1</span>";
-			str += "<span class='badge bg-success'>3</span></a></li></ul></div></div>";
+			str += "<span>" + i + "</span>";
+			str += "<div class='dayBox'><div class='item check'id=" + todayStr + ">";
+			str += "<div class='content'>";
+			str += "<a href='#'>";
+			str += "<span class=\"label label-primary\" id=\"closeRiding\"></span>";
+			str += "<span class=\"label label-success\" id=\"openRiding\"></span>";
+			str += "<a href='#'>";
+			str += "</div></div></div>";
+			
 			newCell.innerHTML = str;
 			
 			// 주말 색상 적용			
@@ -202,9 +225,172 @@ Main.jsp
 			
 			tmp = tmp + 1;
 		}
-		
 		// --------------------------------------------------------------------------- 달력 구현 
+		
 	}
+	
+	// 참여 가능한 라이딩 개수 불러오기
+	/*
+	<td>
+		<span>16</span>
+		<div class="dayBox">
+			<div class="item" id="2022-06-16">
+				<div class="content">
+				</div>
+			</div>
+		</div>
+	</td>
+	*/
+	//alert("checkedYear = " + checkedYear);
+	//alert("checkedMonth = " + checkedMonth);
+	/*
+	$(document).ready(function()
+	{
+		var str = "";
+		
+		str += "<span class=\"badge bg-secondary\" id=\"openRiding\">" + openRidingCount + "</span>";
+		$(".dayBox").children("#2022-06-16").children('.content').html(str);
+		alert("확인");
+		
+		$.ajax(
+		{
+			type:"POST"
+			, url:"openRidingCount.action?date="
+			, data:""
+			, asynx:true
+			, success:function(data)
+			{
+				alert("안녕 나 에이젝스야~ 컨트롤러 잘 다녀왔어!");
+			}
+			, error:function(e)
+			{
+				alert(e.responseText);
+			}
+		});
+		
+	});
+	*/
+	
+	function checkedDate(today)
+	{
+		//alert("에이젝스 출동 함수");
+		
+		//alert("today = " + today.getFullYear());
+		//alert("today = " + today.getMonth());
+		
+		var year = today.getFullYear();
+		var month = today.getMonth()+1;
+		var day = today.getDate();
+		
+		month = month > 9 ? (month + 1).toString() : "0" + month;
+		
+		//alert(year);
+		//alert(month);
+		
+		$.ajax(
+		{
+			type:"POST"
+			, url:"openRidingCount.action?year="+year+"&month="+month
+			, data:"JSON"
+			, success:function(data)
+			{
+				//alert("안녕 나 에이젝스야~ 컨트롤러 잘 다녀왔어!");
+				
+				console.log(typeof data);
+				var jObj = JSON.parse(data);
+				console.log("jObj", jObj);
+				// 성공
+				console.log(jObj[0].date);
+				// 2022-06-01
+				console.log("jObj.length",jObj.length);
+				
+				//alert($('.check').attr('id'));
+				
+				var temp = "\"#" + jObj[0].date + "\"";
+				//alert(id);
+				
+				// 달력의 div id와 date값이 일치하면 count값 뱃지에 넣기
+				for (var i = 0; i < jObj.length; i++)
+				{
+					//alert("jObj[i].date = " + jObj[i].date);
+					/*
+					if (jObj[i].date == $('.check').attr('id'))
+					{
+						//alert(jObj[i].date + "랑 " + $('.check').attr('id') + "랑 같다");
+					}
+					*/
+					var str = jObj[i].count;
+					
+					//str += "<span class=\"badge bg-secondary\" id=\"openRiding\">" + jObj[i].count + "</span>";
+					
+					$(".dayBox").children('#' + jObj[i].date).find("#openRiding").html(str);
+					// 선택한 날짜가 오늘 날짜보다 이후일 때
+					/* if (today>=date)
+					{
+						$(".dayBox").children('#' + jObj[i].date).find("#openRiding").html(str);
+					} */
+					
+				}
+			}
+			, error:function(e)
+			{
+				alert(e.responseText);
+			}
+		});
+		
+		$.ajax(
+		{
+			type:"POST"
+			, url:"closeRidingCount.action?year="+year+"&month="+month
+			, data:"JSON"
+			, success:function(data)
+			{
+				//alert("안녕 나 에이젝스야~ 컨트롤러 잘 다녀왔어!");
+				
+				console.log(typeof data);
+				var jObj = JSON.parse(data);
+				console.log("jObj", jObj);
+				// 성공
+				console.log(jObj[0].date);
+				// 2022-06-01
+				console.log("jObj.length",jObj.length);
+				
+				//alert($('.check').attr('id'));
+				
+				var temp = "\"#" + jObj[0].date + "\"";
+				//alert(id);
+				
+				// 달력의 div id와 date값이 일치하면 count값 뱃지에 넣기
+				for (var i = 0; i < jObj.length; i++)
+				{
+					//alert("jObj[i].date = " + jObj[i].date);
+					/*
+					if (jObj[i].date == $('.check').attr('id'))
+					{
+						//alert(jObj[i].date + "랑 " + $('.check').attr('id') + "랑 같다");
+					}
+					*/
+					var str = jObj[i].count;
+					
+					//str += "<span class=\"badge bg-secondary\" id=\"openRiding\">" + jObj[i].count + "</span>";
+					
+					$(".dayBox").children('#' + jObj[i].date).find("#closeRiding").html(str);
+					/*
+					if (day > i)
+					{
+						$(".dayBox").children('#' + jObj[i].date).find("#closeRiding").html(str);
+					}
+					*/
+				}
+			}
+			, error:function(e)
+			{
+				alert(e.responseText);
+			}
+		});
+		
+	}
+	
 	
 </script>
 <style type="text/css">
@@ -262,6 +448,7 @@ Main.jsp
 		list-style: none;
 		float: right;
 	}
+	/* 
 	.dayBox
 	{
 		display: flex;
@@ -272,6 +459,7 @@ Main.jsp
 	    align-items: stretch;
 	    height: 100%;
 	}
+	 */
 </style>
 </head>
 <body>

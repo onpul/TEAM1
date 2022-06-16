@@ -12,15 +12,21 @@ Footer.jsp
 <head>
 <meta charset="UTF-8">
 <title>Footer.jsp</title>
+<style type="text/css">
+	footer
+	{
+		height: 400px;
+	}
+</style>
 </head>
 <body>
-
+<!-- 
 <footer class="bg-light text-center text-lg-start navbar-fixed-bottom">
-  <!-- Grid container -->
+  Grid container
   <div class="container p-4">
-    <!--Grid row-->
+    Grid row
     <div class="row">
-      <!--Grid column-->
+      Grid column
       <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
         <h5 class="text-uppercase">Footer text</h5>
 
@@ -30,9 +36,9 @@ Footer.jsp
           aliquam voluptatem veniam, est atque cumque eum delectus sint!
         </p>
       </div>
-      <!--Grid column-->
+      Grid column
 
-      <!--Grid column-->
+      Grid column
       <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
         <h5 class="text-uppercase">Footer text</h5>
 
@@ -42,19 +48,19 @@ Footer.jsp
           aliquam voluptatem veniam, est atque cumque eum delectus sint!
         </p>
       </div>
-      <!--Grid column-->
+      Grid column
     </div>
-    <!--Grid row-->
+    Grid row
   </div>
-  <!-- Grid container -->
+  Grid container
 
-  <!-- Copyright -->
+  Copyright
   <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
     © 2022 Copyright:
     <a class="text-dark" href="https://github.com/onpul/TEAM1">TEAM1</a>
   </div>
-  <!-- Copyright -->
+  Copyright
 </footer>
-
+-->
 </body>
 </html>

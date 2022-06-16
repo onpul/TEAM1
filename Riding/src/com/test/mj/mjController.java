@@ -2,6 +2,7 @@ package com.test.mj;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@SessionAttributes("userId") // 세션 객체에 저장
+@SessionAttributes("user_id") // 세션 객체에 저장
 public class mjController
 {
 	@Autowired
@@ -344,17 +345,280 @@ public class mjController
 	// 알림 불러오기 액션(notice.action)
 	@RequestMapping(value = "/notice.action", method = RequestMethod.POST)
 	@ResponseBody
-	public Object notice(int user_id, Model model)
+	public void notice(NoticeDTO dto, HttpServletRequest request, HttpServletResponse response)
 	{
-		System.out.println("-----notice() 진입 성공-----");
-		System.out.println("user_id = " + user_id);
+		//System.out.println("-----notice() 진입 성공-----");
 		
 		String result = null;
 		
 		IRidingDAO dao = sqlSession.getMapper(IRidingDAO.class);
 		
-		List<NoticeDTO> noticeList = dao.noticeList(user_id);
+		try
+		{
+			ArrayList<NoticeDTO> noticeList = new ArrayList<NoticeDTO>(); 
+			noticeList = dao.noticeList(dto.getUser_id());
+			
+			//System.out.println(dto.getUser_id());
+			//System.out.println(noticeList.get(0));
+			
+			result = "[";
+			
+			for (int i = 0; i < noticeList.size(); i++)
+			{
+				result += "{\"content\":" + "\"" + noticeList.get(i) + "\"}"; 
+				
+				//result += "{\"content\":" + noticeList.get(i) + "}";
+				
+				if (i!=noticeList.size()-1)
+				{
+					result += ",";
+				}
+			}
+			result += "]";
+			//System.out.println(result);
+			
+		} catch (Exception e)
+		{
+			System.out.println(e.toString());
+		}
+		try
+		{
+			// 이거 없으면 ajax에서 한글 깨짐
+			response.setContentType("text/html;charset=UTF-8");
+			response.getWriter().print(result);
+		} catch (Exception e)
+		{
+			System.out.println(e.toString());
+		}
+	}
+	
+	// 알림 개수 가져오기
+	@RequestMapping(value="/noticeCount.action", method = RequestMethod.POST)
+	@ResponseBody
+	public String noticeCount(NoticeDTO dto)
+	{
+		//System.out.println("-----noticeCount 진입-----");
 		
+		String result = "";
+		
+		try
+		{
+			IRidingDAO dao = sqlSession.getMapper(IRidingDAO.class);
+			
+			result = Integer.toString(dao.noticeCount(dto.getUser_id()));
+			
+		} catch (Exception e)
+		{
+			System.out.println(e.toString());
+		}
+		
+		//System.out.println("result = " + result);
+		
+		return result;
+	}
+	
+	// 쪽지 개수 가져오기
+	@RequestMapping(value="/messageCount.action", method = RequestMethod.POST)
+	@ResponseBody
+	public String messageCount(NoticeDTO dto)
+	{
+		//System.out.println("-----messageCount 진입-----");
+		
+		String result = "";
+		
+		try
+		{
+			IRidingDAO dao = sqlSession.getMapper(IRidingDAO.class);
+			
+			result = Integer.toString(dao.messageCount(dto.getUser_id()));
+			
+		} catch (Exception e)
+		{
+			System.out.println(e.toString());
+		}
+		//System.out.println("user_id = " + dto.getUser_id());
+		//System.out.println("result = " + result);
+		
+		return result;
+	}
+	
+	// 메인 달력에 참여 가능한 모임 수 뿌리기
+	@RequestMapping(value="/openRidingCount.action", method = RequestMethod.POST)
+	@ResponseBody
+	public String openRidingCount(String year, String month)
+	{
+		// 테스트 ----------------------------------------------
+		System.out.println("-----openRidingCount() 진입-----");
+		System.out.println("year = " + year);
+		System.out.println("month = " + month);
+		//------------------------------------------------------
+		
+		// 받아온 월의 마지막 일 구하기 ------------------------
+		Calendar cal = Calendar.getInstance();
+
+		cal.set(Integer.parseInt(year), Integer.parseInt(month)-1, 1);
+
+		// 마지막 일
+		int daytemp = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+		String day = "";
+		if (daytemp < 9)
+		{
+			day = "0"+Integer.toString(daytemp);
+		}
+		else
+			day = Integer.toString(daytemp);
+		
+		// 테스트
+		System.out.println("day = " + day);
+		//------------------------------------------------------
+		
+		// ajax에 보낼 결과 담을 변수
+		String result = "";
+		
+		// dao 가져오자
+		IRidingDAO dao = sqlSession.getMapper(IRidingDAO.class);
+		
+		// dao 결과 담을 임시 변수
+		int temp;
+		
+		//String date = year+"-"+month+"-"+day;
+		
+		// dao 작동하는지 테스트
+		//temp = dao.openRidingCount(date);
+		//System.out.println("temp = " + temp);
+		//temp = 0
+		// 오늘 날짜의 모임 개수는 0
+		
+		// dao에 넣을 date
+		String date = "";
+		
+		// JSON 형태의 str
+		String str = "";
+		
+		// 데이터를 어떻게 파싱할 거냐면?
+		/*
+		[{"date":"2022-06-01","count":"1"},{"date":"2022-06-02","count":"1"}
+		,···{"date":"2022-06-30","count":"1"}]
+		*/
+		str += "[";
+		String tmp = "";
+		for (int i = 1; i <= daytemp; i++)
+		{
+			if (i <= 9)
+			{
+				tmp = "0" + Integer.toString(i);
+			}
+			else
+				tmp = Integer.toString(i);
+		
+			date = year+"-"+month+"-"+tmp;
+		
+			str += "{\"date\":\"" + date + "\",\"count\":\"";
+			str += dao.openRidingCount(date);
+			str += "\"}";
+			
+			if (i != daytemp)
+			{
+				str += ",";
+			}
+		}
+		str+="]";
+	
+		System.out.println(str);
+		
+		result = str;
+		
+		// 리턴값		
+		return result;
+	}
+	
+	// 메인 달력에 완료된 모임 수 뿌리기
+	@RequestMapping(value="/closeRidingCount.action", method = RequestMethod.POST)
+	@ResponseBody
+	public String closeRidingCount(String year, String month)
+	{
+		// 테스트 ----------------------------------------------
+		System.out.println("-----closeRidingCount() 진입-----");
+		System.out.println("year = " + year);
+		System.out.println("month = " + month);
+		//------------------------------------------------------
+		
+		// 받아온 월의 마지막 일 구하기 ------------------------
+		Calendar cal = Calendar.getInstance();
+
+		cal.set(Integer.parseInt(year), Integer.parseInt(month)-1, 1);
+
+		// 마지막 일
+		int daytemp = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+		String day = "";
+		if (daytemp < 9)
+		{
+			day = "0"+Integer.toString(daytemp);
+		}
+		else
+			day = Integer.toString(daytemp);
+		
+		// 테스트
+		System.out.println("day = " + day);
+		//------------------------------------------------------
+		
+		// ajax에 보낼 결과 담을 변수
+		String result = "";
+		
+		// dao 가져오자
+		IRidingDAO dao = sqlSession.getMapper(IRidingDAO.class);
+		
+		// dao 결과 담을 임시 변수
+		int temp;
+		
+		//String date = year+"-"+month+"-"+day;
+		
+		// dao 작동하는지 테스트
+		//temp = dao.openRidingCount(date);
+		//System.out.println("temp = " + temp);
+		//temp = 0
+		// 오늘 날짜의 모임 개수는 0
+		
+		// dao에 넣을 date
+		String date = "";
+		
+		// JSON 형태의 str
+		String str = "";
+		
+		// 데이터를 어떻게 파싱할 거냐면?
+		/*
+		[{"date":"2022-06-01","count":"1"},{"date":"2022-06-02","count":"1"}
+		,···{"date":"2022-06-30","count":"1"}]
+		*/
+		str += "[";
+		String tmp = "";
+		for (int i = 1; i <= daytemp; i++)
+		{
+			if (i <= 9)
+			{
+				tmp = "0" + Integer.toString(i);
+			}
+			else
+				tmp = Integer.toString(i);
+		
+			date = year+"-"+month+"-"+tmp;
+		
+			str += "{\"date\":\"" + date + "\",\"count\":\"";
+			str += dao.closeRidingCount(date);
+			str += "\"}";
+			
+			if (i != daytemp)
+			{
+				str += ",";
+			}
+		}
+		str+="]";
+	
+		System.out.println(str);
+		
+		result = str;
+		
+		// 리턴값		
 		return result;
 	}
 }

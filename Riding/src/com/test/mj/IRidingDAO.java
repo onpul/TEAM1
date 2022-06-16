@@ -44,8 +44,17 @@ public interface IRidingDAO
 	public String genderCheck(String userId);
 	
 	// 알림 불러오기 액션
-	public List<NoticeDTO> noticeList(@Param("user_id")int user_id);
+	public ArrayList<NoticeDTO> noticeList(@Param("user_id")int user_id); // 완
 	
 	// 알림 개수 
-	public int noticeCount(@Param("user_id")int user_id);
+	public int noticeCount(@Param("user_id")int user_id); // 완
+	
+	// 쪽지 개수
+	public int messageCount(@Param("user_id")int user_id); // 완
+	
+	// 참여가능한 모임 개수 (달력)
+	public int openRidingCount(String date);
+	
+	// 완료된 모임 개수 (달력)
+	public int closeRidingCount(String date);
 }

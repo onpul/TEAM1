@@ -97,4 +97,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ON A.N_CONTENT_ID = B.N_CONTENT_ID
 		WHERE USER_ID=#{user_id}
 	</select>
+	
+	<!-- 쪽지 개수 -->
+	<select id="messageCount" resultType="java.lang.Integer">
+		SELECT COUNT(*) AS COUNT
+		FROM MESSAGE
+		WHERE RECEIVER_ID=#{user_id}
+	</select>
+	
+	<!-- 참여 가능한 모임 개수 -->
+	<select id="openRidingCount" resultType="java.lang.Integer">
+		SELECT COUNT(*) AS COUNT
+		FROM RIDING
+		WHERE START_DATE = TO_DATE(#{today}, 'YYYY-MM-DD')
+	</select>
+	
+	<!-- 완료된 모임 개수 -->
+	<select id="closeRidingCount" resultType="java.lang.Integer">
+		SELECT COUNT(*) AS COUNT
+		FROM RIDING
+		WHERE END_DATE = TO_DATE(#{today}, 'YYYY-MM-DD')
+	</select>
 </mapper>

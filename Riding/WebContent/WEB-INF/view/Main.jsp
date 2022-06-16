@@ -10,6 +10,7 @@ Main.jsp
 	request.setCharacterEncoding("UTF-8");
 	String cp = request.getContextPath();
 %>
+<c:set var="user_id" value="${user_id}" scope="session"/> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,45 +20,13 @@ Main.jsp
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
 
-	// 접속한 회원의 패널티 적용 여부 확인	
-	$(function()
-	{
-		$("#openRidingBtn").click(function()
-		{
-			//alert("확인");
-			
-			// 패널티 적용 여부 확인해서 패널티 있으면 경고창, 없으면 라이딩 생성 요청
-			$.ajax(
-			{
-				type:"POST"
-				, url:"penaltycheck.action"
-				, data:"회원코드"
-				, success:function(data)
-				{
-					if (data == 0)
-					{
-						location.href = "ridingForm.action";
-					}
-					else if (data > 0) 
-					{
-						alert("패널티가 적용 중이므로 모임을 생성할 수 없습니다.");
-					}
-				}
-				, error:function(e)
-				{
-					alert(e.responseText);
-				}
-			});
-		}); 
-	});
-	
 	// 달력 구현 ---------------------------------------------------------------------------
 	var today = new Date();
 	// alert(today); 
 	// Sat Jun 11 2022 20:54:35 GMT+0900 (한국 표준시)
 	
 	var date = new Date();
-	alert(date);
+	//alert(date);
 	
 	// 선택한 날짜(달력) 전달용 변수
 	//var checkedYear = "";
@@ -228,49 +197,7 @@ Main.jsp
 		// --------------------------------------------------------------------------- 달력 구현 
 		
 	}
-	
-	// 참여 가능한 라이딩 개수 불러오기
-	/*
-	<td>
-		<span>16</span>
-		<div class="dayBox">
-			<div class="item" id="2022-06-16">
-				<div class="content">
-				</div>
-			</div>
-		</div>
-	</td>
-	*/
-	//alert("checkedYear = " + checkedYear);
-	//alert("checkedMonth = " + checkedMonth);
-	/*
-	$(document).ready(function()
-	{
-		var str = "";
-		
-		str += "<span class=\"badge bg-secondary\" id=\"openRiding\">" + openRidingCount + "</span>";
-		$(".dayBox").children("#2022-06-16").children('.content').html(str);
-		alert("확인");
-		
-		$.ajax(
-		{
-			type:"POST"
-			, url:"openRidingCount.action?date="
-			, data:""
-			, asynx:true
-			, success:function(data)
-			{
-				alert("안녕 나 에이젝스야~ 컨트롤러 잘 다녀왔어!");
-			}
-			, error:function(e)
-			{
-				alert(e.responseText);
-			}
-		});
-		
-	});
-	*/
-	
+
 	function checkedDate(today)
 	{
 		//alert("에이젝스 출동 함수");
@@ -391,6 +318,40 @@ Main.jsp
 		
 	}
 	
+	// 접속한 회원의 패널티 적용 여부 확인	
+	$(function()
+	{
+		$("#openRidingBtn").click(function()
+		{
+			var user_id = ${user_id};
+			
+			alert("확인");
+			alert("user_id = " + user_id);
+			
+			// 패널티 적용 여부 확인해서 패널티 있으면 경고창, 없으면 라이딩 생성 요청
+			$.ajax(
+			{
+				type:"POST"
+				, url:"penaltycheck.action?user_id="+user_id
+				, success:function(data)
+				{
+					if (data == 0)
+					{
+						location.href = "ridingForm.action";
+					}
+					else if (data > 0) 
+					{
+						alert("패널티가 적용 중이므로 모임을 생성할 수 없습니다.");
+					}
+				}
+				, error:function(e)
+				{
+					alert(e.responseText);
+				}
+			});
+		}); 
+	});
+	
 	
 </script>
 <style type="text/css">
@@ -467,7 +428,6 @@ Main.jsp
 <div>
 	<c:import url="Header.jsp"></c:import>
 </div>
-
 <div class="row">
 	<!-- 달력 들어갈 div -->
 	<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 ">

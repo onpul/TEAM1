@@ -37,11 +37,11 @@ public interface IRidingDAO
 	// 비밀번호 찾기 액션
 	public String searchPassword(@Param("email")String email, @Param("birthday")String birthday); // 완
 	
-	// 패널티 적용 체크 액션
-	public int penaltyCheck(String userId);
+	// 모임 생성 패널티 적용 체크 액션
+	public int penaltyCheck(String user_id); // 완
 	
 	// 로그인 상태인 회원의 성별 체크 액션
-	public String genderCheck(String userId);
+	public String genderCheck(String user_id);
 	
 	// 알림 불러오기 액션
 	public ArrayList<NoticeDTO> noticeList(@Param("user_id")int user_id); // 완
@@ -53,8 +53,11 @@ public interface IRidingDAO
 	public int messageCount(@Param("user_id")int user_id); // 완
 	
 	// 참여가능한 모임 개수 (달력)
-	public int openRidingCount(String date);
+	public int openRidingCount(String date); // 완
 	
 	// 완료된 모임 개수 (달력)
-	public int closeRidingCount(String date);
+	public int closeRidingCount(String date); // 완
+	
+	// 나의 라이딩 스타일 조회
+	public ArrayList<RidingDTO> myRidingStyle(@Param("user_id")int user_id); 
 }

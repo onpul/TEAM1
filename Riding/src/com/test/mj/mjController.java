@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -310,18 +311,6 @@ public class mjController
 		return result;
 	}
 	
-	// 패널티(모임 생성 제한) 적용 여부 확인 액션
-	@RequestMapping(value = "/penaltycheck.action", method = RequestMethod.POST)
-	@ResponseBody
-	public String penaltyCheck(String userId)
-	{
-		System.out.println("penaltyCheck() 진입 성공");
-		System.out.println("userId" + userId);
-		String result = null;
-		result = "1";
-		return result;
-	}
-	
 	// 라이딩 상세보기 페이지 요청(ridingdetail.action) 
 	@RequestMapping(value = "/ridingdetail.action", method = RequestMethod.GET)
 	public String ridingDetail()
@@ -448,9 +437,9 @@ public class mjController
 	public String openRidingCount(String year, String month)
 	{
 		// 테스트 ----------------------------------------------
-		System.out.println("-----openRidingCount() 진입-----");
-		System.out.println("year = " + year);
-		System.out.println("month = " + month);
+		//System.out.println("-----openRidingCount() 진입-----");
+		//System.out.println("year = " + year);
+		//System.out.println("month = " + month);
 		//------------------------------------------------------
 		
 		// 받아온 월의 마지막 일 구하기 ------------------------
@@ -469,7 +458,7 @@ public class mjController
 			day = Integer.toString(daytemp);
 		
 		// 테스트
-		System.out.println("day = " + day);
+		//System.out.println("day = " + day);
 		//------------------------------------------------------
 		
 		// ajax에 보낼 결과 담을 변수
@@ -524,7 +513,7 @@ public class mjController
 		}
 		str+="]";
 	
-		System.out.println(str);
+		//System.out.println(str);
 		
 		result = str;
 		
@@ -538,9 +527,9 @@ public class mjController
 	public String closeRidingCount(String year, String month)
 	{
 		// 테스트 ----------------------------------------------
-		System.out.println("-----closeRidingCount() 진입-----");
-		System.out.println("year = " + year);
-		System.out.println("month = " + month);
+		//System.out.println("-----closeRidingCount() 진입-----");
+		//System.out.println("year = " + year);
+		//System.out.println("month = " + month);
 		//------------------------------------------------------
 		
 		// 받아온 월의 마지막 일 구하기 ------------------------
@@ -559,7 +548,7 @@ public class mjController
 			day = Integer.toString(daytemp);
 		
 		// 테스트
-		System.out.println("day = " + day);
+		//System.out.println("day = " + day);
 		//------------------------------------------------------
 		
 		// ajax에 보낼 결과 담을 변수
@@ -614,11 +603,64 @@ public class mjController
 		}
 		str+="]";
 	
-		System.out.println(str);
+		//System.out.println(str);
 		
 		result = str;
 		
 		// 리턴값		
+		return result;
+	}
+	
+	// 모임 생성 패널티 조회
+	@RequestMapping(value = "/penaltycheck.action", method = RequestMethod.POST)
+	@ResponseBody
+	public String penaltyCheck(String user_id)
+	{
+		System.out.println("-----penaltyCheck() 진입 성공-----");
+		System.out.println("user_id = " + user_id);
+		
+		String result = "";
+		
+		IRidingDAO dao = sqlSession.getMapper(IRidingDAO.class);
+		
+		result = Integer.toString(dao.penaltyCheck(user_id));
+		
+		return result;
+	}
+	
+	// 나의 라이딩 스타일 조회
+	@RequestMapping(value = "/myRidingCheck.action", method = RequestMethod.POST)
+	@ResponseBody
+	public String myRidingStyle(RidingDTO dto, Model model, int user_id)
+	{
+		System.out.println("-----myRidingStyle() 진입 성공-----");
+		
+		IRidingDAO dao = sqlSession.getMapper(IRidingDAO.class);
+		
+		dto.setAge_p_id(dao.myRidingStyle(user_id).get(0).getAge_p_id());
+		dto.setDining_p_id(dao.myRidingStyle(user_id).get(0).getDining_p_id());
+		dto.setEat_p_id(dao.myRidingStyle(user_id).get(0).getEat_p_id());
+		dto.setMood_p_id(dao.myRidingStyle(user_id).get(0).getMood_p_id());
+		dto.setSex_p_id(dao.myRidingStyle(user_id).get(0).getSex_p_id());
+
+		String age_p_id = Integer.toString(dto.getAge_p_id());
+		String dining_p_id = Integer.toString(dto.getDining_p_id());
+		String eat_p_id = Integer.toString(dto.getEat_p_id());
+		String mood_p_id = Integer.toString(dto.getMood_p_id());
+		String sex_p_id = Integer.toString(dto.getSex_p_id());
+		
+		String result = "";
+		result += "[";
+		
+		result += "{\"age_p_id\":" + "\"" + age_p_id + "\"},";
+		result += "{\"dining_p_id\":" + "\"" + dining_p_id + "\"},";
+		result += "{\"eat_p_id\":" + "\"" + eat_p_id + "\"},";
+		result += "{\"mood_p_id\":" + "\"" + mood_p_id + "\"},";
+		result += "{\"sex_p_id\":" + "\"" + sex_p_id + "\"}";
+	
+		result += "]";
+		System.out.println(result);
+		
 		return result;
 	}
 }

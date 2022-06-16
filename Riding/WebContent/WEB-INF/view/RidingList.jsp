@@ -12,6 +12,7 @@ RidingList.jsp
 	request.setCharacterEncoding("UTF-8");
 	String cp = request.getContextPath();
 %>
+<c:set var="user_id" value="${user_id}" scope="session"/> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,7 +20,6 @@ RidingList.jsp
 <title>RidingList.jsp</title>
 <!-- 제이쿼리 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
 <script type="text/javascript">
 
 	$(function()
@@ -29,13 +29,13 @@ RidingList.jsp
 			//alert("확인");
 			
 			// 사용자의 라이딩 스타일 받아오기 전 모든 체크를 해제
-			$("input:radio[name='gender']").prop("checked", false);
-			$("input:radio[name='age']").prop("checked", false);
-			$("input:radio[name='speed']").prop("checked", false);
-			$("input:radio[name='step']").prop("checked", false);
-			$("input:radio[name='eat']").prop("checked", false);
-			$("input:radio[name='dinning']").prop("checked", false);
-			$("input:radio[name='mood']").prop("checked", false);
+			$("input:radio[name='sex_p_id']").prop("checked", false);
+			$("input:radio[name='age_p_id']").prop("checked", false);
+			$("input:radio[name='speed_id']").prop("checked", false);
+			$("input:radio[name='step_id']").prop("checked", false);
+			$("input:radio[name='eat_p_id']").prop("checked", false);
+			$("input:radio[name='dining_p_id']").prop("checked", false);
+			$("input:radio[name='mood_p_id']").prop("checked", false);
 			
 			// 사용자의 라이딩 스타일을 받아와 checked 적용
 			myRidingCheck();
@@ -44,50 +44,71 @@ RidingList.jsp
 	
 	function myRidingCheck()
 	{
-		//alert("확인");
+		//alert("myRidingCheck()");
 		
-		//alert(document.getElementsByName("gender"));
+		var user_id = ${user_id};
 		
-		// 라디오 버튼 분류 별로 변수에 담기
-		var genderGroup = document.getElementsByName("gender");
-		var ageGroup = document.getElementsByName("age");
-		var speedGroup = document.getElementsByName("speed");
-		var stepGroup = document.getElementsByName("step");
-		var eatGroup = document.getElementsByName("eat");
-		var dinningGroup = document.getElementsByName("dinning");
-		var moodGroup = document.getElementsByName("mood");
-		
-		// 사용자의 라이딩 스타일 받아오기
-		var gender = 1;
-		var age = 2;
-		var speed = 0;
-		var step = 3;
-		var eat = 1;
-		var dinning = 0;
-		var mood = 0;
-		
-		// 받아온 라이딩 스타일 적용(checked)
-		genderGroup[gender].checked = true;
-		ageGroup[age].checked = true;
-		speedGroup[speed].checked = true;
-		stepGroup[step].checked = true;
-		eatGroup[eat].checked = true;
-		dinningGroup[dinning].checked = true;
-		moodGroup[mood].checked = true;
+		$.ajax(
+		{
+			type:"POST"
+			, asynx:false
+			, url:"myRidingCheck.action?user_id="+user_id
+			//, contentType:"application/json; charset:UTF-8"
+			, success:function(data)
+			{
+				//alert("success 진입");
+				//alert(data);
+				
+				console.log(typeof data);
+				var jObj = JSON.parse(data);
+				console.log("jObj", jObj);
+				console.log(jObj[0].age_p_id);
+				console.log(jObj[1].dining_p_id);
+				console.log(jObj[2].eat_p_id);
+				console.log(jObj[3].mood_p_id);
+				console.log(jObj[4].sex_p_id);
+				
+				console.log("jObj.length", jObj.length);
+				
+				var age_p_id = jObj[0].age_p_id;
+				var dining_p_id = jObj[1].dining_p_id;
+				var eat_p_id = jObj[2].eat_p_id;
+				var mood_p_id = jObj[3].mood_p_id;
+				var sex_p_id = jObj[4].sex_p_id;
+				
+				//alert(mood_p_id);
+				
+				$('input:radio[name="age_p_id"][value=' + age_p_id + ']').prop('checked', true);
+				$('input:radio[name="dining_p_id"][value=' + dining_p_id + ']').prop('checked', true);
+				$('input:radio[name="eat_p_id"][value=' + eat_p_id + ']').prop('checked', true);
+				$('input:radio[name="mood_p_id"][value=' + mood_p_id + ']').prop('checked', true);
+				$('input:radio[name="sex_p_id"][value=' + sex_p_id + ']').prop('checked', true);
+				
+				// 속도, 숙련도는 제한 없음 디폴트
+				$('input:radio[name="speed_id"][value=0]').prop('checked', true);
+				$('input:radio[name="step_id"][value=0]').prop('checked', true);
+				
+			}
+			, error:function(e)
+			{
+				alert(e.responseText);
+			}
+		});
 	}
 	
 	$(function()
 	{
 		$("#openRidingBtn").click(function()
 		{
-			//alert("확인");
+			var user_id = ${user_id};
+			alert("확인");
+			alert("user_id = " + user_id);
 			
 			// 패널티 적용 여부 확인해서 패널티 있으면 경고창, 없으면 라이딩 생성 요청
 			$.ajax(
 			{
 				type:"POST"
-				, url:"penaltycheck.action"
-				, data:"회원코드"
+				, url:"penaltycheck.action?user_id="+user_id
 				, success:function(data)
 				{
 					if (data == 0)
@@ -104,7 +125,7 @@ RidingList.jsp
 					alert(e.responseText);
 				}
 			});
-		}); 
+		});
 	});
 	
 </script>
@@ -124,124 +145,127 @@ RidingList.jsp
 	<div class="form-group">
 		<label for="gender" >성별</label>
 		<label class="radio-inline">
-			<input type="radio" name="gender" id="gender" value="all" checked="checked"> 전체
+			<input type="radio" name="sex_p_id" id="sex_p_id" value="all" checked="checked"> 전체
 		</label>
 		<label class="radio-inline">
-			<input type="radio" name="gender" id="gender" value="noLimit"> 제한 없음
+			<input type="radio" name="sex_p_id" id="sex_p_id" value="0"> 제한 없음
 		</label>
 		<label class="radio-inline">
-			<input type="radio" name="gender" id="gender" value="male"/>남성
+			<input type="radio" name="sex_p_id" id="sex_p_id" value="1"/>남성
 		</label>
 		<label class="radio-inline">
-			<input type="radio" name="gender" id="gender" value="female"/>여성
+			<input type="radio" name="sex_p_id" id="sex_p_id" value="2"/>여성
 		</label>
 	</div>
 	<div class="form-group">
 		<label for="age">연령대</label>
 		<label class="radio-inline">
-			<input type="radio" name="age" id="age" value="all" checked="checked"> 전체
+			<input type="radio" name="age_p_id" id="age_p_id" value="all" checked="checked"> 전체
 		</label>
 		<label class="radio-inline">
-			<input type="radio" name="age" id="age" value="noLimit"> 제한 없음
+			<input type="radio" name="age_p_id" id="age_p_id" value="0"> 제한 없음
 		</label>
 		<label class="radio-inline">
-			<input type="radio" name="age" id="age" value="20"/>20대
+			<input type="radio" name="age_p_id" id="age_p_id" value="1"/>10대
 		</label>
 		<label class="radio-inline">
-			<input type="radio" name="age" id="age" value="30"/>30대
+			<input type="radio" name="age_p_id" id="age_p_id" value="2"/>20대
 		</label>
 		<label class="radio-inline">
-			<input type="radio" name="age" id="age" value="40"/>40대
+			<input type="radio" name="age_p_id" id="age_p_id" value="3"/>30대
 		</label>
 		<label class="radio-inline">
-			<input type="radio" name="age" id="age" value="50"/>50대
+			<input type="radio" name="age_p_id" id="age_p_id" value="4"/>40대
 		</label>
 		<label class="radio-inline">
-			<input type="radio" name="age" id="age" value="60"/>60대 이상
+			<input type="radio" name="age_p_id" id="age_p_id" value="5"/>50대
+		</label>
+		<label class="radio-inline">
+			<input type="radio" name="age_p_id" id="age_p_id" value="6"/>60대 이상
 		</label>
 	</div>
 	<div class="form-group">
 		<label for="speed">속도</label>
 		<label class="radio-inline">
-			<input type="radio" name="speed" id="speed" value="all" checked="checked"> 전체
+			<input type="radio" name="speed_id" id="speed_id" value="all" checked="checked"> 전체
 		</label>
 		<label class="radio-inline">
-			<input type="radio" name="speed" id="speed" value="noLimit"> 제한 없음
+			<input type="radio" name="speed_id" id="speed_id" value="0"> 제한 없음
 		</label>
 		<label class="radio-inline">
-			<input type="radio" name="speed" id="speed" value="20미만"/>20미만
+			<input type="radio" name="speed_id" id="speed_id" value="1"/>20미만
 		</label>
 		<label class="radio-inline">
-			<input type="radio" name="speed" id="speed" value="20이상 24미만"/>20이상 24미만
+			<input type="radio" name="speed_id" id="speed_id" value="2"/>20이상 24미만
 		</label>
 		<label class="radio-inline">
-			<input type="radio" name="speed" id="speed" value="24이상"/>24이상
+			<input type="radio" name="speed_id" id="speed_id" value="3"/>24이상
 		</label>
 	</div>
 	<div class="form-group">
 		<label for="step">숙련도</label>
 		<label class="radio-inline">
-			<input type="radio" name="step" id="step" value="all" checked="checked"> 전체
+			<input type="radio" name="step_id" id="step_id" value="all" checked="checked"> 전체
 		</label>
 		<label class="radio-inline">
-			<input type="radio" name="step" id="step" value="noLimit"> 제한 없음
+			<input type="radio" name="step_id" id="step_id" value="0"> 제한 없음
 		</label>
 		<label class="radio-inline">
-			<input type="radio" name="step" id="step" value="1년 미만" />1년 미만
+			<input type="radio" name="step_id" id="step_id" value="1" />1년 미만
 		</label>
 		<label class="radio-inline">
-			<input type="radio" name="step" id="step" value="1~3년" />1~3년
+			<input type="radio" name="step_id" id="step_id" value="2" />1~3년
 		</label>
 		<label class="radio-inline">
-			<input type="radio" name="step" id="step" value="3~5년" />3~5년
+			<input type="radio" name="step_id" id="step_id" value="3" />3~5년
 		</label>
 		<label class="radio-inline">
-			<input type="radio" name="step" id="step" value="6년 이상" />6년 이상
+			<input type="radio" name="step_id" id="step_id" value="4" />6년 이상
 		</label>
 	</div>
 	<div class="form-group">
 		<label for="eat">식사 여부</label>
 		<label class="radio-inline">
-			<input type="radio" name="eat" id="eat" value="all" checked="checked"> 전체
+			<input type="radio" name="eat_p_id" id="eat_p_id" value="all" checked="checked"> 전체
 		</label>
 		<label class="radio-inline">
-			<input type="radio" name="eat" id="eat" value="noLimit"> 제한 없음
+			<input type="radio" name="eat_p_id" id="eat_p_id" value="0"> 제한 없음
 		</label>
 		<label class="radio-inline">
-			<input type="radio" name="eat" id="eat" value="밥 안 먹고 달려요"/>밥 안 먹고 달려요
+			<input type="radio" name="eat_p_id" id="eat_p_id" value="1"/>밥 안 먹고 달려요
 		</label>
 		<label class="radio-inline">
-			<input type="radio" name="eat" id="eat" value="밥 먹고 달려요"/>밥 먹고 달려요
+			<input type="radio" name="eat_p_id" id="eat_p_id" value="2"/>밥 먹고 달려요
 		</label>
 	</div>
 	<div class="form-group">
 		<label for="dinning">회식 여부</label>
 		<label class="radio-inline">
-			<input type="radio" name="dinning" id="dinning" value="all" checked="checked"> 전체
+			<input type="radio" name="dining_p_id" id="dining_p_id" value="all" checked="checked"> 전체
 		</label>
 		<label class="radio-inline">
-			<input type="radio" name="dinning" id="dinning" value="nolimit"> 제한 없음
+			<input type="radio" name="dining_p_id" id="dining_p_id" value="0"> 제한 없음
 		</label>
 		<label class="radio-inline">
-			<input type="radio" name="dinning" id="dinning" value="끝나고 회식 안 해요"/>끝나고 회식 안 해요
+			<input type="radio" name="dining_p_id" id="dining_p_id" value="1"/>끝나고 회식 안 해요
 		</label>
 		<label class="radio-inline">
-			<input type="radio" name="dinning" id="dinning" value="끝나고 회식해요"/>끝나고 회식해요
+			<input type="radio" name="dining_p_id" id="dining_p_id" value="2"/>끝나고 회식해요
 		</label>
 	</div>
 	<div class="form-group">
 		<label for="mood">분위기</label>
 		<label class="radio-inline">
-			<input type="radio" name="mood" id="mood" value="all" checked="checked"> 전체
+			<input type="radio" name="mood_p_id" id="mood_p_id" value="all" checked="checked"> 전체
 		</label>
 		<label class="radio-inline">
-			<input type="radio" name="mood" id="mood" value="nolimit"> 제한 없음
+			<input type="radio" name="mood_p_id" id="mood_p_id" value="0"> 제한 없음
 		</label>
 		<label class="radio-inline">
-			<input type="radio" name="mood" id="mood" value="침묵이 좋아요"/>침묵이 좋아요
+			<input type="radio" name="mood_p_id" id="mood_p_id" value="1"/>침묵이 좋아요
 		</label>
 		<label class="radio-inline">
-			<input type="radio" name="mood" id="mood" value="친목이 좋아요"/>친목이 좋아요
+			<input type="radio" name="mood_p_id" id="mood_p_id" value="2"/>친목이 좋아요
 		</label>
 	</div>
 	<div class="form-group myRidingBtn">

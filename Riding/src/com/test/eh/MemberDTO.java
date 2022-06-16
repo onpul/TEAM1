@@ -4,6 +4,7 @@ package com.test.eh;
 public class MemberDTO
 {
 	private String nikName;
+	//private String 
 
 	public String getNikName()
 	{

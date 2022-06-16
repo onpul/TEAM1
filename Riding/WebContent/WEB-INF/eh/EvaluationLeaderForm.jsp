@@ -14,7 +14,6 @@
 	$(function()
 	{
 		
-		// 일단 이건 됨.
 		/*
 		$("input:checkbox").change(function()
 		{
@@ -22,8 +21,6 @@
 			//alert("체크박스 값 변동");
 			if($(this).is(":checked"))
 				alert("체크박스 : " + $(this).val());
-			
-			
 		});
 		*/
 		
@@ -34,8 +31,8 @@
 			
 			if(result)
 			{
-				//$("#form").submit();
-				alert("EvaluationInsert.jsp 로 form 내용 가지고 submit");
+				$("#form").submit();
+				//alert("EvaluationInsert.jsp 로 form 내용 가지고 submit");
 				alert("제출이 완료 되었습니다. 감사합니다.");
 			}
 			else
@@ -85,46 +82,38 @@
 
 <!-- div main -->
 <div class="container">
-	<!-- center에 위치 -->
+
 	<div class="col col-xs-12">
-		<p>모임 평가하기</p>
+		<h1>모임 평가하기</h1>
 		<br />
-		모임이름 : <span>${ridingName }</span>
+		모임이름 : <span>${riding.riding_name }</span>
 	</div>
 	
-	<!-- 다음줄 right에 위치 -->
 	<div class="col col-xs-12" style="text-align: right;">
-		<p>작성자 : <span>${nickname }</span></p>
+		<p>작성자 : <span >${userDto.nickName }</span></p>
 	</div>
 
-	<%-- 
-	<div>
-		<h1>테스트</h1>
-		<h1>${q1 }</h1>
-	</div>
-	// --%>
-	<!-- 다음줄 center에 위치 -->
 	<!-- 평가폼 -->
 	<div>	
-		<form id="form" action="" method="get">
+		<form id="form" action="evaluationinsertleader.action" method="get">
 			<div class="col col-xs-12 checkbox">
 				<br />
 				<span style="font-weight: bold;"> 결석한 사람을 체크해 주세요.</span>
-				<!-- 모두 참여 -->
-				<!-- <input type="checkbox" name="attendance" value="userX" id="userX" checked="checked" style="display: none;"> -->
 				
 				<!-- 참여자 명단 보여주기 -->
 				 
 				<c:forEach var="dto" items="${memberList }">
-					<label for="${dto.nickName }"><input type="checkbox" name="attendance" value="${dto.nickName }" id="${dto.nickName }">${dto.nickName }</label>
+					<label for="${dto.user_id }">
+						<input type="checkbox" name="attendance" value="${dto.user_id }" id="${dto.user_id }">
+						${dto.nickName }
+					</label>
 				</c:forEach>
-				
 				<!-- 
 				<label for="user1"><input type="checkbox" name="attendance" value="user1" id="user1">사과1</label>
 				<label for="user2"><input type="checkbox" name="attendance" value="user2" id="user2">철수1</label>
 				<label for="user3"><input type="checkbox" name="attendance" value="user3" id="user3">바나나1</label>
 				<label for="user4"><input type="checkbox" name="attendance" value="user4" id="user4">영희1</label>
-				 -->
+				// -->
 				</div>
 				
 			<div id="divTemp"></div>
@@ -135,33 +124,35 @@
 				<span style="font-weight: bold;">${q0.q_content }</span>
 				<div id="tempXXX"></div>
 				<select class="form-control" name="kindness" id="kindness">
-				<c:forEach var="dto" items="${memberList }">
-					<option value="${dto.nickName }">${dto.nickName }</option>
-				</c:forEach>
-				<!-- 
+					<option value="defaultKindness" selected="selected">없음.</option>
+					<c:forEach var="dto" items="${memberList }">
+						<option value="${dto.user_id }">${dto.nickName }</option>
+					</c:forEach>
+					<!-- 
 					<option value="user0">없음</option>
 					<option value="user1">사과1</option>
 					<option value="user2">철수1</option>
 					<option value="user3">바나나1</option>
 					<option value="user4">영희1</option>
-				 -->
+			     	// -->
 				</select>
 			</div>
 			
 			<div class="col col-xs-12">
 			 	<br />
-				<span style="font-weight: bold;">${q1.q_content }</span>
+				<span style="font-weight: bold;">${leaderQuestionList.q_content }</span>
 				<select class="form-control" name="notKindness">
-				<c:forEach var="dto" items="${memberList }">
-					<option value="${dto.nickName }">${dto.nickName }</option>
-				</c:forEach>
-				<!-- 
+					<option value="defaultNotKindness" selected="selected">없음.</option>
+					<c:forEach var="dto" items="${memberList }">
+						<option value="${dto.user_id }">${dto.nickName }</option>
+					</c:forEach>
+					<!-- 
 					<option value="user0">없음</option>
 					<option value="user1">사과1</option>
 					<option value="user2">철수1</option>
 					<option value="user3">바나나1</option>
 					<option value="user4">영희1</option>
-				-->
+					// -->
 				</select>
 			</div>
 	
@@ -169,16 +160,17 @@
 				<br />
 				<span style="font-weight: bold;">${q2.q_content }</span>
 				<select class="form-control" name="dangerRiding">
-				<c:forEach var="dto" items="${memberList }">
-					<option value="${dto.nickName }">${dto.nickName }</option>
-				</c:forEach>
-				<!-- 
+					<option value="defaultDangerRiding" selected="selected">없음.</option>
+					<c:forEach var="dto" items="${memberList }">
+						<option value="${dto.user_id }">${dto.nickName }</option>
+					</c:forEach>
+					<!-- 
 					<option value="user0">없음</option>
 					<option value="user1">사과1</option>
 					<option value="user2">철수1</option>
 					<option value="user3">바나나1</option>
 					<option value="user4">영희1</option>
-				 //-->
+				 	// -->
 				</select>
 			</div>
 			
@@ -186,16 +178,17 @@
 				<br />	
 				<span style="font-weight: bold;">${q6.q_content }</span>
 				<select class="form-control" name="notCompletion">
-				<c:forEach var="dto" items="${memberList }">
-					<option value="${dto.nickName }">${dto.nickName }</option>
-				</c:forEach>
-				<!-- 
+					<option value="defaultNotCompletion" selected="selected">없음.</option>
+					<c:forEach var="dto" items="${memberList }">
+						<option value="${dto.user_id }">${dto.nickName }</option>
+					</c:forEach>
+					<!-- 
 					<option value="user0">없음</option>
 					<option value="user1">사과1</option>
 					<option value="user2">철수1</option>
 					<option value="user3">바나나1</option>
 					<option value="user4">영희1</option>
-				// --> 
+					// -->
 				</select>
 			</div>
 			
@@ -205,16 +198,17 @@
 				     일 때만 활성화됨. -->
 				<span style="font-weight: bold;">${q7.q_content }</span>
 				<select class="form-control" name="different">
-				<c:forEach var="dto" items="${memberList }">
-					<option value="${dto.nickName }">${dto.nickName }</option>
-				</c:forEach>
-				<!--
+					<option value="defaultDifferent" selected="selected">없음.</option>
+					<c:forEach var="dto" items="${memberList }">
+						<option value="${dto.user_id }">${dto.nickName }</option>
+					</c:forEach>
+					<!-- 
 					<option value="user0">없음</option>
 					<option value="user1">사과1</option>
 					<option value="user2">철수1</option>
 					<option value="user3">바나나1</option>
 					<option value="user4">영희1</option>
-				-->
+					// -->
 				</select>
 			</div>
 			

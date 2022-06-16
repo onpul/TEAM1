@@ -86,31 +86,88 @@ public class EhController
 		//마이바티스 방법으로 dao 인스턴스 생성
 		IEvaluationDAO dao = sqlSession.getMapper(IEvaluationDAO.class);
 		
-		// 평가지 문항 가져오기
 		
-		ArrayList<EvaluationDTO> temp = dao.questionList();
+		// 처음 조회할 때
+		// 모임명 / 작성자 닉네임 / 참여자 명단 / 문항 / 가져오기
+		String user_id = "2";
+		String riding_id = "1";
 		
-		for (int i = 0; i < temp.size(); i++)
+		// 해당 사용자가 속한 평가기간에 맞는 모임 조회
+		int dateFlag = dao.evalDateFlagList(user_id);
+		//System.out.println("dateFlag : " + dateFlag);
+		model.addAttribute("dateFlag", dateFlag);
+		
+		
+		// 해당 사용자가 방장인지 조회
+		int leaderFlag = dao.leaderFlagList(user_id);
+		//System.out.println("leaderFlag"+leaderFlag);
+		model.addAttribute("leaderFlag", leaderFlag);
+		
+		// 문항 조회 
+		ArrayList<EvaluationDTO> leaderQuestionList = new ArrayList<EvaluationDTO>();
+		leaderQuestionList = dao.leaderQuestionList();
+		model.addAttribute("leaderQuestionList",leaderQuestionList);
+		
+		
+		for (int i = 0; i < leaderQuestionList.size(); i++)
 		{
-			model.addAttribute("q"+i, temp.get(i));
+			System.out.println("문항 id: " + leaderQuestionList.get(i).getQuestion_id());
+			System.out.println("문항 내용: " + leaderQuestionList.get(i).getQ_content());
+			//model.addAttribute("leaderQuestion", arg1)
 		}
 		
-		//model.addAttribute("q_content", dao.questionList());
 		
-		//평가지 작성자 닉네임 가져오기
-		//!! 지금은 user_id 임시로 줌.
-		String user_id = "2";
-		String riding_id="1";
-		model.addAttribute("nickname", dao.nickNameList(user_id));
+		// 모임명 조회
+		EvaluationDTO riding = dao.ridingNameList(user_id);
+		model.addAttribute("riding",riding);
 		
-		//작성자가 참여한 모임 이름 가져오기
-		model.addAttribute("ridingName", dao.ridingName(user_id));
+		//System.out.println("라이딩모임id : " + riding.getRiding_id());
+		//System.out.println("라이딩모임명 : " + riding.getRiding_name());
 		
 		
-		//해당 모임의 참여자 명단 가져오기
-		model.addAttribute("memberList", dao.particiMemberList(riding_id));
+		// 작성자 조회(닉네임)
+		EvaluationDTO userDto = dao.userNickNameList(user_id);
+		model.addAttribute("userDto",userDto);
+		//System.out.println("참여자 이름 : " + userDto.getNickName());
+		//System.out.println("참여자 이름 : " + userDto.getUser_id());
+		
+		
+		// 참여자 명단 조회
+		ArrayList<EvaluationDTO> memberList = new ArrayList<EvaluationDTO>(); 
+		memberList = dao.memberList(riding_id);
+		model.addAttribute("memberList",memberList);
+		/*
+		System.out.println(memberList.size());
+		for (int i = 0; i < memberList.size(); i++)
+		{
+			System.out.println("참여자명단(닉네임) :" + memberList.get(i).getNickName());
+			System.out.println("참여자명단(id) :" + memberList.get(i).getUser_id());
+		}
+		*/
+		
+		// 제출 여부 판단 조회
+		int answerFlag = dao.answerFlag(user_id);
+		model.addAttribute("answerFlag",answerFlag);
+		//System.out.println("제출여부 : " + answerFlag);
+		
+		
 		return view;
 	}
+	
+	//평가지(방장)폼에서 입력 받은 값 insert 시키기.
+	@RequestMapping(value = "/evaluationinsertleader.action",method = RequestMethod.GET)
+	public String evalAdd(EvaluationDTO dto)
+	{
+		String view = "test.jsp";
+		String user_id = "2";
+		String riding_id = "1";
+		IEvaluationDAO dao = sqlSession.getMapper(IEvaluationDAO.class);
+		
+		String p_member_id = dao.searchPMemberId(user_id);
+		//System.out.println("피멤버아이디:"+p_member_id);
+		
+		return view;
+	}			
 	
 	
 	//평가(참여자)뷰
@@ -122,8 +179,10 @@ public class EhController
 		
 		IEvaluationDAO dao = sqlSession.getMapper(IEvaluationDAO.class);
 		
-		// 평가지 문항 가져오기
 		
+		
+		// 평가지 문항 가져오기
+		/*
 		ArrayList<EvaluationDTO> temp = dao.questionList();
 		
 		for (int i = 0; i < temp.size(); i++)
@@ -145,6 +204,8 @@ public class EhController
 		
 		//해당 모임의 참여자 명단 가져오기
 		model.addAttribute("memberList", dao.particiMemberList(riding_id));
+		
+		*/
 		return view;
 	}
 	

@@ -4,36 +4,96 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.test.eh.IEvaluationDAO">
 	
-	<!-- 평가지 문항 조회 -->
-	<select id="questionList" resultType="com.test.eh.EvaluationDTO">
-		SELECT Q_CONTENT
+	<!-- 모임명 / 작성자 닉네임 / 참여자 명단 / 문항 / 가져오기 -->
+	<!-- // 1. 평가기간인 모임이 있는지 조회하는 메소드 -->
+	<select id="evalDateFlagList" resultType="java.lang.Integer">
+		SELECT CASE WHEN SYSDATE <![CDATA[<=]]> END_DATE +7 AND SYSDATE <![CDATA[>]]> START_DATE THEN 1
+	            ELSE 0
+	            END EVADATE
+		FROM RIDING
+		WHERE RIDING_ID = (SELECT RIDING_ID
+		                   FROM PARTICIPATED_MEMBER 
+		                   WHERE USER_ID = #{user_id}
+		                   )
+	</select>
+	<!-- // 2. 방장인지 아닌지 조회하는 메소드 → 방장과 참여자가 요청하는 페이지가 달라짐. -->
+	<select id="leaderFlagList" resultType="java.lang.Integer">
+		SELECT CASE WHEN COUNT(*) = 0 THEN 0
+            ELSE 1
+            END LEADERCHECK
+		FROM RIDING
+		WHERE LEADER_ID = #{user_id}
+	</select>
+	
+	
+	<!-- // 3-1. 문항 조회 메소드 → 방장 -->
+	<select id="leaderQuestionList" resultType="com.test.eh.EvaluationDTO">
+		SELECT QUESTION_ID , Q_CONTENT
 		FROM QUESTION
+		WHERE QUESTION_ID BETWEEN 1 AND 3 OR QUESTION_ID IN(7,8)
 	</select>
+	<!-- // 3-2. 문항 조회 메소드 → 참여자 일 때는 리더십에 관한 문항 추가. -->
 	
 	
-	<!-- 작성자 닉네임 가져오기 -->
-	<select id="nickNameList" resultType="java.lang.String">
-		SELECT NICKNAME
-		FROM PROFILE
-		WHERE USER_ID=#{user_id}
-	</select>
 	
-	<!-- 작성자가 참여한 모임 이름 가져오기 -->
-	<select id="ridingName" resultType="java.lang.String">
-		SELECT RIDING_NAME
+	<!-- // 4. 모임명 조회 메소드 -->
+	<select id="ridingNameList" resultType="com.test.eh.EvaluationDTO">
+		SELECT R.RIDING_ID AS RIDING_ID,R.RIDING_NAME AS RIDING_NAME
 		FROM RIDING R JOIN PROFILE P JOIN PARTICIPATED_MEMBER PM
 		ON P.USER_ID = PM.USER_ID
 		ON PM.RIDING_ID = R.RIDING_ID
 		WHERE P.USER_ID = #{user_id}
 	</select>
 	
-	<!-- 위 모임의 참여자 명단 가져오기 -->
-	<select id="particiMemberList" resultType="com.test.eh.EvaluationDTO">
-		SELECT P.NICKNAME AS NICKNAME
+	<!-- // 5. 평가지 작성자 정보 조회 / 닉네임만 뿌릴 예정	→ dto에 nickName, user_id -->
+	<select id="userNickNameList" resultType="com.test.eh.EvaluationDTO">
+		SELECT USER_ID,NICKNAME
+		FROM PROFILE
+		WHERE USER_ID=#{user_id}
+	</select>
+	
+	<!-- // 6. 참여자 명단 조회 메소드	/ 닉네임만 뿌릴 예정 -->
+	<select id="memberList" resultType="com.test.eh.EvaluationDTO">
+		SELECT PM.USER_ID AS USER_ID
+		    ,P.NICKNAME AS NICKNAME
 		FROM PARTICIPATED_MEMBER PM JOIN PROFILE P
 		ON PM.USER_ID = P.USER_ID
-		WHERE RIDING_ID = (SELECT RIDING_ID
-		                   FROM RIDING
-		                   WHERE RIDING_ID = #{riding_id})
+		WHERE RIDING_ID = #{riding_id}
 	</select>
+	
+	<!-- // 7. 제출했는지 판단하는 메소드 -->
+	<select id="answerFlag" resultType="java.lang.Integer">
+	SELECT CASE WHEN COUNT(*) = 0 THEN 0
+            ELSE 1
+            END ANSWERCHECK
+	FROM PARTICIPATED_MEMBER PM JOIN ANSWER A
+	ON PM.P_MEMBER_ID = A.P_MEMBER_ID
+	WHERE PM.USER_ID = #{user_id}
+	</select>
+	
+	
+	
+	<!-- ======================================================== -->
+	<!-- insert -->
+	<!-- //8-1. 8-2 수행 전, 작성자가 참여자 테이블에서 가지는 P_MEMBER_ID 를 반환
+	//     --- P_MEMBER_ID 로 입력해야 해서. -->
+	<select id="searchPMemberId" resultType="java.lang.String">
+		SELECT P_MEMBER_ID
+		FROM PARTICIPATED_MEMBER
+		WHERE USER_ID = #{user_id}
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </mapper>

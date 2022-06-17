@@ -323,7 +323,7 @@ Main.jsp
 	{
 		$("#openRidingBtn").click(function()
 		{
-			var user_id = ${user_id};
+			//var user_id = ${user_id};
 			
 			alert("확인");
 			alert("user_id = " + user_id);
@@ -332,7 +332,7 @@ Main.jsp
 			$.ajax(
 			{
 				type:"POST"
-				, url:"penaltycheck.action?user_id="+user_id
+				, url:"penaltycheck.action"
 				, success:function(data)
 				{
 					if (data == 0)
@@ -482,12 +482,15 @@ Main.jsp
 
 <!-- 하단 버튼(회원/관리자) / 비회원일 경우 적용 안 함 -->
 <!-- 회원일 경우 적용 -->
+<c:choose>
+<c:when test="${sessionScope.user_id!=null }">  
 <div class="row btn-box"> 
 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 		<input type="button" class="btn btn-default" value="모임 생성하기" id="openRidingBtn"/>
 	</div>
 </div>
-
+</c:when>
+</c:choose>
 <!-- 관리자일 경우 적용 -->
 <!-- 
 <div class="row btn-box"> 

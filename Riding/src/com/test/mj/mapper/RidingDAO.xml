@@ -134,4 +134,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM VIEW_MY_RIDING_STYLE
 		WHERE USER_ID = #{user_id}
 	</select>
+	
+	<!-- 리스트 조회 -->
+	<select id="ridingList" resultType="com.test.mj.RidingDTO">
+		SELECT RIDING_ID, RIDING_NAME, MAXIMUM, OPEN, START_DATE, END_DATE
+		FROM VIEW_RIDING_LIST
+	</select>
 </mapper>

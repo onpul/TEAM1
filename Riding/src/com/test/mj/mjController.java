@@ -302,15 +302,6 @@ public class mjController
 		return mav;
 	}
 	
-	// 라이딩 리스트 페이지 요청(ridinglist.action)
-	@RequestMapping(value = "/ridinglist.action", method = RequestMethod.GET)
-	public String ridingList()
-	{
-		String result = null;
-		result = "WEB-INF/view/RidingList.jsp";
-		return result;
-	}
-	
 	// 라이딩 상세보기 페이지 요청(ridingdetail.action) 
 	@RequestMapping(value = "/ridingdetail.action", method = RequestMethod.GET)
 	public String ridingDetail()
@@ -614,16 +605,27 @@ public class mjController
 	// 모임 생성 패널티 조회
 	@RequestMapping(value = "/penaltycheck.action", method = RequestMethod.POST)
 	@ResponseBody
-	public String penaltyCheck(String user_id)
+	public String penaltyCheck(UserDTO dto)
 	{
 		System.out.println("-----penaltyCheck() 진입 성공-----");
-		System.out.println("user_id = " + user_id);
+		System.out.println("user_id = " + dto.getUser_id());
 		
 		String result = "";
 		
 		IRidingDAO dao = sqlSession.getMapper(IRidingDAO.class);
 		
-		result = Integer.toString(dao.penaltyCheck(user_id));
+		try
+		{
+			String user_id = Integer.toString(dto.getUser_id());
+			
+			result = dao.penaltyCheck(user_id);
+			
+			System.out.println("result = " + result);
+			
+		} catch (Exception e)
+		{
+			System.out.println(e.toString());
+		}
 		
 		return result;
 	}
@@ -660,6 +662,36 @@ public class mjController
 	
 		result += "]";
 		System.out.println(result);
+		
+		return result;
+	}
+	
+	// 라이딩 리스트
+	@RequestMapping(value = "/ridinglist.action", method = RequestMethod.GET)
+	public String ridingList(Model model, RidingDTO dto)
+	{	
+		// 테스트
+		System.out.println("-----ridinglist() 진입-----");
+		System.out.println(dto.getSex_p_id());
+		System.out.println(dto.getAge_p_id());
+		System.out.println(dto.getSpeed_id());
+		System.out.println(dto.getStep_id());
+		System.out.println(dto.getEat_p_id());
+		System.out.println(dto.getDining_p_id());
+		System.out.println(dto.getMood_p_id());
+		// 받아오는 거 확인 
+		// 전체는 -1로 받아짐(value 값이 -1)
+		
+		String result = null;
+		
+		IRidingDAO dao = sqlSession.getMapper(IRidingDAO.class);
+		
+		String where = "";
+		String orderby = "";
+		
+		model.addAttribute("ridingList", dao.ridingList(where, orderby));
+		
+		result = "/WEB-INF/view/RidingList.jsp";
 		
 		return result;
 	}

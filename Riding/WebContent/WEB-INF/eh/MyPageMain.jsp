@@ -35,7 +35,35 @@
 			//방장이면, EvaluationLeaderForm.jsp 로 이동
 			//참여자이면,EvaluationMemberForm.jsp 로 이동
 			//alert(" EvaluationLeaderForm.jsp 로 이동.")
-			location.replace("evaluationleaderform.action");
+			//location.replace("evaluationleaderform.action");
+			
+			
+			
+			var user_id = $("#user_id").val();
+			
+			//ajax 처리
+			$.ajax(
+			{
+				type:"GET"
+				,url:"evaldate_ok.action?user_id="+ user_id
+				,success: function(data)
+				{
+					//alert("에이젝스되나?");
+					//alert(data);
+					if (data==0)
+					{
+						alert("평가기간에 속하는 모임이 없습니다.");
+						return;
+					}
+					else
+						location.replace("evaluationleaderform.action");
+					
+				}
+				,error: function(e)
+				{
+					alert("따란~ 에이젝스 문제랍니다~"+e.responseText);
+				}
+			});
 		});
 		
 		$("#ridingRecordList").click(function()
@@ -141,6 +169,7 @@
 		<div class="col-xs-4" style="background-color:yellow;">
 			<div style="text-align: center;">
 				<!-- <span>체리</span> -->
+				<input type="hidden" id="user_id" value="${user_id }">
 				<span>${nickname }</span>
 			</div>
 			

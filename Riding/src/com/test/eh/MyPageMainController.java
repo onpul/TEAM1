@@ -29,7 +29,7 @@ public class MyPageMainController implements Controller
 		//String user_id = request.getParameter("user_id");
 		
 		// !! 현재는 임시 session 사용전!
-		String user_id = "2";
+		String user_id = "40";
 		
 		result = dao.memberList(user_id);
 		
@@ -48,8 +48,10 @@ public class MyPageMainController implements Controller
 			oneword = dto.getOneword();
 			pi_address = dto.getPi_address();
 		}
-		
+		mav.addObject("user_id", user_id);
+		//System.out.println(user_id);
 		mav.addObject("email", email);
+		//System.out.println(email);
 		mav.addObject("nickname", nickname);
 		mav.addObject("oneword", oneword);
 		mav.addObject("pi_address", pi_address);

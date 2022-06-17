@@ -30,7 +30,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="leaderQuestionList" resultType="com.test.eh.EvaluationDTO">
 		SELECT QUESTION_ID , Q_CONTENT
 		FROM QUESTION
-		WHERE QUESTION_ID BETWEEN 1 AND 3 OR QUESTION_ID IN(7,8)
+		
 	</select>
 	<!-- // 3-2. 문항 조회 메소드 → 참여자 일 때는 리더십에 관한 문항 추가. -->
 	
@@ -38,11 +38,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- // 4. 모임명 조회 메소드 -->
 	<select id="ridingNameList" resultType="com.test.eh.EvaluationDTO">
-		SELECT R.RIDING_ID AS RIDING_ID,R.RIDING_NAME AS RIDING_NAME
-		FROM RIDING R JOIN PROFILE P JOIN PARTICIPATED_MEMBER PM
-		ON P.USER_ID = PM.USER_ID
+		SELECT R.RIDING_ID AS RIDING_ID
+		      ,R.RIDING_NAME AS RIDING_NAME
+		FROM RIDING R JOIN PARTICIPATED_MEMBER PM
 		ON PM.RIDING_ID = R.RIDING_ID
-		WHERE P.USER_ID = #{user_id}
+		WHERE R.RIDING_ID = (SELECT RIDING_ID
+		                     FROM PARTICIPATED_MEMBER
+		                     WHERE USER_ID = #{user_id})
+		    AND PM.USER_ID=#{user_id}
 	</select>
 	
 	<!-- // 5. 평가지 작성자 정보 조회 / 닉네임만 뿌릴 예정	→ dto에 nickName, user_id -->
@@ -75,18 +78,60 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- ======================================================== -->
 	<!-- insert -->
-	<!-- //8-1. 8-2 수행 전, 작성자가 참여자 테이블에서 가지는 P_MEMBER_ID 를 반환
-	//     --- P_MEMBER_ID 로 입력해야 해서. -->
+	<!-- //8-1. 8-2 수행 전, 작성자가 참여자 테이블에서 가지는 P_MEMBER_ID 를 반환 -->
+    <!-- 	      P_MEMBER_ID 로 입력해야 해서. -->
 	<select id="searchPMemberId" resultType="java.lang.String">
 		SELECT P_MEMBER_ID
 		FROM PARTICIPATED_MEMBER
 		WHERE USER_ID = #{user_id}
 	</select>
 	
+	<!-- 1.ANSWER (응답) ANSWER_ID / P_MEMBER_ID / SUBMIT_DATE
+		INSERT INTO ANSWER (ANSWER_ID , P_MEMBER_ID , SUBMIT_DATE)
+		VALUES(SEQ_ANSWER.NEXTVAL, 1,SYSDATE); -->
+	<insert id="answerInsert">
+		INSERT INTO ANSWER (ANSWER_ID , P_MEMBER_ID , SUBMIT_DATE)
+		VALUES(SEQ_ANSWER.NEXTVAL, #{p_member_id},SYSDATE)
+	</insert>
 	
+	<!--  2.CHECK_ATTENDANCE(출석체크) / CHECK_ATTE_ID / P_MEMBER_ID / SUBMIT_DATE
+		평가지 제출과는 관계없이 결석자가 없으면 이 쿼리문은 실행되지 않는다.
+		(P_MEMBER_ID 가 17인 사람은 결석자가 없음이라함.)
+        -->
+	<insert id="checkInsert">
+		INSERT INTO CHECK_ATTENDANCE(CHECK_ATTE_ID , P_MEMBER_ID , SUBMIT_DATE)
+		VALUES(SEQ_CHECK_ATTENDANCE.NEXTVAL,#{p_member_id},SYSDATE)
+	</insert>
 	
+	<!-- USER_ID로 CHECK_ATTE_ID 찾기
+         2번 ID 를 가진 작성자가 응답을 했고 , 출석체크도 했다.
+        출석체크 아이디도 찾음 -->
+    <select id="searchCheckId" resultType="java.lang.String">
+    	SELECT CHECK_ATTE_ID, USER_ID
+		FROM CHECK_ATTENDANCE CA JOIN PARTICIPATED_MEMBER PM
+		ON CA.P_MEMBER_ID = PM.P_MEMBER_ID
+		WHERE PM.USER_ID = #{user_id}
+    </select>
 	
+	<!-- 10-2. 평가지 제출 시, 출석체크응답내용 테이블에 insert 하는 메소드 -->
+	<insert id="checkDetailInsert">
+		INSERT INTO ANSWER_ATTENDANCE(ANS_ATTE_ID , CHECK_ATTE_ID , P_MEMBER_ID)
+		VALUES(SEQ_ANSWER_ATTENDANCE.NEXTVAL,#{check_atte_id}, #{p_member_id})
+	</insert>
 	
+	<!-- 11. 평가지 제출 시, 응답내용 테이블에 insert 하는 메소드 -->
+	<insert id="answerDetailInsert">
+		INSERT INTO ANSWER_DETAIL(ANS_DETAIL_ID , ANSWER_ID , QUESTION_ID , P_MEMBER_ID)
+		VALUES(SEQ_ANSWER_DETAIL.NEXTVAL, #{answer_id},#{question_id},#{p_member_id})
+	</insert>
+	
+	<!-- 응답 id 찾기 -->
+	<select id="searchAnswerId" resultType="java.lang.String">
+		SELECT ANSWER_ID
+		FROM PARTICIPATED_MEMBER PM JOIN ANSWER A
+		ON PM.P_MEMBER_ID = A.P_MEMBER_ID
+		WHERE PM.USER_ID = #{user_id}
+	</select>
 	
 	
 	

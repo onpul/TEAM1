@@ -36,18 +36,18 @@ public interface IEvaluationDAO
 	
 	
 	//8-1. 8-2 수행 전, 작성자가 참여자 테이블에서 가지는 P_MEMBER_ID 를 반환
-	//     --- P_MEMBER_ID 로 입력해야 해서.
+	//     --- P_MEMBER_ID 로 입력해야 해서.ㅇㅋ
 	public String searchPMemberId(String user_id);
 	
-	// 8-2. 평가지 제출 시, 응답 테이블에 insert 하는 메소드 
+	// 8-2. 평가지 제출 시, 응답 테이블에 insert 하는 메소드 ㅇㅋ
 	// → dto에 attendance, kindness, notKindness,dangerRiding, notCompletion, different 
 	public int answerInsert(EvaluationDTO dto);		
 	
-	// 9. 평가지 제출 시, 출석체크 테이블에 insert 하는 메소드
+	// 9. 평가지 제출 시, 출석체크 테이블에 insert 하는 메소드ㅇㅋ
 	public int checkInsert(EvaluationDTO dto);
 	
 	// 10-1. 10-2 insert 전 , USER_ID로 CHECK_ATTE_ID 찾기(P_MEMBER_ID는 폼에서 넘겨받은 결석지목받은 사람)
-	//		 ---- CHECK_ATTE_ID가 필요하다.
+	//		 ---- CHECK_ATTE_ID가 필요하다.ㅇㅋ
 	public String searchCheckId(String user_id);
 	
 	// 10-2. 평가지 제출 시, 출석체크응답내용 테이블에 insert 하는 메소드
@@ -55,6 +55,9 @@ public interface IEvaluationDAO
 	
 	// 11. 평가지 제출 시, 응답내용 테이블에 insert 하는 메소드
 	public int answerDetailInsert(EvaluationDTO dto);
+	
+	// 12. 응답 ID 찾기
+	public String searchAnswerId(String user_id);
 	
 	
 	

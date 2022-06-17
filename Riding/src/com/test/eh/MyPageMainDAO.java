@@ -32,6 +32,7 @@ public class MyPageMainDAO implements IMyPageMainDAO
 			if (rs.next())
 			{
 				MyPageMainDTO dto = new MyPageMainDTO();
+				dto.setUser_id(rs.getString("USER_ID"));
 				dto.setEmail(rs.getString("EMAIL"));
 				dto.setNickname(rs.getString("NICKNAME"));
 				dto.setOneword("ONEWORD");

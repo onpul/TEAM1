@@ -1,3 +1,4 @@
+<%@page import="com.test.eh.EvaluationDTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -101,10 +102,10 @@
 				<span style="font-weight: bold;"> 결석한 사람을 체크해 주세요.</span>
 				
 				<!-- 참여자 명단 보여주기 -->
-				 
+				<input type="radio" name="attendance" value="not" style="display: none;" checked="checked">
 				<c:forEach var="dto" items="${memberList }">
 					<label for="${dto.user_id }">
-						<input type="checkbox" name="attendance" value="${dto.user_id }" id="${dto.user_id }">
+						<input type="radio" name="attendance" value="${dto.user_id }" id="${dto.user_id }">
 						${dto.nickName }
 					</label>
 				</c:forEach>
@@ -115,16 +116,31 @@
 				<label for="user4"><input type="checkbox" name="attendance" value="user4" id="user4">영희1</label>
 				// -->
 				</div>
-				
+			<%-- 
+			<div>
+				<h1>테스트중...</h1>
+				<c:forEach var="dto" items="${leaderQuestionList }">
+					<h1>${dto.q_content }</h1>
+				</c:forEach>
+			</div>
+			 --%>
 			<div id="divTemp"></div>
 			<div class="col col-xs-12">
 				<br />
 				<!-- 본인은 제외. -->
 				<!-- 결석자는 포함. -->
-				<span style="font-weight: bold;">${q0.q_content }</span>
-				<div id="tempXXX"></div>
+				<%-- <span style="font-weight: bold;">${leaderQuestion0.q_content }</span> --%>
+				
+				<span style="font-weight: bold;">
+					<c:forEach var="dto" items="${leaderQuestionList }">
+						<c:if test="${dto.question_id ==1}">
+							<p>${dto.q_content }</p>
+						</c:if>
+					</c:forEach>
+				</span>
+				
 				<select class="form-control" name="kindness" id="kindness">
-					<option value="defaultKindness" selected="selected">없음.</option>
+					<option value="not" selected="selected">없음.</option>
 					<c:forEach var="dto" items="${memberList }">
 						<option value="${dto.user_id }">${dto.nickName }</option>
 					</c:forEach>
@@ -140,9 +156,18 @@
 			
 			<div class="col col-xs-12">
 			 	<br />
-				<span style="font-weight: bold;">${leaderQuestionList.q_content }</span>
+				<%-- <span style="font-weight: bold;">${leaderQuestionList.q_content }</span> --%>
+				<span style="font-weight: bold;">
+					<c:forEach var="dto" items="${leaderQuestionList }">
+						<c:if test="${dto.question_id ==2}">
+							<p>${dto.q_content }</p>
+						</c:if>
+					</c:forEach>
+				</span>
+				
+				
 				<select class="form-control" name="notKindness">
-					<option value="defaultNotKindness" selected="selected">없음.</option>
+					<option value="not" selected="selected">없음.</option>
 					<c:forEach var="dto" items="${memberList }">
 						<option value="${dto.user_id }">${dto.nickName }</option>
 					</c:forEach>
@@ -158,9 +183,15 @@
 	
 			<div class="col col-xs-12">		
 				<br />
-				<span style="font-weight: bold;">${q2.q_content }</span>
+				<span style="font-weight: bold;">
+					<c:forEach var="dto" items="${leaderQuestionList }">
+						<c:if test="${dto.question_id ==3}">
+							<p>${dto.q_content }</p>
+						</c:if>
+					</c:forEach>
+				</span>
 				<select class="form-control" name="dangerRiding">
-					<option value="defaultDangerRiding" selected="selected">없음.</option>
+					<option value="not" selected="selected">없음.</option>
 					<c:forEach var="dto" items="${memberList }">
 						<option value="${dto.user_id }">${dto.nickName }</option>
 					</c:forEach>
@@ -176,9 +207,15 @@
 			
 			<div class="col col-xs-12">	
 				<br />	
-				<span style="font-weight: bold;">${q6.q_content }</span>
+				<span style="font-weight: bold;">
+					<c:forEach var="dto" items="${leaderQuestionList }">
+						<c:if test="${dto.question_id ==7}">
+							<p>${dto.q_content }</p>
+						</c:if>
+					</c:forEach>
+				</span>
 				<select class="form-control" name="notCompletion">
-					<option value="defaultNotCompletion" selected="selected">없음.</option>
+					<option value="not" selected="selected">없음.</option>
 					<c:forEach var="dto" items="${memberList }">
 						<option value="${dto.user_id }">${dto.nickName }</option>
 					</c:forEach>
@@ -196,9 +233,15 @@
 				<br />
 				<!-- 모임의 속성이 숙련도 4~5이고 평속 20이상 
 				     일 때만 활성화됨. -->
-				<span style="font-weight: bold;">${q7.q_content }</span>
+				<span style="font-weight: bold;">
+					<c:forEach var="dto" items="${leaderQuestionList }">
+						<c:if test="${dto.question_id ==8}">
+							<p>${dto.q_content }</p>
+						</c:if>
+					</c:forEach>
+				</span>
 				<select class="form-control" name="different">
-					<option value="defaultDifferent" selected="selected">없음.</option>
+					<option value="not" selected="selected">없음.</option>
 					<c:forEach var="dto" items="${memberList }">
 						<option value="${dto.user_id }">${dto.nickName }</option>
 					</c:forEach>

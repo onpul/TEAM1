@@ -1,5 +1,6 @@
 package com.test.mj;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -15,6 +16,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -666,9 +668,19 @@ public class mjController
 		return result;
 	}
 	
-	// 라이딩 리스트
+	// 라이딩 리스트 페이지 요청(ridinglist.action)
 	@RequestMapping(value = "/ridinglist.action", method = RequestMethod.GET)
-	public String ridingList(Model model, RidingDTO dto)
+	public String ridingList()
+	{
+		String result = null;
+		result = "WEB-INF/view/RidingList.jsp";
+		return result;
+	}
+	
+	// 라이딩 리스트 (분류 적용마다 호출되는 컨트롤러)
+	@RequestMapping(value = "/ridinglistform.action")
+	@ResponseBody
+	public void ridingList(RidingDTO dto, HttpServletResponse response) throws IOException
 	{	
 		// 테스트
 		System.out.println("-----ridinglist() 진입-----");
@@ -679,20 +691,49 @@ public class mjController
 		System.out.println(dto.getEat_p_id());
 		System.out.println(dto.getDining_p_id());
 		System.out.println(dto.getMood_p_id());
-		// 받아오는 거 확인 
-		// 전체는 -1로 받아짐(value 값이 -1)
 		
-		String result = null;
+		String result = "";
 		
 		IRidingDAO dao = sqlSession.getMapper(IRidingDAO.class);
+		ArrayList<RidingDTO> ridingList = new ArrayList<RidingDTO>();
 		
 		String where = "";
 		String orderby = "";
 		
-		model.addAttribute("ridingList", dao.ridingList(where, orderby));
+		where += "WHERE SEX_P_ID = " + dto.getSex_p_id();
+		where += " AND AGE_P_ID = " + dto.getAge_p_id();
+		where += " AND SPEED_ID = " + dto.getSpeed_id();
+		where += " AND STEP_ID = " + dto.getStep_id();
+		where += " AND EAT_P_ID = " + dto.getEat_p_id();
+		where += " AND DINING_P_ID = " + dto.getDining_p_id();
+		where += " AND MOOD_P_ID = " + dto.getMood_p_id();
 		
-		result = "/WEB-INF/view/RidingList.jsp";
+		ridingList = dao.ridingList(where, orderby);
 		
-		return result;
+		System.out.println("ridingList.size() = " + ridingList.size());
+		
+		result += "[";
+		
+		for(RidingDTO data : ridingList)
+		{
+			//System.out.println(data.getRiding_name());
+			
+			result += "{\"riding_name\":" + "\"" + data.getRiding_name() + "\"},";
+			result += "{\"maximum\":" + "\"" + data.getMaximum() + "\"},";
+			result += "{\"open\":" + "\"" + data.getOpen() + "\"},";
+			result += "{\"start_date\":" + "\"" + data.getStart_date() + "\"},";
+			result += "{\"end_date\":" + "\"" + data.getEnd_date() + "\"},";
+		}
+		
+		result = result.replaceAll(",$","");
+		
+		result += "]";
+		
+		System.out.println(result);
+		
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter().print(result);
+		
+		//return result;
 	}
 }

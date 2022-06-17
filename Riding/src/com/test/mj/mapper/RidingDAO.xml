@@ -139,5 +139,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="ridingList" resultType="com.test.mj.RidingDTO">
 		SELECT RIDING_ID, RIDING_NAME, MAXIMUM, OPEN, START_DATE, END_DATE
 		FROM VIEW_RIDING_LIST
+		${where}
 	</select>
 </mapper>

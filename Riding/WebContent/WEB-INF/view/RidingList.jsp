@@ -44,7 +44,7 @@ RidingList.jsp
 	
 	function myRidingCheck()
 	{
-		alert("myRidingCheck()");
+		//alert("myRidingCheck()");
 		
 		var user_id = ${user_id};
 		
@@ -134,25 +134,74 @@ RidingList.jsp
 		{
 			//alert("확인이용");
 			
-			var params = "ridinglist.action?" + $(".ridingListForm").serialize();
+			var params = "ridinglistform.action?" + $(".ridingListForm").serialize();
 			
 			//alert(params);
 			
 			$.ajax(
 			{
-				type:"GET"
+				type:"POST"
 				, url:params
+				, contentType:"application/json; charset:UTF-8"
 				, success:function(data)
 				{
-					alert("안녕 나 에이젝스야~ 컨트롤러 잘 다녀왔어!");
+					//alert("안녕 나 에이젝스야~ 컨트롤러 잘 다녀왔어!");
+					//alert(data);
+					
+					console.log(typeof data);
+					var jObj = JSON.parse(data);
+					console.log("jObj = ", jObj);
+					console.log("jObj.length = ", jObj.length);
+					//console.log(jObj[0].riding_name);
+					
+					if (jObj == "")
+					{
+						//alert("비었음");
+						var html = "<tr><td colspan='5'>조건을 만족하는 라이딩 모임이 존재하지 않습니다.</tr>"
+						$("#ridingList").html(html);
+					}
+					else if (jObj != "") 
+					{
+						var content = "";
+						
+						for (var i = 0; i < jObj.length; i++)
+						{
+							if (jObj[i].riding_name != undefined)
+							{
+								console.log("i = " + i);
+								content += "<tr><td>" + jObj[i].riding_name + "</td>";
+							}
+							if (jObj[i].maximum != undefined)
+							{
+								console.log("i = " + i);
+								content += "<td>" + jObj[i].maximum + "</td>";
+							}
+							if (jObj[i].open != undefined)
+							{
+								console.log("i = " + i);
+								content += "<td>" + jObj[i].open + "</td>";
+							}
+							if (jObj[i].start_date != undefined)
+							{
+								console.log("i = " + i);
+								content += "<td>" + jObj[i].start_date + " ~ ";
+							}
+							if (jObj[i].end_date != undefined)
+							{
+								console.log("i = " + i);
+								content += jObj[i].end_date + "</td></tr>";
+							}
+							
+						}
+						console.log("content = " + content);
+						$("#ridingList").children("#first").html(content);
+					}
 				}
 				, error:function(e)
 				{
 					alert(e.responseText);
 				}
 			});
-			
-			
 		});
 	});
 </script>
@@ -307,13 +356,15 @@ RidingList.jsp
 </form>
 <div>
 	<table class="table">
-		<tr>
-			<th>모임명</th>
-			<th>최대<input type="button" value="정렬"/></th>
-			<th>참여가능<input type="button" value="정렬"/></th>
-			<th>기간<input type="button" value="정렬"/></th>
-			<th>참석가능여부<input type="button" value="정렬"/></th>
-		</tr>
+		<div id="ridingList">
+			<tr id="first">
+				<th>모임명</th>
+				<th>최대<input type="button" value="정렬"/></th>
+				<th>참여가능<input type="button" value="정렬"/></th>
+				<th>기간<input type="button" value="정렬"/></th>
+				<th>참석가능여부<input type="button" value="정렬"/></th>
+			</tr> 
+		</div>
 		<!-- 
 		<tr>
 			<td>인천 피플</td>
@@ -351,22 +402,6 @@ RidingList.jsp
 			<td>참석 가능</td>
 		</tr>
 		-->
-		<c:forEach var ="riding" items="${ridingList }">
-		<tr>
-			<td>${riding.riding_name }</td>
-			<td>${riding.maximum }</td>		
-			<td>${riding.open }</td>		
-			<td>${riding.start_date } ~ ${riding.end_date }</td>
-			<c:choose>
-			<c:when test="${riding.confirm_date == null && riding.open > 0 }">
-			<td>참여 가능</td>
-			</c:when>
-			<c:otherwise>
-			<td>참여 불가</td>
-			</c:otherwise>
-			</c:choose>	
-		</tr>
-		</c:forEach>
 	</table>
 	<c:choose>
 	<c:when test="${sessionScope.user_id!=null }">

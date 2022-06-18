@@ -550,8 +550,6 @@ public class mjController
 			//System.out.println("day = " + day);
 			//------------------------------------------------------
 			
-			
-			
 			// dao 가져오자
 			IRidingDAO dao = sqlSession.getMapper(IRidingDAO.class);
 			

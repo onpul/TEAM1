@@ -141,7 +141,7 @@ Header.jsp
 	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		<ul class="nav navbar-nav">
         	<li><a href="ridinglist.action">라이딩 모임 <span class="sr-only">(current)</span></a></li>
-        	<li><a href="#">맛집 후기</a></li>
+        	<li><a href="/Riding/ListReview.jsp">맛집 후기</a></li>
         	<li><a href="#">지도</a></li>
       	</ul>
 		<ul class="nav navbar-nav navbar-right">
@@ -158,7 +158,7 @@ Header.jsp
 			    </ul>   
 	   		</li>
 	   		<li>
-	   			<a href="#">쪽지<span class="badge" id="messageCount"></span></a>
+	   			<a href="letterlist.action">쪽지<span class="badge" id="messageCount"></span></a>
 	   		</li>
 	   		</c:when> 
 	   		</c:choose>
@@ -167,7 +167,7 @@ Header.jsp
 				<ul class="dropdown-menu" role="menu">
 					<c:choose>
 					<c:when test="${sessionScope.user_id!=null }">  
-			        <li><a class="dropdown-item" href="#">마이페이지</a></li>
+			        <li><a class="dropdown-item" href="mypagemain.action">마이페이지</a></li>
 			        <li><a class="dropdown-item" href="logout.action">로그아웃</a></li>
 			        </c:when>
 			        

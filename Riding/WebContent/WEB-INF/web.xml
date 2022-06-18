@@ -27,6 +27,11 @@
 		<url-pattern>*.action</url-pattern>	
 	</servlet-mapping>
 	
+	<servlet-mapping>
+		<servlet-name>dispatcher</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+	
 	<!-- check~!!! -->
 	<!-- 필터 등록 → 인코딩 필터 등록 → CharacterEncodingFiler-->
 	<filter>

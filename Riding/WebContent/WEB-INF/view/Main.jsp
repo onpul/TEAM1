@@ -200,7 +200,7 @@ Main.jsp
 
 	function checkedDate(today)
 	{
-		alert("checkedDate 에이젝스 출동");
+		//alert("checkedDate 에이젝스 출동");
 		
 		//alert("today = " + today.getFullYear());
 		//alert("today = " + today.getMonth());
@@ -221,7 +221,7 @@ Main.jsp
 			, data:"JSON"
 			, success:function(data)
 			{
-				alert("안녕 나 checkedDate 에이젝스야~ 컨트롤러 잘 다녀왔어!");
+				//alert("안녕 나 checkedDate 에이젝스야~ 컨트롤러 잘 다녀왔어!");
 				
 				console.log(typeof data);
 				var jObj = JSON.parse(data);
@@ -335,11 +335,11 @@ Main.jsp
 				, url:"penaltycheck.action"
 				, success:function(data)
 				{
-					alert("안녕 나 penaltycheck.action 에이젝스야 성공했어");
+					//alert("안녕 나 penaltycheck.action 에이젝스야 성공했어");
 					
 					if (data == 0)
 					{
-						location.href = "ridingForm.action";
+						location.href = "/Riding/CreateMeet.jsp";
 					}
 					else if (data > 0) 
 					{
@@ -485,7 +485,7 @@ Main.jsp
 <!-- 하단 버튼(회원/관리자) / 비회원일 경우 적용 안 함 -->
 <!-- 회원일 경우 적용 -->
 <c:choose>
-<c:when test="${sessionScope.user_id!=null }">  
+<c:when test="${sessionScope.user_id!=null && sessionScope.user_id!=0 && sessionScope.user_id!=1}">  
 <div class="row btn-box"> 
 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 		<input type="button" class="btn btn-default" value="모임 생성하기" id="openRidingBtn"/>
@@ -494,11 +494,13 @@ Main.jsp
 </c:when>
 </c:choose>
 <!-- 관리자일 경우 적용 -->
-<!-- 
+<c:choose>
+<c:when test="${sessionScope.user_id==0 || sessionScope.user_id==1 }">  
 <div class="row btn-box"> 
-	<input type="button" class="btn btn-default" value="관리자 페이지로 이동"/>
+	<input type="button" class="btn btn-default" value="관리자 페이지로 이동" onclick="location.href='Manager.action'"/>
 </div>
--->
+</c:when>
+</c:choose>
 
 <!-- 푸터 -->
 <jsp:include page="Footer.jsp" />

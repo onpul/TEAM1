@@ -128,7 +128,7 @@ RidingList.jsp
 				{
 					if (data == 0)
 					{
-						location.href = "ridingForm.action";
+						location.href = "/Riding/CreateMeet.jsp";
 					}
 					else if (data > 0) 
 					{

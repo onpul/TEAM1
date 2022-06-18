@@ -71,7 +71,7 @@
 	
 	<div class="col col-xs-12" style="text-align: right;">
 		<!-- MyPageMain.jsp 로 이동. -->
-		<button id="myPageMain" class="btn btn-default">마이페이지로 이동</button>
+		<button type="button" id="myPageMain" class="btn btn-default">마이페이지로 이동</button>
 	</div>
 	
 	

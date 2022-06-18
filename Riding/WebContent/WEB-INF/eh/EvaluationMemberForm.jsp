@@ -108,20 +108,20 @@
 				<c:forEach var="dto" items="${leaderQuestionList }">
 					<c:if test="${dto.question_id ==4}">
 						<label for = "good">
-						 	<input type="radio" name="leaderCheck" id="good" value="${dto.q_content }">
-						 	<p>${dto.q_content }</p>
+						 	<input type="radio" name="qu_content" id="good" value="${dto.qu_content }">
+						 	<p>${dto.qu_content }</p>
 						 </label>
 					</c:if>
 					<c:if test="${dto.question_id ==5}">
 						<label for = "soso">
-						 	<input type="radio" name="leaderCheck" id="soso" value="${dto.q_content }">
-							<p>${dto.q_content }</p>
+						 	<input type="radio" name="qu_content" id="soso" value="${dto.qu_content }">
+							<p>${dto.qu_content }</p>
 						</label>
 					</c:if>
 					<c:if test="${dto.question_id ==6}">
 						<label for = "bad">
-						 	<input type="radio" name="leaderCheck" id="bad" value="${dto.q_content }">
-							<p>${dto.q_content }</p>
+						 	<input type="radio" name="qu_content" id="bad" value="${dto.qu_content }">
+							<p>${dto.qu_content }</p>
 						</label>
 					</c:if>
 				</c:forEach>
@@ -136,7 +136,7 @@
 				<span style="font-weight: bold;">
 					<c:forEach var="dto" items="${leaderQuestionList }">
 						<c:if test="${dto.question_id ==1}">
-							<p>${dto.q_content }</p>
+							<p>${dto.qu_content }</p>
 						</c:if>
 					</c:forEach>
 				</span>
@@ -156,7 +156,7 @@
 				<span style="font-weight: bold;">
 					<c:forEach var="dto" items="${leaderQuestionList }">
 						<c:if test="${dto.question_id ==2}">
-							<p>${dto.q_content }</p>
+							<p>${dto.qu_content }</p>
 						</c:if>
 					</c:forEach>
 				</span>
@@ -176,7 +176,7 @@
 				<span style="font-weight: bold;">
 					<c:forEach var="dto" items="${leaderQuestionList }">
 						<c:if test="${dto.question_id ==3}">
-							<p>${dto.q_content }</p>
+							<p>${dto.qu_content }</p>
 						</c:if>
 					</c:forEach>
 				</span>
@@ -195,7 +195,7 @@
 				<span style="font-weight: bold;">
 					<c:forEach var="dto" items="${leaderQuestionList }">
 						<c:if test="${dto.question_id ==7}">
-							<p>${dto.q_content }</p>
+							<p>${dto.qu_content }</p>
 						</c:if>
 					</c:forEach>
 				</span>
@@ -215,7 +215,7 @@
 				<span style="font-weight: bold;">
 					<c:forEach var="dto" items="${leaderQuestionList }">
 						<c:if test="${dto.question_id ==8}">
-							<p>${dto.q_content }</p>
+							<p>${dto.qu_content }</p>
 						</c:if>
 					</c:forEach>
 				</span>

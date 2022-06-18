@@ -35,7 +35,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- // 3-1. 문항 조회 메소드 → 방장 -->
 	<select id="leaderQuestionList" resultType="com.test.eh.EvaluationDTO">
-		SELECT QUESTION_ID , Q_CONTENT
+		SELECT QUESTION_ID , QU_CONTENT
 		FROM QUESTION
 		
 	</select>
@@ -130,9 +130,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 응답 id 찾기 -->
 	<select id="searchAnswerId" resultType="java.lang.String">
 		SELECT ANSWER_ID
-		FROM PARTICIPATED_MEMBER PM JOIN ANSWER A
-		ON PM.P_MEMBER_ID = A.P_MEMBER_ID
-		WHERE PM.USER_ID = #{user_id}
+		FROM
+		(
+		SELECT  ROWNUM AS ANSROW,ANSWER_ID
+				FROM PARTICIPATED_MEMBER PM JOIN ANSWER A
+				ON PM.P_MEMBER_ID = A.P_MEMBER_ID
+				WHERE PM.USER_ID = #{user_id}
+		)TEMP
+		WHERE TEMP.ANSROW=1
 	</select>
 	
 	
@@ -156,13 +161,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="searchQuestionId" resultType="java.lang.String">
 		SELECT QUESTION_ID
 		FROM QUESTION
-		WHERE Q_CONTENT = #{q_content}
+		WHERE QU_CONTENT = #{qu_content}
 	</select>
 	
 	<!-- 참여자들 리더십 상세내용 insert -->
 	<insert id="leadershipDetailInsert">
 		INSERT INTO ANSWER_DETAIL_LEADERSHIP(ANS_L_ID,ANSWER_ID,QUESTION_ID,ANS_CONTENT)
-		VALUES(SEQ_ANSWER_DETAIL_LEADERSHIP.NEXTVAL, #{answer_id}, #{question_id},#{q_content})
+		VALUES(SEQ_ANSWER_DETAIL_LEADERSHIP.NEXTVAL, #{answer_id}, #{question_id},#{qu_content})
 	</insert>
 	
 </mapper>

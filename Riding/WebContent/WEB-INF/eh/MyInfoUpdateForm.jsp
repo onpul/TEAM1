@@ -78,7 +78,13 @@
 		$("#cancellBtn").click(function()
 		{
 			// 사용자의 응답을 받아 처리하는 alert()띄우기 (확인 / 취소)
-			alert("수정 사항은 저장되지 않습니다. 정말로 취소하겠습니까?");
+			//alert("수정 사항은 저장되지 않습니다. 정말로 취소하겠습니까?");
+			var result = confirm("수정 사항은 저장되지 않습니다. 정말로 취소하시겠습니까?");
+			if (result)
+			{
+				location.replace("mypagemain.action");
+			}
+			
 		});
 	});
 </script>
@@ -139,7 +145,7 @@
 			</table>
 			<div>
 				<button type="submit" class="btn btn-primary" id="updateBtn">수정하기</button>
-				<button type="submit" class="btn btn-primary" id="cancellBtn">취소</button>
+				<button type="button" class="btn btn-primary" id="cancellBtn">취소</button>
 			</div>
 		</form>
 	</div>

@@ -100,7 +100,7 @@
 			
 			<div class="col col-xs-12" style="text-align: right;">
 				<%-- <p>작성자 : <span >${userDto.nickName }</span></p> --%>
-				작성자 : <input type="text" name="nikName" value="${nickName }">
+				작성자 : <input type="text" name="nickName" value="${nickName }">
 				<input type="hidden" name="user_id" value="${user_id }">
 			</div>
 		
@@ -129,7 +129,7 @@
 				<span style="font-weight: bold;">
 					<c:forEach var="dto" items="${leaderQuestionList }">
 						<c:if test="${dto.question_id ==1}">
-							<p>${dto.q_content }</p>
+							<p>${dto.qu_content }</p>
 						</c:if>
 					</c:forEach>
 				</span>
@@ -149,7 +149,7 @@
 				<span style="font-weight: bold;">
 					<c:forEach var="dto" items="${leaderQuestionList }">
 						<c:if test="${dto.question_id ==2}">
-							<p>${dto.q_content }</p>
+							<p>${dto.qu_content }</p>
 						</c:if>
 					</c:forEach>
 				</span>
@@ -170,7 +170,7 @@
 				<span style="font-weight: bold;">
 					<c:forEach var="dto" items="${leaderQuestionList }">
 						<c:if test="${dto.question_id ==3}">
-							<p>${dto.q_content }</p>
+							<p>${dto.qu_content }</p>
 						</c:if>
 					</c:forEach>
 				</span>
@@ -189,7 +189,7 @@
 				<span style="font-weight: bold;">
 					<c:forEach var="dto" items="${leaderQuestionList }">
 						<c:if test="${dto.question_id ==7}">
-							<p>${dto.q_content }</p>
+							<p>${dto.qu_content }</p>
 						</c:if>
 					</c:forEach>
 				</span>
@@ -210,7 +210,7 @@
 				<span style="font-weight: bold;">
 					<c:forEach var="dto" items="${leaderQuestionList }">
 						<c:if test="${dto.question_id ==8}">
-							<p>${dto.q_content }</p>
+							<p>${dto.qu_content }</p>
 						</c:if>
 					</c:forEach>
 				</span>

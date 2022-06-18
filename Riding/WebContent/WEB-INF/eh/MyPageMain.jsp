@@ -37,9 +37,8 @@
 			//alert(" EvaluationLeaderForm.jsp 로 이동.")
 			//location.replace("evaluationleaderform.action");
 			
-			
-			
 			var user_id = $("#user_id").val();
+			alert("user_id"+user_id);
 			
 			//ajax 처리
 			$.ajax(
@@ -48,17 +47,28 @@
 				,url:"evaldate_ok.action?user_id="+ user_id
 				,success: function(data)
 				{
-					//alert("에이젝스되나?");
-					//alert(data);
-					if (data==0)
+					//alert("data : "+ data);
+					alert("넘어온 값은 ? : " + data);
+					if (data == 1)
+					{
+						location.replace("evaluationleaderform.action?user_id="+user_id);
+					}
+					else if (data ==2)
+					{
+						location.replace("evaluationmemberform.action?user_id="+user_id);
+					}
+					else if (data ==3)
+					{
+						alert("이미 평가지를 제출하셨습니다.");
+					}
+					else if (data ==4)
 					{
 						alert("평가기간에 속하는 모임이 없습니다.");
-						return;
 					}
 					else
-						location.replace("evaluationleaderform.action");
-					
+						alert("여기는 넘어올리가 없음");
 				}
+				
 				,error: function(e)
 				{
 					alert("따란~ 에이젝스 문제랍니다~"+e.responseText);

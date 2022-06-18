@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	request.setCharacterEncoding("UTF-8");
 	String cp = request.getContextPath();
@@ -54,108 +55,178 @@
 
 <head>
 <meta charset="UTF-8">
-<title>EvaluationLeaderForm.jsp</title>
+<title>EvaluationMemberForm.jsp</title>
 </head>
 <body>
-<!-- EvaluationLeaderForm.jsp -->
-<!-- 방장의 평가 폼 페이지 -->
-
+<!-- 참여자 평가 폼 -->
+<div>
+	<h1>참여자의 평가 폼 입니다.</h1>
+	<hr />
+</div>
 <!-- div main -->
 <div class="container">
-	<!-- center에 위치 -->
-	<div class="col col-xs-12">
-		<p>모임 평가하기</p>
-	</div>
-	
-	<!-- 다음줄 right에 위치 -->
-	<div class="col col-xs-12" style="text-align: right;">
-		<p>작성자 : <span>김빵빵</span></p>
-	</div>
-	
 	<!-- 다음줄 center에 위치 -->
 	<!-- 평가폼 -->
 	<div>	
 		<form id="form" action="" method="get">
-			<div class="col col-xs-12 checkbox">
-				<br />
-				<span style="font-weight: bold;">결석한 사람을 체크해 주세요.</span>
-				<!-- 모두 참여 -->
-				<input type="checkbox" name="attendance" value="userX" id="userX" checked="checked" style="display: none;">
-				<!-- c:foreach 참여자 명단 가져오기 -->
-				<label for="user1"><input type="checkbox" name="attendance" value="user1" id="user1">사과1</label>
-				<label for="user2"><input type="checkbox" name="attendance" value="user2" id="user2">철수1</label>
-				<label for="user3"><input type="checkbox" name="attendance" value="user3" id="user3">바나나1</label>
-				<label for="user4"><input type="checkbox" name="attendance" value="user4" id="user4">영희1</label>
-				</div>
-			
 			<div class="col col-xs-12">
+				<h1>모임 평가하기</h1>
 				<br />
-				<label for="leaderCheck"><input type="checkbox" name="leaderCheck" id=leaderCheck" checked="checked">방장은 출석하였나요?</label>
+				모임 이름 : <input type="text" name="riding_name" value="${riding_name }" readonly="readonly"/>
+				<input type="hidden" name="riding_id" value="${riding_id }"> 
 			</div>
 			
+			<div class="col col-xs-12" style="text-align: right;">
+				작성자 : <input type="text" name="nikName" value="${nickName }" readonly="readonly">
+				<input type="hidden" name="user_id" value="${user_id }">
+			</div>
+		
+		
+			
+			<!--  출석 체크 -->
+			<div class="col col-xs-12 checkbox">
+				<br />
+				<span style="font-weight: bold;"> 결석한 사람을 체크해 주세요.</span>
+				
+				<!-- 참여자 명단 보여주기 -->
+				<input type="radio" name="attendance" value="not" style="display: none;" checked="checked">
+				<c:forEach var="dto" items="${memberList }">
+					<label for="${dto.user_id }">
+						<input type="radio" name="attendance" value="${dto.user_id }" id="${dto.user_id }">
+						${dto.nickName }
+					</label>
+				</c:forEach>
+			</div>
+			
+			<!-- 방장에 대한 평가 -->
+			<div class="col col-xs-12">
+				<br />
+				
+				<span style="font-weight: bold;">방장은 어땠나요?</span>
+				<input type="radio" name="leaderCheck" id="defalt" checked="checked" value="not"
+				style="display: none;">
+				<c:forEach var="dto" items="${leaderQuestionList }">
+					<c:if test="${dto.question_id ==4}">
+						<label for = "good">
+						 	<input type="radio" name="leaderCheck" id="good" value="${dto.q_content }">
+						 	<p>${dto.q_content }</p>
+						 </label>
+					</c:if>
+					<c:if test="${dto.question_id ==5}">
+						<label for = "soso">
+						 	<input type="radio" name="leaderCheck" id="soso" value="${dto.q_content }">
+							<p>${dto.q_content }</p>
+						</label>
+					</c:if>
+					<c:if test="${dto.question_id ==6}">
+						<label for = "bad">
+						 	<input type="radio" name="leaderCheck" id="bad" value="${dto.q_content }">
+							<p>${dto.q_content }</p>
+						</label>
+					</c:if>
+				</c:forEach>
+			</div>
+			
+			
+			<!-- 친절한 사람 -->
 			<div class="col col-xs-12">
 				<br />
 				<!-- 본인은 제외. -->
 				<!-- 결석자는 포함. -->
-				<span style="font-weight: bold;">가장 친절한 참여자는 누구였습니까?</span>
-				<select class="form-control" name="kindness">
-					<option value="user0">없음</option>
-					<option value="user1">사과1</option>
-					<option value="user2">철수1</option>
-					<option value="user3">바나나1</option>
-					<option value="user4">영희1</option>
+				<span style="font-weight: bold;">
+					<c:forEach var="dto" items="${leaderQuestionList }">
+						<c:if test="${dto.question_id ==1}">
+							<p>${dto.q_content }</p>
+						</c:if>
+					</c:forEach>
+				</span>
+				
+				<select class="form-control" name="kindness" id="kindness">
+					<option value="not" selected="selected">없음.</option>
+					<c:forEach var="dto" items="${memberList }">
+						<option value="${dto.user_id }">${dto.nickName }</option>
+					</c:forEach>
 				</select>
 			</div>
 			
+			
+			<!-- 불친절한 사람 -->
 			<div class="col col-xs-12">
 			 	<br />
-				<span style="font-weight: bold;">가장 불친절한 참여자는 누구였습니까?</span>
+				<span style="font-weight: bold;">
+					<c:forEach var="dto" items="${leaderQuestionList }">
+						<c:if test="${dto.question_id ==2}">
+							<p>${dto.q_content }</p>
+						</c:if>
+					</c:forEach>
+				</span>
+				
+				
 				<select class="form-control" name="notKindness">
-					<option value="user0">없음</option>
-					<option value="user1">사과1</option>
-					<option value="user2">철수1</option>
-					<option value="user3">바나나1</option>
-					<option value="user4">영희1</option>
+					<option value="not" selected="selected">없음.</option>
+					<c:forEach var="dto" items="${memberList }">
+						<option value="${dto.user_id }">${dto.nickName }</option>
+					</c:forEach>
 				</select>
 			</div>
 	
+			<!-- 위험한 라이딩 -->
 			<div class="col col-xs-12">		
 				<br />
-				<span style="font-weight: bold;">위험하게 라이딩한 참여자는 누구였습니까?</span>
+				<span style="font-weight: bold;">
+					<c:forEach var="dto" items="${leaderQuestionList }">
+						<c:if test="${dto.question_id ==3}">
+							<p>${dto.q_content }</p>
+						</c:if>
+					</c:forEach>
+				</span>
 				<select class="form-control" name="dangerRiding">
-					<option value="user0">없음</option>
-					<option value="user1">사과1</option>
-					<option value="user2">철수1</option>
-					<option value="user3">바나나1</option>
-					<option value="user4">영희1</option>
+					<option value="not" selected="selected">없음.</option>
+					<c:forEach var="dto" items="${memberList }">
+						<option value="${dto.user_id }">${dto.nickName }</option>
+					</c:forEach>
 				</select>
 			</div>
 			
+			
+			<!-- 완주하지 못한 사람 -->
 			<div class="col col-xs-12">	
 				<br />	
-				<span style="font-weight: bold;">완주하지 못한 참여자는 누구였습니까?</span>
+				<span style="font-weight: bold;">
+					<c:forEach var="dto" items="${leaderQuestionList }">
+						<c:if test="${dto.question_id ==7}">
+							<p>${dto.q_content }</p>
+						</c:if>
+					</c:forEach>
+				</span>
 				<select class="form-control" name="notCompletion">
-					<option value="user0">없음</option>
-					<option value="user1">사과1</option>
-					<option value="user2">철수1</option>
-					<option value="user3">바나나1</option>
-					<option value="user4">영희1</option>
+					<option value="not" selected="selected">없음.</option>
+					<c:forEach var="dto" items="${memberList }">
+						<option value="${dto.user_id }">${dto.nickName }</option>
+					</c:forEach>
 				</select>
 			</div>
 			
+			<!--  숙련도에 대한 평가 -->
 			<div class="col col-xs-12">
 				<br />
 				<!-- 모임의 속성이 숙련도 4~5이고 평속 20이상 
 				     일 때만 활성화됨. -->
-				<span style="font-weight: bold;">실제 숙련도와 다른 참여자는 누구였습니까?</span>
+				<span style="font-weight: bold;">
+					<c:forEach var="dto" items="${leaderQuestionList }">
+						<c:if test="${dto.question_id ==8}">
+							<p>${dto.q_content }</p>
+						</c:if>
+					</c:forEach>
+				</span>
 				<select class="form-control" name="different">
-					<option value="user0">없음</option>
-					<option value="user1">사과1</option>
-					<option value="user2">철수1</option>
-					<option value="user3">바나나1</option>
-					<option value="user4">영희1</option>
+					<option value="not" selected="selected">없음.</option>
+					<c:forEach var="dto" items="${memberList }">
+						<option value="${dto.user_id }">${dto.nickName }</option>
+					</c:forEach>
 				</select>
 			</div>
+			
 			
 			<div class="col col-xs-12" style="text-align: left;">
 				<!-- Report.jsp -->

@@ -15,6 +15,7 @@ public class MyPageMainDAO implements IMyPageMainDAO
 		conn = DBConn.getConnection();
 		ArrayList<MyPageMainDTO> result = new ArrayList<MyPageMainDTO>();
 		
+		//System.out.println("넘어오는 user_id 값 " + user_id );
 		
 		String sql = "SELECT USER_ID,EMAIL,NICKNAME,ONEWORD,PI_ADDRESS\r\n" + 
 				"FROM VIEW_MYPAGEMAIN\r\n" + 
@@ -24,9 +25,10 @@ public class MyPageMainDAO implements IMyPageMainDAO
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		try
 		{
-			int user_id_number = Integer.parseInt(user_id);
+			//int user_id_number = Integer.parseInt(user_id);
 			
-			pstmt.setInt(1, user_id_number);
+			//pstmt.setInt(1, user_id_number);
+			pstmt.setString(1, user_id);
 			ResultSet rs = pstmt.executeQuery();
 
 			if (rs.next())
@@ -35,8 +37,8 @@ public class MyPageMainDAO implements IMyPageMainDAO
 				dto.setUser_id(rs.getString("USER_ID"));
 				dto.setEmail(rs.getString("EMAIL"));
 				dto.setNickname(rs.getString("NICKNAME"));
-				dto.setOneword("ONEWORD");
-				dto.setPi_address("PI_ADDRESS");
+				dto.setOneword(rs.getString("ONEWORD"));
+				dto.setPi_address(rs.getString("PI_ADDRESS"));
 				
 				result.add(dto);
 			}

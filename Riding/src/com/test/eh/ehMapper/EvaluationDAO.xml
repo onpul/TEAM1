@@ -6,21 +6,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 모임명 / 작성자 닉네임 / 참여자 명단 / 문항 / 가져오기 -->
 	<!-- // 1. 평가기간인 모임이 있는지 조회하는 메소드 -->
-	<select id="evalDateFlagList" resultType="java.lang.Integer">
-		SELECT CASE WHEN SYSDATE <![CDATA[<=]]> END_DATE +7 AND SYSDATE <![CDATA[>]]> START_DATE THEN 1
-	            ELSE 0
-	            END EVADATE
+	<!--       평가기간인 모임 ID 출력 -->
+	<!--  이거 안쓸거임 -->
+	<select id="evalDateFlagList" resultType="java.lang.String">
+		SELECT TEMP.RIDING_ID AS RIDING_ID
+		FROM
+		(
+		SELECT CASE WHEN SYSDATE <![CDATA[<]]> END_DATE AND CREATED_DATE <![CDATA[<=]]> SYSDATE THEN 1
+		            ELSE 0
+		            END EVADATE
+		            , RIDING_ID
 		FROM RIDING
 		WHERE RIDING_ID = (SELECT RIDING_ID
 		                   FROM PARTICIPATED_MEMBER 
-		                   WHERE USER_ID = #{user_id}
-		                   )
+		                   WHERE USER_ID = #{user_id})
+		)TEMP
+		WHERE TEMP.EVADATE=1
 	</select>
 	<!-- // 2. 방장인지 아닌지 조회하는 메소드 → 방장과 참여자가 요청하는 페이지가 달라짐. -->
 	<select id="leaderFlagList" resultType="java.lang.Integer">
 		SELECT CASE WHEN COUNT(*) = 0 THEN 0
-            ELSE 1
-            END LEADERCHECK
+		            ELSE 1
+		            END LEADERCHECK
 		FROM RIDING
 		WHERE LEADER_ID = #{user_id}
 	</select>
@@ -37,20 +44,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	<!-- // 4. 모임명 조회 메소드 -->
-	<select id="ridingNameList" resultType="com.test.eh.EvaluationDTO">
-		SELECT R.RIDING_ID AS RIDING_ID
-		      ,R.RIDING_NAME AS RIDING_NAME
-		FROM RIDING R JOIN PARTICIPATED_MEMBER PM
-		ON PM.RIDING_ID = R.RIDING_ID
-		WHERE R.RIDING_ID = (SELECT RIDING_ID
-		                     FROM PARTICIPATED_MEMBER
-		                     WHERE USER_ID = #{user_id})
-		    AND PM.USER_ID=#{user_id}
+	<select id="ridingNameList" resultType="java.lang.String">
+		SELECT RIDING_NAME
+		FROM RIDING 
+		WHERE RIDING_ID=#{riding_id}
 	</select>
 	
 	<!-- // 5. 평가지 작성자 정보 조회 / 닉네임만 뿌릴 예정	→ dto에 nickName, user_id -->
-	<select id="userNickNameList" resultType="com.test.eh.EvaluationDTO">
-		SELECT USER_ID,NICKNAME
+	<select id="userNickNameList" resultType="java.lang.String">
+		SELECT NICKNAME
 		FROM PROFILE
 		WHERE USER_ID=#{user_id}
 	</select>
@@ -136,9 +138,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	
+	<!-- user_id로 현재 속한 라이딩ID 조회 -->
+	<select id="searchCurrRidingId" resultType="java.lang.String">
+		SELECT TEMP.RIDING_ID
+		FROM
+		(
+		    SELECT ROW_NUMBER() OVER (ORDER BY R.END_DATE DESC) AS ROW1,R.*
+		    FROM RIDING R JOIN PARTICIPATED_MEMBER PM
+		    ON R.RIDING_ID = PM.RIDING_ID
+		    WHERE SYSDATE <![CDATA[<=]]> END_DATE AND PM.USER_ID = #{user_id}
+		)TEMP
+		WHERE TEMP.ROW1 = 1
+	</select>
 	
 	
+	<!-- q_id 뽑기 -->
+	<select id="searchQuestionId" resultType="java.lang.String">
+		SELECT QUESTION_ID
+		FROM QUESTION
+		WHERE Q_CONTENT = #{q_content}
+	</select>
 	
-	
+	<!-- 참여자들 리더십 상세내용 insert -->
+	<insert id="leadershipDetailInsert">
+		INSERT INTO ANSWER_DETAIL_LEADERSHIP(ANS_L_ID,ANSWER_ID,QUESTION_ID,ANS_CONTENT)
+		VALUES(SEQ_ANSWER_DETAIL_LEADERSHIP.NEXTVAL, #{answer_id}, #{question_id},#{q_content})
+	</insert>
 	
 </mapper>

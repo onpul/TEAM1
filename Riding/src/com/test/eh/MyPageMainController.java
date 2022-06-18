@@ -29,7 +29,7 @@ public class MyPageMainController implements Controller
 		//String user_id = request.getParameter("user_id");
 		
 		// !! 현재는 임시 session 사용전!
-		String user_id = "40";
+		String user_id = "82";
 		
 		result = dao.memberList(user_id);
 		

@@ -5,33 +5,33 @@ import java.util.ArrayList;
 public interface IEvaluationDAO
 {
 	
-		// 1. 평가기간인 모임이 있는지 조회하는 메소드
-		//    T : 있음 / F : 없음.
-		public int evalDateFlagList(String user_id);
-		
-		// 2. 방장인지 아닌지 조회하는 메소드 → 방장과 참여자가 요청하는 페이지가 달라짐.
-		//    T : 방장임 / F : 방장 아님.(참여자임)
-		public int leaderFlagList(String user_id);
-		
-		// 3-1. 문항 조회 메소드 → 방장
-		//      테스트 진행 중에는 방장꺼만 실행 예정.
-		public ArrayList<EvaluationDTO> leaderQuestionList();
-		
-		// 3-2. 문항 조회 메소드 → 참여자 일 때는 리더십에 관한 문항 추가.
-		public ArrayList<EvaluationDTO> memberQuestionList();
-		
-		// 4. 모임명 조회 메소드
-		public EvaluationDTO ridingNameList(String riding_id);
-		
-		// 5. 평가지 작성자 정보 조회 / 닉네임만 뿌릴 예정	→ dto에 nickName, user_id
-		public EvaluationDTO userNickNameList(String user_id);
-		
-		// 6. 참여자 명단 조회 메소드	/ 닉네임만 뿌릴 예정
-		public ArrayList<EvaluationDTO> memberList(String riding_id);		
-		
-		// 7. 제출했는지 판단하는 메소드
-		//    T : 제출함 / F : 제출안함.
-		public int answerFlag(String user_id);
+	// 1. 평가기간인 모임이 있는지 조회하는 메소드
+	//    T : 있음 / F : 없음.
+	public String evalDateFlagList(String user_id);
+	
+	// 2. 방장인지 아닌지 조회하는 메소드 → 방장과 참여자가 요청하는 페이지가 달라짐.
+	//    T : 방장임 / F : 방장 아님.(참여자임)
+	public int leaderFlagList(String user_id);
+	
+	// 3-1. 문항 조회 메소드 → 방장
+	//      테스트 진행 중에는 방장꺼만 실행 예정.
+	public ArrayList<EvaluationDTO> leaderQuestionList();
+	
+	// 3-2. 문항 조회 메소드 → 참여자 일 때는 리더십에 관한 문항 추가.
+	public ArrayList<EvaluationDTO> memberQuestionList();
+	
+	// 4. 모임명 조회 메소드
+	public String ridingNameList(String riding_id);
+	
+	// 5. 평가지 작성자 정보 조회 / 닉네임만 뿌릴 예정	→ dto에 nickName, user_id
+	public String userNickNameList(String user_id);
+	
+	// 6. 참여자 명단 조회 메소드	/ 닉네임만 뿌릴 예정
+	public ArrayList<EvaluationDTO> memberList(String riding_id);		
+	
+	// 7. 제출했는지 판단하는 메소드
+	//    T : 제출함 / F : 제출안함.
+	public int answerFlag(String user_id);
 	
 	
 	
@@ -60,8 +60,15 @@ public interface IEvaluationDAO
 	public String searchAnswerId(String user_id);
 	
 	
+	// 13. user_id 로 현재 속한 riding_id 찾기
+	public String searchCurrRidingId(String user_id);
+	
+	// 14. 질문 ID 조회하기 Q_CONTENT 로
+	public String searchQuestionId(String q_content);
 	
 	
+	// 15. 참여자들  ANSWER_DETAIL_LEADERSHIP 테이블 insert
+	public int leadershipDetailInsert(EvaluationDTO dto);
 	
 	
 	

@@ -11,6 +11,16 @@ public class EvaluationDTO
 	private String question_id, q_content;
 	private String attendance, kindness, notKindness,dangerRiding, notCompletion, different;
 	private String p_member_id, check_atte_id, answer_id;
+	private String leaderCheck;
+	
+	public String getLeaderCheck()
+	{
+		return leaderCheck;
+	}
+	public void setLeaderCheck(String leaderCheck)
+	{
+		this.leaderCheck = leaderCheck;
+	}
 	public String getNickName()
 	{
 		return nickName;

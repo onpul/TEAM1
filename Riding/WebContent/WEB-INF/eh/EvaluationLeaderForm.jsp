@@ -80,23 +80,32 @@
 <body>
 <!-- EvaluationLeaderForm.jsp -->
 <!-- 방장의 평가 폼 페이지 -->
-
+<div>
+	<h1>방장의 평가 폼 입니다.</h1>
+	<hr />
+</div>
 <!-- div main -->
 <div class="container">
-
-	<div class="col col-xs-12">
-		<h1>모임 평가하기</h1>
-		<br />
-		모임이름 : <span>${riding.riding_name }</span>
-	</div>
-	
-	<div class="col col-xs-12" style="text-align: right;">
-		<p>작성자 : <span >${userDto.nickName }</span></p>
-	</div>
 
 	<!-- 평가폼 -->
 	<div>	
 		<form id="form" action="evaluationinsertleader.action" method="get">
+			<div class="col col-xs-12">
+				<h1>모임 평가하기</h1>
+				<br />
+				<%-- 모임이름 : <span>${riding.riding_name }</span> --%>
+				모임 이름 : <input type="text" name="riding_name" value="${riding_name }"/>
+				<input type="hidden" name="riding_id" value="${riding_id }"> 
+			</div>
+			
+			<div class="col col-xs-12" style="text-align: right;">
+				<%-- <p>작성자 : <span >${userDto.nickName }</span></p> --%>
+				작성자 : <input type="text" name="nikName" value="${nickName }">
+				<input type="hidden" name="user_id" value="${user_id }">
+			</div>
+		
+		
+			<!--  출석 체크 -->
 			<div class="col col-xs-12 checkbox">
 				<br />
 				<span style="font-weight: bold;"> 결석한 사람을 체크해 주세요.</span>
@@ -109,28 +118,14 @@
 						${dto.nickName }
 					</label>
 				</c:forEach>
-				<!-- 
-				<label for="user1"><input type="checkbox" name="attendance" value="user1" id="user1">사과1</label>
-				<label for="user2"><input type="checkbox" name="attendance" value="user2" id="user2">철수1</label>
-				<label for="user3"><input type="checkbox" name="attendance" value="user3" id="user3">바나나1</label>
-				<label for="user4"><input type="checkbox" name="attendance" value="user4" id="user4">영희1</label>
-				// -->
-				</div>
-			<%-- 
-			<div>
-				<h1>테스트중...</h1>
-				<c:forEach var="dto" items="${leaderQuestionList }">
-					<h1>${dto.q_content }</h1>
-				</c:forEach>
 			</div>
-			 --%>
-			<div id="divTemp"></div>
+			
+			
+			<!-- 친절한 사람 -->
 			<div class="col col-xs-12">
 				<br />
 				<!-- 본인은 제외. -->
 				<!-- 결석자는 포함. -->
-				<%-- <span style="font-weight: bold;">${leaderQuestion0.q_content }</span> --%>
-				
 				<span style="font-weight: bold;">
 					<c:forEach var="dto" items="${leaderQuestionList }">
 						<c:if test="${dto.question_id ==1}">
@@ -144,19 +139,13 @@
 					<c:forEach var="dto" items="${memberList }">
 						<option value="${dto.user_id }">${dto.nickName }</option>
 					</c:forEach>
-					<!-- 
-					<option value="user0">없음</option>
-					<option value="user1">사과1</option>
-					<option value="user2">철수1</option>
-					<option value="user3">바나나1</option>
-					<option value="user4">영희1</option>
-			     	// -->
 				</select>
 			</div>
 			
+			
+			<!-- 불친절한 사람 -->
 			<div class="col col-xs-12">
 			 	<br />
-				<%-- <span style="font-weight: bold;">${leaderQuestionList.q_content }</span> --%>
 				<span style="font-weight: bold;">
 					<c:forEach var="dto" items="${leaderQuestionList }">
 						<c:if test="${dto.question_id ==2}">
@@ -171,16 +160,11 @@
 					<c:forEach var="dto" items="${memberList }">
 						<option value="${dto.user_id }">${dto.nickName }</option>
 					</c:forEach>
-					<!-- 
-					<option value="user0">없음</option>
-					<option value="user1">사과1</option>
-					<option value="user2">철수1</option>
-					<option value="user3">바나나1</option>
-					<option value="user4">영희1</option>
-					// -->
 				</select>
 			</div>
 	
+	
+			<!-- 위험한 라이딩 -->
 			<div class="col col-xs-12">		
 				<br />
 				<span style="font-weight: bold;">
@@ -195,16 +179,11 @@
 					<c:forEach var="dto" items="${memberList }">
 						<option value="${dto.user_id }">${dto.nickName }</option>
 					</c:forEach>
-					<!-- 
-					<option value="user0">없음</option>
-					<option value="user1">사과1</option>
-					<option value="user2">철수1</option>
-					<option value="user3">바나나1</option>
-					<option value="user4">영희1</option>
-				 	// -->
 				</select>
 			</div>
 			
+			
+			<!-- 완주하지 못한 사람 -->
 			<div class="col col-xs-12">	
 				<br />	
 				<span style="font-weight: bold;">
@@ -219,16 +198,11 @@
 					<c:forEach var="dto" items="${memberList }">
 						<option value="${dto.user_id }">${dto.nickName }</option>
 					</c:forEach>
-					<!-- 
-					<option value="user0">없음</option>
-					<option value="user1">사과1</option>
-					<option value="user2">철수1</option>
-					<option value="user3">바나나1</option>
-					<option value="user4">영희1</option>
-					// -->
 				</select>
 			</div>
 			
+			
+			<!--  숙련도에 대한 평가 -->
 			<div class="col col-xs-12">
 				<br />
 				<!-- 모임의 속성이 숙련도 4~5이고 평속 20이상 
@@ -245,13 +219,6 @@
 					<c:forEach var="dto" items="${memberList }">
 						<option value="${dto.user_id }">${dto.nickName }</option>
 					</c:forEach>
-					<!-- 
-					<option value="user0">없음</option>
-					<option value="user1">사과1</option>
-					<option value="user2">철수1</option>
-					<option value="user3">바나나1</option>
-					<option value="user4">영희1</option>
-					// -->
 				</select>
 			</div>
 			

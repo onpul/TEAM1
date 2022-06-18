@@ -1,33 +1,74 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 	request.setCharacterEncoding("UTF-8");
 	String cp = request.getContextPath();
-	String header = "/WEB-INF/view/Header.jsp";
-	System.out.println("header = " + header);
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>MyPageMain.jsp</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
 <script type="text/javascript">
 	
 	$(function()
 	{
+		var user_id = $("#user_id").val();
+		alert("user_id"+user_id);
+		
 		$("#myRidingList").click(function()
 		{
 			//나의 라이딩 스타일 조회하기
 			//alert("RidingStyleListUpdateForm.jsp 로 이동.")
-			location.replace("ridingstylelistupdateform.action");
+			location.replace("ridingstylelistupdateform.action?user_id="+user_id);
 		});
 		
 		$("#currenRidingList").click(function()
 		{
 			//참여 중인 라이딩 조회하기
 			//alert("ParticipateRidingList.jsp 로 이동.")
-			location.replace("participateridinglist.action");
+			location.replace("participateridinglist.action?user_id="+user_id);
+			
+			
+			//ajax 처리
+			$.ajax(
+			{
+				type:"GET"
+				,url:"participatedriding.action?user_id="+ user_id
+				,success: function(data)
+				{
+					//alert("data : "+ data);
+					alert("넘어온 값은 ? : " + data);
+					if (data == 1)
+					{
+						location.replace("evaluationleaderform.action?user_id="+user_id);
+					}
+					else if (data ==2)
+					{
+						location.replace("evaluationmemberform.action?user_id="+user_id);
+					}
+					else if (data ==3)
+					{
+						alert("이미 평가지를 제출하셨습니다.");
+					}
+					else if (data ==4)
+					{
+						alert("평가기간에 속하는 모임이 없습니다.");
+					}
+					else
+						alert("여기는 넘어올리가 없음");
+				}
+				
+				,error: function(e)
+				{
+					alert("따란~ 에이젝스 문제랍니다~"+e.responseText);
+				}
+			});
+			
+			
+			
 		});
 
 		$("#succRiding").click(function()
@@ -37,9 +78,6 @@
 			//참여자이면,EvaluationMemberForm.jsp 로 이동
 			//alert(" EvaluationLeaderForm.jsp 로 이동.")
 			//location.replace("evaluationleaderform.action");
-			
-			var user_id = $("#user_id").val();
-			alert("user_id"+user_id);
 			
 			//ajax 처리
 			$.ajax(
@@ -81,7 +119,7 @@
 		{
 			//라이딩 기록 조회하기
 			//alert(" MyRidingRecordList.jsp 로 이동.")
-			location.replace("myridingrecordlist.action");
+			location.replace("myridingrecordlist.action?user_id="+user_id);
 		});
 		
 		$("#comeOnList").click(function()
@@ -100,21 +138,21 @@
 		{
 			//등급 및 점수 조회하기
 			//alert(" MyRationAndScoreList.jsp  로 이동.")
-			location.replace("myrationandscorelist.action");
+			location.replace("myrationandscorelist.action?user_id="+user_id);
 		});
 		
 		$("#reviewList").click(function()
 		{
 			//작성한 게시글 조회하기
 			//alert(" MyReviewList.jsp  로 이동.")
-			location.replace("myreviewlist.action");
+			location.replace("myreviewlist.action?user_id="+user_id);
 		});
 		
 		$("#penaltyList").click(function()
 		{
 			//나에게 적용된 패널티 조회하기
 			//alert(" MyPenaltyList.jsp  로 이동.")
-			location.replace("mypenaltylist.action");
+			location.replace("mypenaltylist.action?user_id="+user_id);
 		});
 		
 		
@@ -125,20 +163,20 @@
 		{
 			//개인정보 수정하기
 			//alert(" MyInfoUpdateForm.jsp  로 이동.")
-			location.replace("myinfoupdateform.action");
+			location.replace("myinfoupdateform.action?user_id="+user_id);
 		});
 		
 		$("#MemberSecession").click(function()
 		{
 			//회원 탈퇴하기
 			//alert(" MemberSecession.jsp  로 이동.")
-			window.open("membersecession.action","","width=400px,height=400px");
+			window.open("membersecession.action?user_id="+user_id,"","width=400px,height=400px");
 		});
 		
 		
 		$("#tempBtn").click(function()
 		{
-			window.open("letterlist.action","","width=400px,height=400px");
+			window.open("letterlist.action?user_id="+user_id,"","width=400px,height=400px");
 		});
 		
 		
@@ -159,10 +197,7 @@
 
 <!-- 마이페이지 메인 -->
 <!-- MyPageMain.jsp -->
-<!-- 헤더 -->
-<div>
-	<c:import url="<%=header %>"></c:import>
-</div>
+
 <div class="container">
 	<!-- 맨윗부분 -->
 	<div class="row">

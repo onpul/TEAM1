@@ -29,6 +29,10 @@
 		{
 			//참여 중인 라이딩 조회하기
 			//alert("ParticipateRidingList.jsp 로 이동.")
+			
+			
+			
+			
 			location.replace("participateridinglist.action?user_id="+user_id);
 			
 			

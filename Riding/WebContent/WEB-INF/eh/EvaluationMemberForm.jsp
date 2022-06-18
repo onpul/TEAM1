@@ -68,7 +68,7 @@
 	<!-- 다음줄 center에 위치 -->
 	<!-- 평가폼 -->
 	<div>	
-		<form id="form" action="" method="get">
+		<form id="form" action="/Riding/evaluationinsertleader.action" method="get">
 			<div class="col col-xs-12">
 				<h1>모임 평가하기</h1>
 				<br />

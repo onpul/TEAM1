@@ -101,6 +101,38 @@ public class EhController
 		
 	}
 	
+	//마이페이지 참가한 모임 AJAX
+	@RequestMapping(value = "/participatedriding.action", method = RequestMethod.GET)
+	public String paticipatedRidingCheck(EvaluationDTO dto)
+	{
+		String result = "";
+		IEvaluationDAO dao = sqlSession.getMapper(IEvaluationDAO.class);
+		System.out.println("참가한 모임 조회 넘어온 아이디  : " + dto.getUser_id());
+		
+		
+		
+		
+		return result;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	// 개인정보수정폼 뷰
 	@RequestMapping(value = "/myinfoupdateform.action", method = RequestMethod.GET)
 	public String myInfoUpdateForm()
@@ -145,9 +177,20 @@ public class EhController
 	
 	//참여중인라이딩모임조회 뷰
 	@RequestMapping(value = "/participateridinglist.action", method = RequestMethod.GET)
-	public String participateRidingList()
+	public String participateRidingList(EvaluationDTO dto, Model model)
 	{
 		String view = "/WEB-INF/eh/ParticipateRidingList.jsp";
+		//System.out.println("user_id : " + dto.getUser_id());
+		IEvaluationDAO dao = sqlSession.getMapper(IEvaluationDAO.class);
+		dto.setRiding_id(dao.searchCurrRidingId(dto.getUser_id()));
+		
+		dao.participatedRidingSearch(dto.getRiding_id());
+		
+		model.addAttribute("riding_name", dto.getRiding_name());
+		model.addAttribute("gigan", dto.getGigan());
+		model.addAttribute("condition", dto.getCondition());
+		
+		//라이딩 모임 
 		return view;
 	}
 	
@@ -255,7 +298,7 @@ public class EhController
 	@RequestMapping(value = "/evaluationinsertleader.action",method = RequestMethod.GET)
 	public String evalAdd(EvaluationDTO dto)
 	{
-		String view = "redirect:evaluationleaderform.action";
+		String view = "redirect:mypagemain.action";
 		//String user_id = "40";
 		//String riding_id = "4";
 		//dto.setUser_id();

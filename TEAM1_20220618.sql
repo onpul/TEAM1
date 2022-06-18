@@ -218,3 +218,36 @@ SELECT RIDING_NAME
 SELECT *
 FROM PARTICIPATED_MEMBER
 WHERE RIDING_ID=3;
+
+
+
+
+-- 모임명 , 기간, 상태
+SELECT RIDING_NAME
+    ,START_DATE || '~' || END_DATE AS GIGAN
+    ,CASE WHEN SYSDATE < START_DATE-49/24 THEN '참가모집 중'
+          WHEN SYSDATE < START_DATE-48/24 THEN '준비요청 중'
+          WHEN SYSDATE < START_DATE-24/24 THEN '확정기간, 확정되면 상세장소 확인 가능'
+          WHEN SYSDATE < START_DATE THEN '확정완료, 상세장소 확인 바람.'
+          ELSE '라이딩 완료, 평가 바람'
+          END CONDITION
+FROM RIDING
+WHERE RIDING_ID=3;
+
+INSERT INTO RIDING
+VALUES(SEQ_RIDING.NEXTVAL, '40'
+    , 1,1,1,1,1,'0','0',1
+    ,'히히은혜방이당'
+    ,TO_DATE('2022-06-17','YYYY-MM-DD'),TO_DATE('2022-06-19','YYYY-MM-DD')
+    ,SYSDATE,4
+    ,'1234','1234','신갈역','은혜집'
+    ,'5678','5678','놀이터','은혜집앞놀이터'
+    ,'1010','1010','하하안녕','안녕하세용',NULL);
+
+
+
+
+
+
+
+

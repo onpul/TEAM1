@@ -29,7 +29,9 @@ public class MyPageMainController implements Controller
 		//String user_id = request.getParameter("user_id");
 		
 		// !! 현재는 임시 session 사용전!
-		String user_id = "82";
+		String user_id = "84";
+		//request.getSession();
+		
 		
 		result = dao.memberList(user_id);
 		

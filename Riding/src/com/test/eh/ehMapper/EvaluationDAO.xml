@@ -165,4 +165,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		VALUES(SEQ_ANSWER_DETAIL_LEADERSHIP.NEXTVAL, #{answer_id}, #{question_id},#{q_content})
 	</insert>
 	
+	
+	
+	<!-- 현재 참여중인 라이딩 모임이 있는지 체크 -->
+	
+	
+	<!-- 참가한 라이딩 모임 모임명 / 기간 / 상태 조회 -->
+	<select id="participatedRidingSearch" resultType="com.test.eh.EvaluationDTO">
+		SELECT RIDING_NAME
+    	,START_DATE || '~' || END_DATE AS GIGAN
+	    ,CASE WHEN SYSDATE <![CDATA[<]]> START_DATE-49/24 THEN '참가모집 중'
+	          WHEN SYSDATE <![CDATA[<]]> START_DATE-48/24 THEN '준비요청 중'
+	          WHEN SYSDATE <![CDATA[<]]> START_DATE-24/24 THEN '확정기간, 확정되면 상세장소 확인 가능'
+	          WHEN SYSDATE <![CDATA[<]]> START_DATE THEN '확정완료, 상세장소 확인 바람.'
+	          ELSE '라이딩 완료, 평가 바람'
+	          END CONDITION
+		FROM RIDING
+		WHERE RIDING_ID=#{riding_id}
+	</select>
+	
 </mapper>

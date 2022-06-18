@@ -12,7 +12,28 @@ public class EvaluationDTO
 	private String attendance, kindness, notKindness,dangerRiding, notCompletion, different;
 	private String p_member_id, check_atte_id, answer_id;
 	private String leaderCheck;
+	private String gigan,condition;
 	
+	
+	
+	
+	
+	public String getGigan()
+	{
+		return gigan;
+	}
+	public void setGigan(String gigan)
+	{
+		this.gigan = gigan;
+	}
+	public String getCondition()
+	{
+		return condition;
+	}
+	public void setCondition(String condition)
+	{
+		this.condition = condition;
+	}
 	public String getLeaderCheck()
 	{
 		return leaderCheck;

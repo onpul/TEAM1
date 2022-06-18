@@ -73,6 +73,10 @@ public interface IEvaluationDAO
 	
 	
 	
+	// 16. 참가한 라이딩 모임 조회 페이지
+	public EvaluationDTO participatedRidingSearch(String riding_id);
+	
+	
 	
 	
 	

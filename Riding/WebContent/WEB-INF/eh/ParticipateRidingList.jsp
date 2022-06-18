@@ -60,9 +60,9 @@
 			</tr>
 			
 			<tr>
-				<td>혜화역 라이딩 모임</td>
-				<td>2022-05-23 12:00 ~ 2022-05-24 09:00</td>
-				<td>모집중</td>
+				<td>${riding_name }</td>
+				<td>${gigan }</td>
+				<td>${condition }</td>
 				<td>
 					<button type="button" id="nowRiding" class="btn btn-default">
 						모음으로 이동

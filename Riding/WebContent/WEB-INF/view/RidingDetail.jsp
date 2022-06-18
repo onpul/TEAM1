@@ -117,12 +117,28 @@ RidingDetail.jsp
 	<c:import url="Header.jsp"></c:import>
 </div>
 <div class="container">
+	<c:forEach var="info" items="${ridingDetailList }">
 	<div>
-		<h1>20대 라이더 여기여기 붙어라</h1>
+		<h1>${info.riding_name }</h1>
 		<div class="property">
-			<p>참석가능</p>
-			<p>여성</p>
-			<p>끝나고 회식해요</p>
+			<c:if test="${info.sex_p_id != 0}">
+				<p>${info.sp_content }</p>
+			</c:if>
+			<c:if test="${info.age_p_id != 0}">
+				<p>${info.ap_content }</p>
+			</c:if>
+			<c:if test="${info.eat_p_id != 0}">
+				<p>${info.ep_content }</p>
+			</c:if>
+			<c:if test="${info.dining_p_id != 0}">
+				<p>${info.dp_content }</p>
+			</c:if>
+			<c:if test="${info.step_id != 0}">
+				<p>${info.step_type }</p>
+			</c:if>
+			<c:if test="${info.speed_id != 0}">
+				<p>${info.speed_type }</p>
+			</c:if>
 		</div>
 	</div>
 
@@ -136,19 +152,19 @@ RidingDetail.jsp
 		<table class="table">
 			<tr>
 				<td>모임 시작 일시</td>
-				<td>2022.05.23 10:00</td>
+				<td>${info.start_date }</td>
 			</tr>
 			<tr>
 				<td>모임 종료 일시</td>
-				<td>2022.05.23 16:00</td>
+				<td>${info.end_date }</td>
 			</tr>
 			<tr>
 				<td>최대 인원수</td>
-				<td>6명</td>
+				<td>${info.maximum }명</td>
 			</tr>
 		</table>
 	</div>
-	
+	</c:forEach>
 	<div>
 		<!-- 비회원은 블러 처리 후 로그인 페이지로 이동 버튼 -->
 		<h3>멤버 정보</h3>

@@ -13,13 +13,96 @@ public class RidingDTO
 	private int e_grede_id, maximum, open;
 	
 	private String meet_lati, meet_longi, meet_detail, start_lati, start_longi, start_address
-			, start_detail, end_lati, end_longi, end_address, detail_address, confirm_date;
+			, start_detail, end_lati, end_longi, end_address, detail_address, confirm_date, comments;
 	
 	// (다인라이딩) 참여한 회원정보
 	private String p_member_id, partici_date;
 	
 	// 다인라이딩 경유지
 	private String point_id, latitude, longitude, address, point_detail_address;
+	
+	// 라이딩 속성
+	private String sp_content, ap_content, ep_content, dp_content, mp_content, step_type, speed_type;
+
+	public String getSp_content()
+	{
+		return sp_content;
+	}
+
+	public void setSp_content(String sp_content)
+	{
+		this.sp_content = sp_content;
+	}
+
+	public String getAp_content()
+	{
+		return ap_content;
+	}
+
+	public void setAp_content(String ap_content)
+	{
+		this.ap_content = ap_content;
+	}
+
+	public String getEp_content()
+	{
+		return ep_content;
+	}
+
+	public void setEp_content(String ep_content)
+	{
+		this.ep_content = ep_content;
+	}
+
+	public String getDp_content()
+	{
+		return dp_content;
+	}
+
+	public void setDp_content(String dp_content)
+	{
+		this.dp_content = dp_content;
+	}
+
+	public String getMp_content()
+	{
+		return mp_content;
+	}
+
+	public void setMp_content(String mp_content)
+	{
+		this.mp_content = mp_content;
+	}
+
+	public String getStep_type()
+	{
+		return step_type;
+	}
+
+	public void setStep_type(String step_type)
+	{
+		this.step_type = step_type;
+	}
+
+	public String getSpeed_type()
+	{
+		return speed_type;
+	}
+
+	public void setSpeed_type(String speed_type)
+	{
+		this.speed_type = speed_type;
+	}
+
+	public String getComments()
+	{
+		return comments;
+	}
+
+	public void setComments(String comments)
+	{
+		this.comments = comments;
+	}
 
 	public int getOpen()
 	{

@@ -200,7 +200,7 @@ Main.jsp
 
 	function checkedDate(today)
 	{
-		//alert("에이젝스 출동 함수");
+		alert("checkedDate 에이젝스 출동");
 		
 		//alert("today = " + today.getFullYear());
 		//alert("today = " + today.getMonth());
@@ -221,7 +221,7 @@ Main.jsp
 			, data:"JSON"
 			, success:function(data)
 			{
-				//alert("안녕 나 에이젝스야~ 컨트롤러 잘 다녀왔어!");
+				alert("안녕 나 checkedDate 에이젝스야~ 컨트롤러 잘 다녀왔어!");
 				
 				console.log(typeof data);
 				var jObj = JSON.parse(data);
@@ -325,8 +325,8 @@ Main.jsp
 		{
 			//var user_id = ${user_id};
 			
-			alert("확인");
-			alert("user_id = " + user_id);
+			//alert("확인");
+			//alert("user_id = " + user_id);
 			
 			// 패널티 적용 여부 확인해서 패널티 있으면 경고창, 없으면 라이딩 생성 요청
 			$.ajax(
@@ -335,6 +335,8 @@ Main.jsp
 				, url:"penaltycheck.action"
 				, success:function(data)
 				{
+					alert("안녕 나 penaltycheck.action 에이젝스야 성공했어");
+					
 					if (data == 0)
 					{
 						location.href = "ridingForm.action";

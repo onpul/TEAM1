@@ -21,6 +21,20 @@ RidingList.jsp
 <!-- 제이쿼리 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
+
+	$(document).ready(function()
+	{
+		searchList();
+		
+		var th = ""; 
+		th += "<tr id=\"first\"><th>모임명</th>"
+		th += "<th>최대<input type=\"button\" value=\"정렬\"/></th>"
+		th += "<th>참여가능<input type=\"button\" value=\"정렬\"/></th>"
+		th += "<th>기간<input type=\"button\" value=\"정렬\"/></th>"
+		th += "<th>참석가능여부<input type=\"button\" value=\"정렬\"/></th></tr>" 
+		
+		$(".ridingList").append(th);
+	});
 	
 	$(function()
 	{
@@ -46,7 +60,7 @@ RidingList.jsp
 	{
 		//alert("myRidingCheck()");
 		
-		var user_id = ${user_id};
+		var user_id = $("#user_id").val();
 		
 		$.ajax(
 		{
@@ -88,6 +102,7 @@ RidingList.jsp
 				$('input:radio[name="speed_id"][value=0]').prop('checked', true);
 				$('input:radio[name="step_id"][value=0]').prop('checked', true);
 				
+				searchList();
 			}
 			, error:function(e)
 			{
@@ -100,7 +115,7 @@ RidingList.jsp
 	{
 		$("#openRidingBtn").click(function()
 		{
-			var user_id = ${user_id};
+			var user_id = $("#user_id").val();
 			alert("확인");
 			alert("user_id = " + user_id);
 			
@@ -130,80 +145,110 @@ RidingList.jsp
 	
 	$(document).ready(function()
 	{
-		$(".ridingListForm").click(function()
+		$(".ridingListForm").change(function()
 		{
-			//alert("확인이용");
-			
-			var params = "ridinglistform.action?" + $(".ridingListForm").serialize();
-			
-			//alert(params);
-			
-			$.ajax(
-			{
-				type:"POST"
-				, url:params
-				, contentType:"application/json; charset:UTF-8"
-				, success:function(data)
-				{
-					//alert("안녕 나 에이젝스야~ 컨트롤러 잘 다녀왔어!");
-					//alert(data);
-					
-					console.log(typeof data);
-					var jObj = JSON.parse(data);
-					console.log("jObj = ", jObj);
-					console.log("jObj.length = ", jObj.length);
-					//console.log(jObj[0].riding_name);
-					
-					if (jObj == "")
-					{
-						//alert("비었음");
-						var html = "<tr><td colspan='5'>조건을 만족하는 라이딩 모임이 존재하지 않습니다.</tr>"
-						$("#ridingList").html(html);
-					}
-					else if (jObj != "") 
-					{
-						var content = "";
-						
-						for (var i = 0; i < jObj.length; i++)
-						{
-							if (jObj[i].riding_name != undefined)
-							{
-								console.log("i = " + i);
-								content += "<tr><td>" + jObj[i].riding_name + "</td>";
-							}
-							if (jObj[i].maximum != undefined)
-							{
-								console.log("i = " + i);
-								content += "<td>" + jObj[i].maximum + "</td>";
-							}
-							if (jObj[i].open != undefined)
-							{
-								console.log("i = " + i);
-								content += "<td>" + jObj[i].open + "</td>";
-							}
-							if (jObj[i].start_date != undefined)
-							{
-								console.log("i = " + i);
-								content += "<td>" + jObj[i].start_date + " ~ ";
-							}
-							if (jObj[i].end_date != undefined)
-							{
-								console.log("i = " + i);
-								content += jObj[i].end_date + "</td></tr>";
-							}
-							
-						}
-						console.log("content = " + content);
-						$("#ridingList").children("#first").html(content);
-					}
-				}
-				, error:function(e)
-				{
-					alert(e.responseText);
-				}
-			});
+			searchList();
 		});
 	});
+	
+	function searchList()
+	{
+		//alert("확인이용");
+		
+		var params = "ridinglistform.action?" + $(".ridingListForm").serialize();
+		
+		//alert(params);
+		
+		$.ajax(
+		{
+			type:"POST"
+			, url:params
+			, contentType:"application/json; charset:UTF-8"
+			, success:function(data)
+			{
+				//alert("안녕 나 에이젝스야~ 컨트롤러 잘 다녀왔어!");
+				//alert(data);
+				
+				console.log(typeof data);
+				var jObj = JSON.parse(data);
+				console.log("jObj = ", jObj);
+				console.log("jObj.length = ", jObj.length);
+				//console.log(jObj[0].riding_name);
+				
+				var th = ""; 
+				th += "<tr id=\"first\"><th>모임명</th>"
+				th += "<th>최대<input type=\"button\" value=\"정렬\"/></th>"
+				th += "<th>참여가능<input type=\"button\" value=\"정렬\"/></th>"
+				th += "<th>기간<input type=\"button\" value=\"정렬\"/></th>"
+				th += "<th>참석가능여부<input type=\"button\" value=\"정렬\"/></th></tr>" 
+				
+				$(".ridingList").empty();
+				$(".ridingList").append(th);
+				
+				if (jObj == "")
+				{
+					//alert("비었음");
+					var html = "<tr><td colspan='5'>조건을 만족하는 라이딩 모임이 존재하지 않습니다.</td></tr>"
+					$(".ridingList").append(html);
+				}
+				else if (jObj != "") 
+				{
+					var content = "";
+					var open = "";
+					var confirm_date = "";
+					
+					for (var i = 0; i < jObj.length; i++)
+					{
+						if (jObj[i].riding_name != undefined)
+						{
+							console.log("i = " + i);
+							content += "<tr><td><a href='" + "ridingdetail.action?riding_id=" + jObj[i+6].riding_id + "'>" + jObj[i].riding_name + "</a></td>";
+						}
+						if (jObj[i].maximum != undefined)
+						{
+							console.log("i = " + i);
+							content += "<td>" + jObj[i].maximum + "</td>";
+						}
+						if (jObj[i].open != undefined)
+						{
+							console.log("i = " + i);
+							content += "<td>" + jObj[i].open + "</td>";
+							open = jObj[i].open;
+						}
+						if (jObj[i].start_date != undefined)
+						{
+							console.log("i = " + i);
+							content += "<td>" + jObj[i].start_date + " ~ ";
+						}
+						if (jObj[i].end_date != undefined)
+						{
+							console.log("i = " + i);
+							content += jObj[i].end_date + "</td>";
+						}
+						if (jObj[i].confirm_date != undefined)
+						{
+							console.log("i = " + i);
+							
+							if (open<0 && jObj[i].confirm_date != null)
+							{
+								content += "<td>참여 불가</td>";
+							}
+							else
+								content += "<td>참여 가능</td>"
+							
+							content += "</tr>";
+						}
+					}
+					console.log("content = " + content);
+					$(".ridingList").append(content);
+				}
+			}
+			, error:function(e)
+			{
+				alert(e.responseText);
+			}
+		});
+	}
 </script>
 <style type="text/css">
 </style>
@@ -355,16 +400,14 @@ RidingList.jsp
 	</div>
 </form>
 <div>
-	<table class="table">
-		<div id="ridingList">
-			<tr id="first">
-				<th>모임명</th>
-				<th>최대<input type="button" value="정렬"/></th>
-				<th>참여가능<input type="button" value="정렬"/></th>
-				<th>기간<input type="button" value="정렬"/></th>
-				<th>참석가능여부<input type="button" value="정렬"/></th>
-			</tr> 
-		</div>
+	<table class="table ridingList">
+		<!-- <tr id="first">
+			<th>모임명</th>
+			<th>최대<input type="button" value="정렬"/></th>
+			<th>참여가능<input type="button" value="정렬"/></th>
+			<th>기간<input type="button" value="정렬"/></th>
+			<th>참석가능여부<input type="button" value="정렬"/></th>
+		</tr>  -->
 		<!-- 
 		<tr>
 			<td>인천 피플</td>
@@ -403,6 +446,7 @@ RidingList.jsp
 		</tr>
 		-->
 	</table>
+	<input type="text" style="display: none;" name="user_id" id="user_id" value="${user_id}"/>
 	<c:choose>
 	<c:when test="${sessionScope.user_id!=null }">
 	<input type="button" class="btn btn-default" id="openRidingBtn" value="라이딩 모임 만들기"/>

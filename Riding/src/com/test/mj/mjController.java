@@ -304,15 +304,6 @@ public class mjController
 		return mav;
 	}
 	
-	// 라이딩 상세보기 페이지 요청(ridingdetail.action) 
-	@RequestMapping(value = "/ridingdetail.action", method = RequestMethod.GET)
-	public String ridingDetail()
-	{
-		String result = null;
-		result = "WEB-INF/view/RidingDetail.jsp";
-		return result;
-	}
-	
 	// 로그인 상태인 회원의 성별 체크 액션(gendercheck.action)
 	@RequestMapping(value = "/gendercheck.action", method = RequestMethod.POST)
 	@ResponseBody
@@ -430,7 +421,7 @@ public class mjController
 	public String openRidingCount(String year, String month)
 	{
 		// 테스트 ----------------------------------------------
-		//System.out.println("-----openRidingCount() 진입-----");
+		System.out.println("-----openRidingCount() 진입-----");
 		//System.out.println("year = " + year);
 		//System.out.println("month = " + month);
 		//------------------------------------------------------
@@ -694,21 +685,41 @@ public class mjController
 		
 		String result = "";
 		
+		int sex_p_id = dto.getSex_p_id();
+		int age_p_id = dto.getAge_p_id();
+		int speed_id = dto.getSpeed_id();
+		int step_id = dto.getStep_id();
+		int eat_p_id = dto.getEat_p_id();
+		int dining_p_id = dto.getDining_p_id();
+		int mood_p_id = dto.getMood_p_id();
+		
 		IRidingDAO dao = sqlSession.getMapper(IRidingDAO.class);
 		ArrayList<RidingDTO> ridingList = new ArrayList<RidingDTO>();
 		
 		String where = "";
 		String orderby = "";
 		
-		where += "WHERE SEX_P_ID = " + dto.getSex_p_id();
-		where += " AND AGE_P_ID = " + dto.getAge_p_id();
-		where += " AND SPEED_ID = " + dto.getSpeed_id();
-		where += " AND STEP_ID = " + dto.getStep_id();
-		where += " AND EAT_P_ID = " + dto.getEat_p_id();
-		where += " AND DINING_P_ID = " + dto.getDining_p_id();
-		where += " AND MOOD_P_ID = " + dto.getMood_p_id();
+		where += "WHERE RIDING_ID IS NOT NULL";
+		if (sex_p_id != -1) // 전체 선택이 아니면
+			where += " AND SEX_P_ID = " + sex_p_id;
+		if (age_p_id != -1)
+			where += " AND AGE_P_ID = " + age_p_id;
+		if (speed_id != -1)
+			where += " AND SPEED_ID = " + speed_id;
+		if (step_id != -1)
+			where += " AND STEP_ID = " + step_id;
+		if (eat_p_id != -1)
+			where += " AND EAT_P_ID = " + eat_p_id;
+		if (dining_p_id != -1)
+			where += " AND DINING_P_ID = " + dining_p_id;
+		if (mood_p_id != -1)
+			where += " AND MOOD_P_ID = " + mood_p_id;
+		
+		orderby = "ORDER BY START_DATE";
 		
 		ridingList = dao.ridingList(where, orderby);
+		
+		System.out.println("where = " + where);
 		
 		System.out.println("ridingList.size() = " + ridingList.size());
 		
@@ -723,6 +734,8 @@ public class mjController
 			result += "{\"open\":" + "\"" + data.getOpen() + "\"},";
 			result += "{\"start_date\":" + "\"" + data.getStart_date() + "\"},";
 			result += "{\"end_date\":" + "\"" + data.getEnd_date() + "\"},";
+			result += "{\"confirm_date\":" + "\"" + data.getConfirm_date() + "\"},";
+			result += "{\"riding_id\":" + "\"" + data.getRiding_id() + "\"},";
 		}
 		
 		result = result.replaceAll(",$","");
@@ -736,4 +749,30 @@ public class mjController
 		
 		//return result;
 	}
+	
+	// 라이딩 상세보기 페이지 요청(ridingdetail.action) 
+	@RequestMapping(value = "/ridingdetail.action", method = RequestMethod.GET)
+	public String ridingDetail(Model model, RidingDTO dto, UserDTO udto)
+	{
+		String result = null;
+		
+		IRidingDAO dao = sqlSession.getMapper(IRidingDAO.class);
+		
+		model.addAttribute("ridingDetailList", dao.ridingDetailList(Integer.parseInt(dto.getRiding_id())));
+		
+		//System.out.println("dto.getRiding_id() = " + dto.getRiding_id());
+		
+		// 참여한 회원 user_id 명단
+		ArrayList<RidingDTO> ridingMember = new ArrayList<RidingDTO>();
+		ridingMember = dao.ridingMember(Integer.parseInt(dto.getRiding_id()));
+		
+		for (int i = 0; i < ridingMember.size(); i++)
+		{
+			System.out.println(i + " = " + ridingMember.get(i).getUser_id());
+		}
+		
+		result = "WEB-INF/view/RidingDetail.jsp";
+		return result;
+	}
+
 }

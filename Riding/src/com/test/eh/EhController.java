@@ -27,6 +27,9 @@ public class EhController
 	@Autowired
 	private SqlSession sqlSession;
 	
+	// 마이페이지 --> 
+	
+	
 	
 	// 마이페이지 --> 평가페이지 
 	// 조건.

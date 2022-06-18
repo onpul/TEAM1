@@ -53,64 +53,40 @@ public class mjController
 	@ResponseBody
 	public String join(UserDTO dto)
 	{
-		// 테스트
-		System.out.println("------------join() 진입------------");
-		System.out.println("getAge_p_id = " + dto.getAge_p_id());
-		System.out.println("getBirthday = " + dto.getBirthday());
-		System.out.println("getDining_p_id = " + dto.getDining_p_id());
-		System.out.println("getEat_p_id = " + dto.getEat_p_id());
-		System.out.println("getEmail = " + dto.getEmail());
-		System.out.println("getMood_p_id = " + dto.getMood_p_id());
-		System.out.println("getNickname = " + dto.getNickname());
-		System.out.println("getPassword = " + dto.getPassword());
-		System.out.println("getSex = " + dto.getSex());
-		System.out.println("getSex_p_id = " + dto.getSex_p_id());
-		System.out.println("getUser_id = " + dto.getUser_id());
-		
 		int result = 0;
+		String resultstr = "0";
 		
 		IRidingDAO dao = sqlSession.getMapper(IRidingDAO.class);
 		
 		// 탈퇴한 회원인지 체크
 		try
 		{
-			System.out.println("------------탈퇴한 회원 체크------------");
-			System.out.println("dto.getEmail() = " + dto.getEmail());
-			
 			result = dao.withdrawCheck(dto.getEmail(), dto.getBirthday());
 			
-			System.out.println("dto.getBirthday() = " + dto.getBirthday());
-			System.out.println("result = " + result);
+			// 탈퇴한 회원이라면
+			if (result > 0)
+			{
+				resultstr =  "1";
+			}
+			else // 탈퇴한 회원이 아니라면 회원가입 진행
+			{
+				dao.join(dto);
+				
+				// 회원가입한 user_id 를 set
+				dto.setUser_id(dao.getUser());
+				
+				// 개인정보 입력
+				dao.profile(dto);
+				
+				resultstr = "0";
+			}
 			
 		} catch (Exception e)
 		{
 			System.out.println(e.toString());
 		}
 		
-		// 탈퇴한 회원이라면
-		if (result > 0)
-		{
-			System.out.println("탈퇴한 회원이다!");
-			return "1";
-		}
-		else // 탈퇴한 회원이 아니라면 회원가입 진행
-		{
-			System.out.println("탈퇴한 회원이 아니다!");
-			
-			System.out.println("------------회원가입 액션------------");
-			dao.join(dto);
-			
-			// 회원가입한 user_id 를 set
-			dto.setUser_id(dao.getUser());
-			
-			//System.out.println("dao.getuser() = " + dao.getuser());
-			
-			// 개인정보 입력
-			System.out.println("------------개인정보 입력------------");
-			dao.profile(dto);
-			
-			return "0";
-		}
+		return resultstr;
 	}
 	
 	// 닉네임 중복체크 버튼 클릭 시 요청(nickcheck.action)
@@ -125,14 +101,25 @@ public class mjController
 		
 		int result = 0;
 		
-		result = dao.duplicationNickCheck(nickname);
-		
-		if (result > 0)
+		try
 		{
-			return "1";
+			result = dao.duplicationNickCheck(nickname);
+			
+			if (result > 0)
+			{
+				result = 1;
+			}
+			else
+				result = 0;
+			
+		} catch (Exception e)
+		{
+			System.out.println(e.toString());
 		}
-		else
-			return "0";
+		
+		String resultstr = Integer.toString(result);
+		
+		return resultstr;
 	}
 	
 	// 탈퇴회원 체크 시 요청(withdrawcheck.action)

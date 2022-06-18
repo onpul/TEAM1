@@ -13,7 +13,7 @@ public class RidingDTO
 	private int e_grede_id, maximum, open;
 	
 	private String meet_lati, meet_longi, meet_detail, start_lati, start_longi, start_address
-			, start_detail, end_lati, end_longi, end_address, detail_address, confirm_date, comments;
+			, start_detail, end_lati, end_longi, end_address, end_detail, confirm_date, comments;
 	
 	// (다인라이딩) 참여한 회원정보
 	private String p_member_id, partici_date;
@@ -23,96 +23,6 @@ public class RidingDTO
 	
 	// 라이딩 속성
 	private String sp_content, ap_content, ep_content, dp_content, mp_content, step_type, speed_type;
-
-	public String getSp_content()
-	{
-		return sp_content;
-	}
-
-	public void setSp_content(String sp_content)
-	{
-		this.sp_content = sp_content;
-	}
-
-	public String getAp_content()
-	{
-		return ap_content;
-	}
-
-	public void setAp_content(String ap_content)
-	{
-		this.ap_content = ap_content;
-	}
-
-	public String getEp_content()
-	{
-		return ep_content;
-	}
-
-	public void setEp_content(String ep_content)
-	{
-		this.ep_content = ep_content;
-	}
-
-	public String getDp_content()
-	{
-		return dp_content;
-	}
-
-	public void setDp_content(String dp_content)
-	{
-		this.dp_content = dp_content;
-	}
-
-	public String getMp_content()
-	{
-		return mp_content;
-	}
-
-	public void setMp_content(String mp_content)
-	{
-		this.mp_content = mp_content;
-	}
-
-	public String getStep_type()
-	{
-		return step_type;
-	}
-
-	public void setStep_type(String step_type)
-	{
-		this.step_type = step_type;
-	}
-
-	public String getSpeed_type()
-	{
-		return speed_type;
-	}
-
-	public void setSpeed_type(String speed_type)
-	{
-		this.speed_type = speed_type;
-	}
-
-	public String getComments()
-	{
-		return comments;
-	}
-
-	public void setComments(String comments)
-	{
-		this.comments = comments;
-	}
-
-	public int getOpen()
-	{
-		return open;
-	}
-
-	public void setOpen(int open)
-	{
-		this.open = open;
-	}
 
 	public int getUser_id()
 	{
@@ -274,6 +184,16 @@ public class RidingDTO
 		this.maximum = maximum;
 	}
 
+	public int getOpen()
+	{
+		return open;
+	}
+
+	public void setOpen(int open)
+	{
+		this.open = open;
+	}
+
 	public String getMeet_lati()
 	{
 		return meet_lati;
@@ -374,14 +294,14 @@ public class RidingDTO
 		this.end_address = end_address;
 	}
 
-	public String getDetail_address()
+	public String getEnd_detail()
 	{
-		return detail_address;
+		return end_detail;
 	}
 
-	public void setDetail_address(String detail_address)
+	public void setEnd_detail(String end_detail)
 	{
-		this.detail_address = detail_address;
+		this.end_detail = end_detail;
 	}
 
 	public String getConfirm_date()
@@ -392,6 +312,16 @@ public class RidingDTO
 	public void setConfirm_date(String confirm_date)
 	{
 		this.confirm_date = confirm_date;
+	}
+
+	public String getComments()
+	{
+		return comments;
+	}
+
+	public void setComments(String comments)
+	{
+		this.comments = comments;
 	}
 
 	public String getP_member_id()
@@ -463,5 +393,74 @@ public class RidingDTO
 	{
 		this.point_detail_address = point_detail_address;
 	}
-	
+
+	public String getSp_content()
+	{
+		return sp_content;
+	}
+
+	public void setSp_content(String sp_content)
+	{
+		this.sp_content = sp_content;
+	}
+
+	public String getAp_content()
+	{
+		return ap_content;
+	}
+
+	public void setAp_content(String ap_content)
+	{
+		this.ap_content = ap_content;
+	}
+
+	public String getEp_content()
+	{
+		return ep_content;
+	}
+
+	public void setEp_content(String ep_content)
+	{
+		this.ep_content = ep_content;
+	}
+
+	public String getDp_content()
+	{
+		return dp_content;
+	}
+
+	public void setDp_content(String dp_content)
+	{
+		this.dp_content = dp_content;
+	}
+
+	public String getMp_content()
+	{
+		return mp_content;
+	}
+
+	public void setMp_content(String mp_content)
+	{
+		this.mp_content = mp_content;
+	}
+
+	public String getStep_type()
+	{
+		return step_type;
+	}
+
+	public void setStep_type(String step_type)
+	{
+		this.step_type = step_type;
+	}
+
+	public String getSpeed_type()
+	{
+		return speed_type;
+	}
+
+	public void setSpeed_type(String speed_type)
+	{
+		this.speed_type = speed_type;
+	}
 }

@@ -136,7 +136,7 @@ JoinForm.jsp
 				, data:{"nickname" : $("#nickname").val()}
 				, success:function(data)
 				{
-					alert("data = " + data);
+					//alert("data = " + data);
 					if (data == 0)
 					{
 						alert("사용가능한 닉네임입니다.");
@@ -350,7 +350,7 @@ JoinForm.jsp
 	{
 		$("#joinBtn").click(function()
 		{
-			alert("확인");
+			//alert("확인");
 			
 			// 보낼 데이터 구성
 			var params = $("form[name=joinForm]").serialize();
@@ -359,13 +359,12 @@ JoinForm.jsp
 			$.ajax(
 			{
 				type:"POST"
-				, asynx:true
 				, url:"join.action"
 				, data:params
 				, success:function(data)
 				{
-					alert("성공");
-					alert(data);
+					//alert("성공");
+					//alert(data);
 					if (data == 0)
 					{
 						alert("회원가입이 정상적으로 처리되었습니다.");
@@ -549,6 +548,7 @@ JoinForm.jsp
 		<div class="form-group joinBtn">
 			<!-- 회원가입 완료 시 메인으로 이동 -->
 			<input type="button" class="btn btn-default" value="회원가입" id="joinBtn"/>
+			<input type="button" class="btn btn-default" value="메인페이지로 이동" onclick="location.href='main.action'"/>
 		</div>
 	</form>
 <!-- 푸터 -->

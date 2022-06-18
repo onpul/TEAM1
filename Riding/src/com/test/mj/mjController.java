@@ -52,9 +52,9 @@ public class mjController
 		String resultstr = "0";
 		IRidingDAO dao = sqlSession.getMapper(IRidingDAO.class);
 		
-		// 탈퇴한 회원인지 체크
 		try
 		{
+			// 탈퇴한 회원인지 체크
 			result = dao.withdrawCheck(dto.getEmail(), dto.getBirthday());
 			
 			// 탈퇴한 회원이라면

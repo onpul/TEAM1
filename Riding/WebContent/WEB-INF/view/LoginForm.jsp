@@ -74,7 +74,7 @@ LoginForm.jsp
 			
 			var params = $("form[name=loginForm]").serialize();
 			
-			alert(params);
+			//alert(params);
 			
 			$.ajax(
 			{

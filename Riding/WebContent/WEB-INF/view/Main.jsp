@@ -71,7 +71,7 @@ Main.jsp
 	function thisMonth()
 	{
 		today = new Date();
-		checkedDate(today);
+		checkedDate(today); // 모임 수 출력하기
 		drawCalendar(); // 캘린더 그리기
 	}
 	
@@ -223,13 +223,13 @@ Main.jsp
 			{
 				//alert("안녕 나 checkedDate 에이젝스야~ 컨트롤러 잘 다녀왔어!");
 				
-				console.log(typeof data);
+				//console.log(typeof data);
 				var jObj = JSON.parse(data);
 				console.log("jObj", jObj);
 				// 성공
-				console.log(jObj[0].date);
+				//console.log(jObj[0].date);
 				// 2022-06-01
-				console.log("jObj.length",jObj.length);
+				//console.log("jObj.length",jObj.length);
 				
 				//alert($('.check').attr('id'));
 				

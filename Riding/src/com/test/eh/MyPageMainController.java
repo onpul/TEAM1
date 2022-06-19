@@ -35,14 +35,24 @@ public class MyPageMainController implements Controller
 		HttpSession session = request.getSession();
 		//session.getAttribute("user_id");
 		System.out.println("세션으로 받은 user_id : " + session.getAttribute("user_id"));
+		
+		
 		String user_id = Integer.toString((Integer)session.getAttribute("user_id"));
+		
+		
+		
+		
 		//System.out.println("왜 뷰는 안보여줘");
 		// !! 현재는 임시 session 사용전!
 		//String user_id = "83";
 		//String user_id ="82";
 		
 		//result = dao.memberList((String)session.getAttribute("user_id"));
+		
+		
 		result = dao.memberList(user_id);
+		
+		
 		
 		// 뷰 에게 넘겨줄 데이터
 		

@@ -320,32 +320,16 @@ public class EhController
 		//checkInsert , searchCheckId
 		if (!dto.getAttendance().equals("not"))
 		{
-			System.out.println("여기실행");
-			
-			//System.out.println(dao.searchPMemberId(dto.getUser_id()));
-			//1. 출석체크 테이블 INSERT
-			//--제출자의 P_MEMBER_ID
 			dto.setP_member_id(dao.searchPMemberId(dto.getUser_id()));
-			//System.out.println("먼데 : " + dto.getP_member_id());
-			System.out.println("뭔데 ㅅㅄㅄㅂ "+dto.getP_member_id());
-			//--박몽 P_MEMBER_ID 40 USER_ID 102
 			
 			dao.checkInsert(dto);	//--SEQ , 제출자의 P_MEMBER_ID / 날짜
-			//여기 ㅇㅋ
 			
 			//2. 출석체크 응답내용 insert
 			//-- seq , check_atte_id,결석지목받은사람 p_member_id
 			
-			//System.out.println("제출자 아이디 : " + dto.getUser_id());
 			dto.setCheck_atte_id(dao.searchCheckId(dto.getUser_id()));//--제출자의 check_atte_id
-			System.out.println("하하 전날에 뭐하는 짓");
-			
-			//System.out.println("제출자의 뭐시기 : " + dto.getCheck_atte_id());
 			dto.setP_member_id(dao.searchPMemberId(dto.getAttendance())); //--결석자의 p_member_id
-			System.out.println("범인누구냐");
-			//System.out.println("결석자의 pmemberid : " + dto.getP_member_id());
 			dao.checkDetailInsert(dto);
-			System.out.println("되나??????????????????????");
 			//-- 여기까진 ㅇㅋㅇㅋ
 		}
 		int leaderCheck = dao.leaderFlagList(dto.getUser_id());

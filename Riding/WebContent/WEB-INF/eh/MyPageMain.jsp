@@ -109,7 +109,7 @@
 						alert("평가기간에 속하는 모임이 없습니다.");
 					}
 					else
-						alert("여기는 넘어올리가 없음");
+						alert("이외");
 				}
 				
 				,error: function(e)

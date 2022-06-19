@@ -13,8 +13,6 @@ import javax.servlet.http.HttpSession;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -27,7 +25,6 @@ public class InsertRidingController
 	private SqlSession sqlSession;
 		
 	// 라이딩 모임 생성
-	@Transactional(propagation = Propagation.REQUIRED)
 	@RequestMapping(value = "/insertriding.action", method = RequestMethod.POST)
 	public String createMeet(HttpServletRequest request, InsertRidingDTO dto)
 	{
@@ -56,6 +53,7 @@ public class InsertRidingController
 		// 모임 insert 후, 경유지도 insert
 		if (dao.insertRiding(dto) > 0)
 		{
+			System.out.println(dto.getRiding_id());
 			// 경유지 없어도 "" 로 1개는 무조건 들어오기 때문에..
 			if ( !(dto.getAddress().size() == 1 && dto.getAddress().get(0).trim().equals("")) )
 			{

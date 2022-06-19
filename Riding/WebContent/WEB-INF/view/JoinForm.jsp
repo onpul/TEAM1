@@ -548,7 +548,6 @@ JoinForm.jsp
 		<div class="form-group joinBtn">
 			<!-- 회원가입 완료 시 메인으로 이동 -->
 			<input type="button" class="btn btn-default" value="회원가입" id="joinBtn"/>
-			<input type="button" class="btn btn-default" value="메인페이지로 이동" onclick="location.href='main.action'"/>
 		</div>
 	</form>
 <!-- 푸터 -->

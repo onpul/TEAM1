@@ -376,7 +376,7 @@ JoinForm.jsp
 						location.href = "main.action";
 					}
 				}
-				, beforeSend:formCheck
+				//, beforeSend:formCheck
 				, error:function(e)
 				{
 					alert(e.responseText);

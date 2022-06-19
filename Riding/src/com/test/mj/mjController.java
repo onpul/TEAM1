@@ -46,8 +46,10 @@ public class mjController
 	// 회원가입(join.action)
 	@RequestMapping(value="/join.action")
 	@ResponseBody
-	public String join(UserDTO dto, HttpServletResponse response) throws IOException
+	public String join(UserDTO dto) 
 	{
+		System.out.println("---회원가입 컨트롤러 진입---");
+		
 		int result = 0;
 		String resultstr = "0";
 		IRidingDAO dao = sqlSession.getMapper(IRidingDAO.class);
@@ -57,13 +59,19 @@ public class mjController
 			// 탈퇴한 회원인지 체크
 			result = dao.withdrawCheck(dto.getEmail(), dto.getBirthday());
 			
+			System.out.println("dao.withdrawCheck = " + result);
+			
 			// 탈퇴한 회원이라면
 			if (result > 0)
 			{
+				System.out.println("result > 0");
 				resultstr = "1";
+				System.out.println("resultstr = " + resultstr);
 			}
-			else // 탈퇴한 회원이 아니라면 회원가입 진행
+			else if (result <= 0) // 탈퇴한 회원이 아니라면 회원가입 진행
 			{
+				System.out.println("result <= 0");
+				
 				dao.join(dto);
 				
 				// 회원가입한 user_id 를 set
@@ -73,6 +81,7 @@ public class mjController
 				dao.profile(dto);
 				
 				resultstr = "0";
+				System.out.println("resultstr = " + resultstr);
 			}
 			
 		} catch (Exception e)
@@ -80,6 +89,7 @@ public class mjController
 			System.out.println(e.toString());
 		}
 		
+		System.out.println("resultstr = " + resultstr);
 		return resultstr;
 		
 	}
@@ -173,7 +183,7 @@ public class mjController
 				if (dao.usageRestrictions(user_id)!=0)
 				{
 					System.out.println("---사이트 이용제한 회원임---");
-					result =  "2"; // 사이트 이용제한 회원일 경우
+					result = "2"; // 사이트 이용제한 회원일 경우
 				}
 				else
 				{

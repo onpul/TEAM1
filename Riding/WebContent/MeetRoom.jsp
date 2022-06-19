@@ -15,22 +15,24 @@
 
 div {
 	border: 4px dotted #5f9ea0;
-	/* width: 1000px;
-	height: 1600px;
-	background-color: AliceBlue; */
 	padding: 100px;
 	margin: 100px auto;
-
-	
 }
 
-/* 
-form{
-    width: 900px;
-	height: 920px;
+
+.outer {
+  text-align: center;
 }
 
-*/
+.inner {
+  display: inline-block;
+}
+
+
+
+
+
+
 input{ 	padding: 7px;
 		margin: 15px auto; 
 	
@@ -72,15 +74,6 @@ a>mark{
 	opacity: 50%;
 
 }
-/* ul{
-    list-style-type: none;
-}
-h3{
-    text-align: center;
-    color:#F59B7A;
-    font-size: 29PX;
-} */
-
 
 </style>
 
@@ -175,45 +168,47 @@ h3{
 
 
 <div>
-<h2>대기실 화면(방장)</h2>
+<h2>🤴대기실(방장)👸</h2>
         <hr>
 			<form action ="" name="room" >
-				<p>내 정보</p>
-				<input type="button" value="내프로필" class="btn" onclick="alertTest()"/>
+				<p>🧚‍ 내 정보</p>
+				<input type="button" value="내프로필" class="btn" style="width:10%;" onclick="alertTest()"/>
 				
-				<p>방장 권한</p>
-					<input type="button" value="확정" class="btn" onclick="check()"/>
-					<input type="button" value="삭제" class="btn" onclick="req()"/>
-					<input type="button" value="확정취소" class="btn" onclick="cancel()"/>
-					<input type="button" value="수정" class="btn" onclick="modify()"/>
+				<p>🧚‍♂️ 방장 권한</p>
+					<input type="button" value="확정" class="btn" style="width:10%;" onclick="check()"/>
+					<input type="button" value="삭제" class="btn" style="width:10%;" onclick="req()"/>
+					<input type="button" value="확정취소" class="btn" style="width:10%;" onclick="cancel()"/>
+					<input type="button" value="수정" class="btn" style="width:10%;" onclick="modify()"/>
 				
 				<br /><br />
-				모임명<input type="text" id="room1" value ="즐겁게 달려요" class="txt"/>
+				🎈 모임명 🎈<input type="text" id="room1" value ="즐겁게 달려요" class="txt"/>
 				<br /><br />
 				
 				
-				현재 인원수 <input type="text" class="txt" style="width:3%";/>
-				제한 인원수  <input type="text" class="txt" style="width:3%";/>
+				🎉현재 인원수 <input type="text" class="txt" style="width:3%;" placeholder="5"/>
+				🎊제한 인원수  <input type="text" class="txt" style="width:3%;" placeholder="8"/>
 				
 				
 				
 				<br /><br /><br />
-				참여자1<input type="button" value="타프로필" class="btn" onclick="alertTest1()"/>
+				
+				
+				👩‍🦰 참여자1<input type="button" value="타프로필"  style="width:10%;" class="btn" onclick="alertTest1()"/>
 				
 				
 				
 				<br /><br />
-				참여자2<input type="button" value="타프로필" class="btn" onclick="alertTest1()"/>
+				👱‍♂️참여자2<input type="button" value="타프로필" style="width:10%;" class="btn" onclick="alertTest1()"/>
 				
 				
 				
 				<br /><br />
-				참여자3<input type="button" value="타프로필" class="btn" onclick="alertTest1()"/>
+				👨🏻‍🦳참여자3<input type="button" value="타프로필" style="width:10%;" class="btn" onclick="alertTest1()"/>
 
 
 
 				<br /><br />
-				참여자4<input type="button" value="타프로필" class="btn" onclick="alertTest1()"/>
+				👩🏽‍🦱 참여자4<input type="button" value="타프로필" style="width:10%;" class="btn" onclick="alertTest1()"/>
 					
 					
 				

@@ -91,7 +91,7 @@ a>mark{
 <div>
 
 	<!-- <input type="button" value="맛집후기리스트로 이동" class="btn"/> -->
-	<a href="ListReview.jsp">맛집후기리스트로 이동     </a>
+	<!-- <a href="ListReview.jsp">맛집후기리스트로 이동     </a> -->
 	
 	<a href="RegisterStore.jsp">맛집등록하기     </a>
 

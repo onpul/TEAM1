@@ -114,10 +114,12 @@ function searchPlaces() {
     // 마커가 표시될 위치입니다 
     var markerPosition  = new kakao.maps.LatLng(37.55595545629157, 126.91988404201697); 
 
+
     // 마커를 생성합니다
-        var marker = new kakao.maps.Marker({
-        position: markerPosition
-        });
+    var marker = new kakao.maps.Marker({
+    position: markerPosition4
+    }); 
+   
 
     // 마커가 지도 위에 표시되도록 설정합니다
        marker.setMap(map);
@@ -129,6 +131,12 @@ function searchPlaces() {
     
 
 }
+
+
+
+
+
+
 
 // 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
 function placesSearchCB(data, status, pagination) {

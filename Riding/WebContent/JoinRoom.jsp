@@ -159,36 +159,36 @@ h3{
 
 
 <div>
-<h2>대기실 화면(참여자)</h2>
+<h2>👧🧑 대기실(참여자)👧🧑</h2>
         <hr>
 			<form action ="" name="room" >  
-				모임명<input type="text" id="room1" value ="즐겁게 달려요" class="txt"/>
+				🎈 모임명 🎈<input type="text" id="room1" value ="즐겁게 달려요" class="txt"/>
 					
 					
 				<br /><br />
-				방장
-				<input type="button" value="방장정보" class="btn" onclick="alertTest1()"/>
+				🧚‍ 방장 정보
+				<input type="button" value="방장정보" class="btn" style="width:10%;" onclick="alertTest1()"/>
 				
 				<br /><br />
 				
 				<br />
-				참여자1(나)
-				<input type="button" value="내프로필" class="btn" onclick="alertTest()"/>
+				👩‍🦰 참여자1(나)
+				<input type="button" value="내프로필" class="btn" style="width:10%;" onclick="alertTest()"/>
 				<br />
 				<button onclick="ready()">준비하기</button>
 				<button onclick="out()">방나가기</button>
 				
 				<br /><br />
-				참여자2
-				<input type="button" value="타프로필" class="btn" onclick="alertTest1()"/>
+				👱‍♂️참여자2
+				<input type="button" value="타프로필" class="btn" style="width:10%;" onclick="alertTest1()"/>
 				
 				<br />
-				참여자3
-				<input type="button" value="타프로필" class="btn" onclick="alertTest2()"/>
+				👨🏻‍🦳참여자3
+				<input type="button" value="타프로필" class="btn" style="width:10%;" onclick="alertTest2()"/>
 				
 				<br />
-				참여자4
-				<input type="button" value="타프로필" class="btn" onclick="alertTest2()"/>
+				👩🏽‍🦱 참여자4
+				<input type="button" value="타프로필" class="btn" style="width:10%;" onclick="alertTest2()"/>
 					
 					
 					

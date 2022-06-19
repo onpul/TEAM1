@@ -63,21 +63,21 @@
 		$(".pointBtn button:eq(0)").on("click", function()
 		{
 			// 경유지 2 개 이상부터는 삭제 버튼 생성
-			if($(".points").children("label").length >= 1)
+			if($("span.point").children("label").length >= 1)
 				$(".pointBtn button:eq(1)").css("display", "");
 			
-			if($(".points").children("label").length < 5 )
+			if($("span.point").children("label").length < 5 )
 			{
-				var numIdx = $(".points").children("label").length + 1;
+				var numIdx = $("span.point").children("label").length + 1;
 				
 				var str = "<br>";
-				str +=		'<label>경유지'+numIdx+' ';
-				str +=			'<input type="text" class="txt" name="address'+numIdx+'"/> ';
-				str +=			'<input type="text" class="txt" name="detail_address'+numIdx+'"/>';
-				str +=			'<button type="button" class="searchMap" value="point">검색</button>';
+				str +=		'<label class="point'+numIdx+'">경유지'+numIdx+' ';
+				str +=			'<input type="text" class="txt" name="address"/> ';
+				str +=			'<input type="text" class="txt" name="detail_address"/>';
+				str +=			'<button type="button" class="searchMap" value="point'+numIdx+'">검색</button>';
 				str +=		'</label>';
 				 
-				$(".points").append(str);
+				$("span.point").append(str);
 				
 				$(".searchMap").on("click", function()
 				{
@@ -88,13 +88,13 @@
 		
 		$(".pointBtn button:eq(1)").on("click", function()
 		{
-			if($(".points").children("label").length > 1 )
+			if($("span.point").children("label").length > 1 )
 			{
-				$(".points").children("label:last-child").remove();
-				$(".points").children("br:last-child").remove();
+				$("span.point").children("label:last-child").remove();
+				$("span.point").children("br:last-child").remove();
 			}
 				
-			if($(".points").children().length < 2)
+			if($("span.point").children().length < 2)
 				$(".pointBtn button:eq(1)").css("display", "none");
 				
 		})
@@ -102,16 +102,48 @@
 		$(".searchMap").on("click", function()
 		{
 			searchMap($(this).val());
-		});	
+		});
+		
+		$("#submitRiding").on("click", function()
+		{
+			$("form#insertRiding").submit();
+		});
 	});
  		
 	function searchMap(val)
 	{
+		
 		window.open("KakaoSearchMap.jsp?openType="+val , "위치 찾기", "width=800");
 	}
 	
 	function getAddr(openType, addr, lat, lng)
 	{
+		if (!openType.includes('point'))
+		{
+			var address = openType + '_address';
+			var lati = openType + '_lati';
+			var longi = openType + '_longi';
+			
+			$('#'+address).val(addr);
+			
+			var latiInput = '<input type="hidden" name="'+lati+'" value="'+lat+'"/>'; 
+			var longiInput = '<input type="hidden" name="'+longi+'" value="'+lng+'"/>'; 
+			
+			$("span."+openType).append(latiInput);
+			$("span."+openType).append(longiInput);
+			
+			
+		}
+		else
+		{
+			$('label.'+openType).children("input[name=address]").val(addr);
+			
+			var latiInput = '<input type="hidden" name="latitude" value="'+lat+'"/>'; 
+			var longiInput = '<input type="hidden" name="longitude" value="'+lng+'"/>';
+			
+			$("label."+openType).append(latiInput);
+			$("label."+openType).append(longiInput);
+		}
 		
 	}
 </script>
@@ -124,7 +156,7 @@
 
 
 <div class="container">
-	<form action ="insertriding.action" method="post">
+	<form id="insertRiding" action ="../insertriding.action" method="post">
 		<table class="table table-bordered">
 			<tr>
 				<th>모임 이름</th>
@@ -158,7 +190,7 @@
 			<tr>
 				<th>모임 장소</th>
 				<td>
-					<span>
+					<span class="meet">
 						<input type="text" name="meet_address"
 						id="meet_address" placeholder="주소"/>
 						<input type="text" name="meet_detail"
@@ -170,38 +202,45 @@
 			<tr>
 				<th>모임 출발 장소</th>
 				<td>
-					<input type="text" class="txt" name="start_address"
-					id="start_address" placeholder="주소"/>
-					<input type="text" class="txt" name="start_detail"
-					id="start_detail" oninput="nameError(this)" placeholder="상세주소를 입력하세요"/>
-					<button type="button" class="searchMap" value="start">검색</button>
+					<span class="start">
+						<input type="text" class="txt" name="start_address"
+						id="start_address" placeholder="주소"/>
+						<input type="text" class="txt" name="start_detail"
+						id="start_detail" placeholder="상세주소를 입력하세요"/>
+						<button type="button" class="searchMap" value="start">검색</button>
+					</span>
+					
 				</td>
 			</tr>
 			<tr>
 				<th>모임 종료 장소</th>
 				<td>
-					<input type="text" class="txt" name="end_address"
-					id="end_address" placeholder="주소"/>
-					<input type="text" class="txt" name="end_detail"
-					id="end_detail" placeholder="상세주소를 입력하세요"/>
-					<button type="button" class="searchMap" value="end">검색</button>
+					<span class="end">
+						<input type="text" class="txt" name="end_address"
+						id="end_address" placeholder="주소"/>
+						<input type="text" class="txt" name="end_detail"
+						id="end_detail" placeholder="상세주소를 입력하세요"/>
+						<button type="button" class="searchMap" value="end">검색</button>
+					</span>
 				</td>
 			</tr>
 			<tr>
 				<th>경유지</th>
 				<td>
+					<%-- 
 					<div>
 						<button type="button" onclick="searchList()">경유지 찾아보기</button>
 					</div>
 					<div>
 						<jsp:include page="bicycle.jsp"></jsp:include>
 					</div>
+					--%>
 					<div class="ridingPoint">
-						<span class="points">
-							<label>경유지1
-								<input type="text" class="txt" name="address1"/>
-								<input type="text" class="txt" name="detail_address1"/>
-								<button type="button" class="searchMap" value="point">검색</button>
+						<span class="point">
+							<label class="point1">경유지1
+								<input type="text" class="txt" name="address"/>
+								<input type="text" class="txt" name="detail_address"/>
+								<button type="button" class="searchMap" value="point1">검색</button>
 							</label>
 						</span>
 						<span class="pointBtn">
@@ -349,30 +388,30 @@
 				<th>참여자 제한 등급</th>
 				<td>
 					<label>
-						<input type="radio" name="e_grade_id" value="0" />제한없음
+						<input type="radio" name="ev_grade_id" value="0" />제한없음
 					</label>
 					<label>
-						<input type="radio" name="e_grade_id" value="1" />다이아전거
+						<input type="radio" name="ev_grade_id" value="1" />다이아전거
 					</label>
 					<label>
-						<input type="radio" name="e_grade_id" value="2" />금전거
+						<input type="radio" name="ev_grade_id" value="2" />금전거
 					</label>
 					<label>
-						<input type="radio" name="e_grade_id" value="3" />은전거
+						<input type="radio" name="ev_grade_id" value="3" />은전거
 					</label>
 					<label>
-						<input type="radio" name="e_grade_id" value="4" />동전거
+						<input type="radio" name="ev_grade_id" value="4" />동전거
 					</label>
 					<label>
-						<input type="radio" name="e_grade_id" value="5" />돌전거
+						<input type="radio" name="ev_grade_id" value="5" />돌전거
 					</label>
 				</td>
 			</tr>
         </table>
 		<div>
 			<hr />
-			<input 	type="submit" value="모임생성하기">   
-			<input type="reset"	value="취소하기">
+			<button type="button" id="submitRiding" class="btn btn-primary" >모임 생성하기</button>   
+			<button type="reset" class="btn btn-danger">취소하기</button>
 		</div>
 	</form>
 </div>

@@ -5,6 +5,8 @@
 	String cp = request.getContextPath();
 	
 	String openType = request.getParameter("openType");
+	
+	System.out.println(openType);
 %>
 <!DOCTYPE html>
 <html>
@@ -64,7 +66,7 @@ a.searchAddr:hover {text-decoration:underline;}
 
 </head>
 <body>
-<input id="openType" type="hidden" value="${openType }">
+<input id="openType" type="hidden" value="${param.openType }">
 
 <div class="map_wrap">
     
@@ -489,9 +491,7 @@ function addClickEvent()
 		var lng = $(this).children().children("input.lngHidden").val();
 		
 		var openType = $("#openType").val();
-		
-		//alert(openType);
-		
+			
 		//alert("주소: "+addr+"\n위도: " + lat + "\n경도: " + lng);
 		
 		opener.getAddr(openType, addr, lat, lng);

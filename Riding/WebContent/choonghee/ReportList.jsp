@@ -12,6 +12,10 @@
 <head>
 <meta charset="UTF-8">
 <title>신고 내역 조회</title>
+
+<!-- 헤더 -->
+
+	<c:import url="<%=header %>"></c:import>
 <script type="text/javascript">
 	$(function()
 	{
@@ -98,6 +102,7 @@
 		//console.log(r_id);
 		
 		var url = "reportdetail.do?r_id="+r_id;
+		//var url = "reportlist.do";
 		
 		window.open(url, "신고 상세 내역", "width=700, height=500");
 		//window.open("reportdetail.do", "신고 상세 내역", "width=700, height=500");
@@ -393,10 +398,7 @@
 -->
 
 <body>
-<!-- 헤더 -->
-<div>
-	<c:import url="<%=header %>"></c:import>
-</div>
+
 <!-- # 페이지 설명
 	   관리자가 등록된 신고사항을 리스트로 조회하는 페이지 -->
 	   

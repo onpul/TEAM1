@@ -44,7 +44,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INSERT INTO RIDING_POINT (POINT_ID, RIDING_ID, LATITUDE
 				      		   , LONGITUDE, ADDRESS, DETAIL_ADDRESS)
 		VALUES (SEQ_RIDING_POINT.NEXTVAL, #{riding_id}, #{latitude}
-			 , #{latitude}, #{longitude}, #{detail_address})
+			 , null, #{longitude}, #{detail_address})
 	</insert>	
 	
 	

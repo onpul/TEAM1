@@ -339,7 +339,7 @@ Main.jsp
 					
 					if (data == 0)
 					{
-						location.href = "/Riding/CreateMeet.jsp";
+						location.href = "insertridingform.action";
 					}
 					else if (data > 0) 
 					{

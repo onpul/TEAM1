@@ -225,7 +225,7 @@ RidingDetail.jsp
 		</div>
 		<div>
 			<input type="button" class="btn btn-default" value="목록으로" id="goList"/> 
-			<input type="button" class="btn btn-default" value="참여하기" id="attendBtn"/>
+			<input type="button" class="btn btn-default" value="참여하기" id="attendBtn" onclick="location.href='JoinRoom.jsp'"/>
 		</div>
 	</div>
 <!-- 푸터 -->

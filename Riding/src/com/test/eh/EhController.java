@@ -64,16 +64,6 @@ public class EhController
 		int answerCheck = dao.answerFlag(dto.getUser_id());
 		//System.out.println("제출했으면 1 반환 : "+ answerCheck );
 		
-		/*
-		넘어온 유저아이디 : 40
-		모임id 는 : 4
-		리더라면 1 반환 :0
-		제출했으면 1 반환 : 1
-		*/
-		
-		// 평가기간에 속하는 라이딩 모임이 있음
-		//		제출안함 
-		//			방장임 -->evaluationleaber
 		
 		if(riding_id != null)
 		{
@@ -282,22 +272,6 @@ public class EhController
 		
 		IEvaluationDAO dao = sqlSession.getMapper(IEvaluationDAO.class);
 		
-		
-		//p_member_id 찾기
-		//dto.setP_member_id(dao.searchPMemberId(user_id));
-		//String temp = dto.getP_member_id();
-		//System.out.println(temp);
-		//System.out.println(dto.getAttendance());
-		
-		//checkId 찾기
-		//dto.setCheck_atte_id(dao.searchCheckId(user_id));
-		
-		//answerID 찾기
-		//dto.setAnswer_id(dao.searchAnswerId(user_id));
-		
-		
-		// 넘어온값 확인
-		
 		System.out.println("결석자 id : " + dto.getAttendance());
 		System.out.println("친절한 사람 id : " + dto.getKindness());
 		System.out.println("불친절한 id : " + dto.getNotKindness());
@@ -305,12 +279,6 @@ public class EhController
 		System.out.println("완주 ㄴㄴ id : " + dto.getNotCompletion());
 		System.out.println("실제숙련도와다른사람 id : " + dto.getDifferent());
 		
-		//결석 지목 받은 사람 answerDetailInsert --> p_member_id
-		//checkDetailInsert --> SEQ , CHECK_ATTE_ID , 결석 지목받은 사람(2)
-		//                            ------------- 제출자의 check_atte_id(1)
-		
-		// 여기까지 왔다는건 제출 했다는 뜻 . 응답 테이블 INSERT
-		// p_member_id == 제출자의 p_member_id
 		dto.setP_member_id(dao.searchPMemberId(dto.getUser_id()));
 		dao.answerInsert(dto);
 		

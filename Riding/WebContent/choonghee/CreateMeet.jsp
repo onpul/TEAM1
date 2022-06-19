@@ -113,7 +113,7 @@
 	function searchMap(val)
 	{
 		
-		window.open("KakaoSearchMap.jsp?openType="+val , "위치 찾기", "width=800");
+		window.open("searchmap.action?openType="+val , "위치 찾기", "width=800");
 	}
 	
 	function getAddr(openType, addr, lat, lng)
@@ -156,7 +156,7 @@
 
 
 <div class="container">
-	<form id="insertRiding" action ="../insertriding.action" method="post">
+	<form id="insertRiding" action ="insertriding.action" method="post">
 		<table class="table table-bordered">
 			<tr>
 				<th>모임 이름</th>

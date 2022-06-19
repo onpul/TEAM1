@@ -33,6 +33,8 @@
 			{
 				// 선택값 초기화
 				$("#penaltyType").children().attr("selected", "");
+				$("div.approve").css("display", "none");
+				$("div.punish").css("display", "none");
 				
 				// 승인일 때
 				if($(this).val() == 1)
@@ -43,7 +45,8 @@
 						//alert("여기");
 						$("#penaltyType").children().val("1")
 						$("#penaltyType").children().html("맛집 후기 게시글 신고")
-						$(".approveBtn").attr("value", "1");	
+						$(".approveBtn").attr("value", "1");
+						$("div.approve").css("display", "");
 					}
 					// 승인이고, 비매너 참여자 신고일 때
 					else if($("#reportType").val() == '2')
@@ -52,6 +55,7 @@
 						$("#penaltyType").children().val("2")
 						$("#penaltyType").children().html("비매너 참여자 신고")
 						$(".approveBtn").attr("value", "1");
+						$("div.approve").css("display", "");
 					}
 				}
 				// 허위 신고일 때
@@ -63,7 +67,8 @@
 						//alert("거기");
 						$("#penaltyType").children().val("3")
 						$("#penaltyType").children().html("맛집 후기 게시글 허위 신고")
-						$(".approveBtn").attr("value", "2");	
+						$(".approveBtn").attr("value", "2");
+						$("div.punish").css("display", "");
 					}
 					// 허위 신고이고, 비매너 참여자 신고일 때
 					else if($("#reportType").val() == '2')
@@ -72,6 +77,7 @@
 						$("#penaltyType").children().val("4")
 						$("#penaltyType").children().html("비매너 참여자 허위 신고")
 						$(".approveBtn").attr("value", "2");
+						$("div.punish").css("display", "");
 					}
 				}
 				// 모달
@@ -239,7 +245,7 @@
 		</tr>
 		<tr>
 			<th>
-				<div>신고 작성자</div>
+				<div>신고 작성자ID(닉네임)</div>
 			</th>
 			<td>
 				<div>
@@ -250,10 +256,9 @@
 		</tr>
 		<tr>
 			<th>
-				<div>신고 대상</div>
+				<div>신고 대상자ID(닉네임)</div>
 			</th>
 			<td>
-				<div>신고 대상자 ID(닉네임)</div>
 				<div>
 					${detail[0].reported_user_id }(${detail[0].r_user_nickname} )
 				</div>
@@ -329,7 +334,7 @@
 								<div>패널티 대상자</div>
 							</th>
 							<td>
-								<div>(패널티 받는 사람 ID(닉네임))(신고자 or 신고대상자)</div>
+								<div>(패널티 받는 사람 ID(닉네임)</div>
 								<div class="approve">${detail[0].reported_user_id }(${detail[0].r_user_nickname})</div>
 								<div class="punish">${detail[0].user_id }(${detail[0].nickname })</div>
 							</td>

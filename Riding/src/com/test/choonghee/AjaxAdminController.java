@@ -171,7 +171,8 @@ public class AjaxAdminController
 		System.out.println(result);
 		try
 		{
-			response.setCharacterEncoding("UTF-8");
+			//response.setCharacterEncoding("UTF-8");
+			response.setContentType("text/html;charset=UTF-8");
 			response.getWriter().print(result);
 		} catch (Exception e)
 		{

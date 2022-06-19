@@ -168,8 +168,8 @@
 			<tr>
 				<th>라이딩 기간</th>
 				<td>
-					<input type="text" id="datepicker" name="start_date"> 
-					~ <input type="text" id="datepicker2" name="end_date">
+					<input type="text" id="datepicker" name="start_date" placeholder="시작 날짜"> 
+					~ <input type="text" id="datepicker2" name="end_date" placeholder="시작 날짜">
 				</td>
 			</tr>
 			<tr>

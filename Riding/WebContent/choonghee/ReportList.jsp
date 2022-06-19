@@ -14,8 +14,8 @@
 <title>신고 내역 조회</title>
 
 <!-- 헤더 -->
+<c:import url="<%=header %>"></c:import>
 
-	<c:import url="<%=header %>"></c:import>
 <script type="text/javascript">
 	$(function()
 	{
@@ -408,17 +408,17 @@
 	<hr>
 </div>
 
-<!-- 부제목 -->
-<div>
-	<h3>신고 내역 조회</h3>
-</div>
-
-<div>
-	<button type="button" id="resetSortingBtn">정렬 초기화</button>
-</div>
-
-<!-- 신고 내역 테이블 -->
-<div>
+<div class="container">
+	<!-- 부제목 -->
+	<div>
+		<h3>신고 내역 조회</h3>
+	</div>
+	
+	
+	<!-- 신고 내역 테이블 -->
+	<div>
+		<button type="button" id="resetSortingBtn">정렬 초기화</button>
+	</div>
 	<table class="table table-bordered">
 		<!-- 문의 내역 헤더 -->
 		<thead>
@@ -547,29 +547,31 @@
 			</c:forEach>
 		</tbody>
 	</table>
+	
+	<!-- 각 페이지로 가는 버튼 -->
+	<div class="pageNavigation">
+		<div>
+			<span><button type="button" class="btn btn-default jumpBtn" value="${prevPage }">이전</button></span>
+			<c:forEach var="i" begin="${startPage }" end="${endPage }">
+				<span>
+					<button type="button" class="btn btn-default numberBtn"
+					value="${i}">${i}</button>
+				</span>
+			</c:forEach>
+			<span><button type="button" class="btn btn-default jumpBtn" value="${nextPage }">다음</button></span>
+		</div>
+	</div>
+	<br />
+	
+	<!-- 이전 페이지로 돌아가거나, 현재 창을 닫는 버튼 -->
+	<div>
+		<!-- 취소 버튼: 현재 페이지를 닫기. (이전 페이지로) -->
+		<button type="button" id="cancelBtn" class="btn btn-default">취소</button>
+	</div>
 </div>
 
 <br /><br />
 
-<!-- 각 페이지로 가는 버튼 -->
-<div class="pageNavigation">
-	<div>
-		<span><button type="button" class="btn btn-default jumpBtn" value="${prevPage }">이전</button></span>
-		<c:forEach var="i" begin="${startPage }" end="${endPage }">
-			<span>
-				<button type="button" class="btn btn-default numberBtn"
-				value="${i}">${i}</button>
-			</span>
-		</c:forEach>
-		<span><button type="button" class="btn btn-default jumpBtn" value="${nextPage }">다음</button></span>
-	</div>
-</div>
-<br />
 
-<!-- 이전 페이지로 돌아가거나, 현재 창을 닫는 버튼 -->
-<div>
-	<!-- 취소 버튼: 현재 페이지를 닫기. (이전 페이지로) -->
-	<button type="button" id="cancelBtn" class="btn btn-default">취소</button>
-</div>
 </body>
 </html>

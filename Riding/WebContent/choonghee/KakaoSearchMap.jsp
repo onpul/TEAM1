@@ -200,7 +200,7 @@ function displayPlaces(places) {
         (function(marker, title) {
              
         	kakao.maps.event.addListener(marker, 'mouseover', function() {
-                displayInfowindow(marker, title, placePosition);
+                displayInfowindow(marker, title, marker.getPosition());
             });
 
             kakao.maps.event.addListener(marker, 'mouseout', function() {
@@ -208,7 +208,7 @@ function displayPlaces(places) {
             });
 
             itemEl.onmouseover =  function () {
-                displayInfowindow(marker, title, placePosition);
+                displayInfowindow(marker, title, marker.getPosition());
             };
 
             itemEl.onmouseout =  function () {
@@ -366,6 +366,7 @@ function displayInfowindow(marker, title, latLng) {
             var message = '클릭한 위치의 위도는 ' + latLng.getLat() + ' 이고, ';
             message += '경도는 ' + latLng.getLng() + ' 입니다';
             
+            console.log(result[0].road_address.address_name);
 
             // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
             infowindow.setContent(content);

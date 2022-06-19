@@ -23,7 +23,7 @@ SearchIdForm.jsp
 
 	$(document).ready(function()
 	{
-		alert("확인");
+		//alert("확인");
 		
 		//생년월일 datepicker
 		$("#birthday").datepicker(

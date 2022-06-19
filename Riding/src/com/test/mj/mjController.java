@@ -736,9 +736,9 @@ public class mjController
 		
 		ridingList = dao.ridingList(where, orderby);
 		
-		System.out.println("where = " + where);
+		//System.out.println("where = " + where);
 		
-		System.out.println("ridingList.size() = " + ridingList.size());
+		//System.out.println("ridingList.size() = " + ridingList.size());
 		
 		result += "[";
 		
@@ -759,7 +759,7 @@ public class mjController
 		
 		result += "]";
 		
-		System.out.println(result);
+		//System.out.println(result);
 		
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().print(result);

@@ -171,8 +171,8 @@ RidingList.jsp
 				
 				console.log(typeof data);
 				var jObj = JSON.parse(data);
-				console.log("jObj = ", jObj);
-				console.log("jObj.length = ", jObj.length);
+				//console.log("jObj = ", jObj);
+				//console.log("jObj.length = ", jObj.length);
 				//console.log(jObj[0].riding_name);
 				
 				var th = ""; 

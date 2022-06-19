@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -23,7 +24,18 @@ public class InsertRidingController
 {
 	@Autowired
 	private SqlSession sqlSession;
+	
+	// 라이딩 모임 생성 폼
+	@RequestMapping(value = "/insertridingform.action", method = RequestMethod.GET )
+	public String createMeetForm()
+	{
+		String result = null;
+				
+		result = "/choonghee/CreateMeet.jsp";
 		
+		return result;
+	}
+	
 	// 라이딩 모임 생성
 	@RequestMapping(value = "/insertriding.action", method = RequestMethod.POST)
 	public String createMeet(HttpServletRequest request, InsertRidingDTO dto)
@@ -84,4 +96,17 @@ public class InsertRidingController
 		return result;
 	}
 	
+	
+	// 지도 열기
+	@RequestMapping(value = "/searchmap.action", method = RequestMethod.GET )
+	public String searchMap(Model model, String openType)
+	{
+		String result = null;
+		
+		result = "/choonghee/KakaoSearchMap.jsp";
+		
+		model.addAttribute("openType", openType);
+		
+		return result;
+	}
 }

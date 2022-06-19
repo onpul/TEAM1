@@ -44,11 +44,18 @@ public class InsertRidingController
 		
 		HttpSession session = request.getSession();
 		
-		String user_id = (String) session.getAttribute("user_id");
+		int userId = (Integer) session.getAttribute("user_id");
+		
+		
+		String user_id =  Integer.toString(userId);
+		
+		System.out.println(user_id);
 		
 		// 세션에 아이디가 없다면... 임시..
 		if(user_id == null)
 			user_id = "2";
+		
+		
 		
 		IInsertRidingDAO dao = sqlSession.getMapper(IInsertRidingDAO.class);
 		

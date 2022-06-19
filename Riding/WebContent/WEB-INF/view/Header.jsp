@@ -38,7 +38,7 @@ Header.jsp
 
 	$(document).ready(function()
 	{
-		var user_id = ${user_id};
+		//var user_id = ${user_id};
 		
 		//location.href = "noticeCount.action?user_id="+user_id;
 		//alert("확인");
@@ -50,7 +50,7 @@ Header.jsp
 		{
 			type:"POST"
 			, asynx:false
-			, url:"messageCount.action?user_id="+user_id
+			, url:"messageCount.action"
 			, success:function(data)
 			{
 				//alert(data);
@@ -67,7 +67,7 @@ Header.jsp
 		{
 			type:"POST"
 			, asynx:false
-			, url:"noticeCount.action?user_id="+user_id
+			, url:"noticeCount.action"
 			, success:function(data)
 			{
 				$("#noticeCount").html(data);
@@ -83,7 +83,7 @@ Header.jsp
 		{
 			type:"POST"
 			, asynx:false
-			, url:"notice.action?user_id="+user_id
+			, url:"notice.action"
 			, dataType:"JSON"
 			, contentType:"application/json; charset:UTF-8"
 			, success:function(data)

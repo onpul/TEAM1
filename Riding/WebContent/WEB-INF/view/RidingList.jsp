@@ -400,7 +400,7 @@ RidingList.jsp
 	</div>
 </form>
 <div>
-	<table class="table ridingList">
+	<table class="table table-bordered ridingList">
 		<!-- <tr id="first">
 			<th>모임명</th>
 			<th>최대<input type="button" value="정렬"/></th>

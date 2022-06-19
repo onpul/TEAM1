@@ -70,11 +70,11 @@ LoginForm.jsp
 	{
 		$("#loginBtn").click(function()
 		{
-			alert("확인");
+			//alert("확인");
 			
 			var params = $("form[name=loginForm]").serialize();
 			
-			alert(params);
+			//alert(params);
 			
 			$.ajax(
 			{
@@ -84,7 +84,7 @@ LoginForm.jsp
 				, data:params
 				, success:function(data)
 				{
-					alert("success 진입 성공");
+					//alert("success 진입 성공");
 					
 					if (data == 0)
 					{

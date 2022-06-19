@@ -2,6 +2,10 @@ package com.test.eh;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -157,12 +161,16 @@ public class EhController
 	
 	//평가(방장) 뷰
 	@RequestMapping(value = "/evaluationleaderform.action", method = RequestMethod.GET)
-	public String evaluationLeaderForm(EvaluationDTO dto ,Model model)
+	public String evaluationLeaderForm(EvaluationDTO dto ,Model model,HttpServletRequest request, HttpServletResponse response)
 	{
 		// 처음 조회할 때
 		// 모임명 / 작성자 닉네임 / 참여자 명단 / 문항 / 가져오기
 		//String user_id = "40";
-		System.out.println(dto.getUser_id());
+		//System.out.println(dto.getUser_id());
+		
+		HttpSession session = request.getSession();
+		dto.setUser_id(Integer.toString((Integer)session.getAttribute("user_id")));
+		
 		
 		
 		String view = "/WEB-INF/eh/EvaluationLeaderForm.jsp";
@@ -174,6 +182,9 @@ public class EhController
 		//System.out.println("dateFlag : " + dateFlag);
 		//model.addAttribute("dateFlag", dateFlag);
 		
+		//모임 조회
+		dto.setRiding_id(dao.searchCurrRidingId(dto.getUser_id()));
+		System.out.println("모임아이디는???????" + dto.getRiding_id());
 		
 		// 해당 사용자가 방장인지 조회
 		//int leaderFlag = dao.leaderFlagList(user_id);
@@ -191,7 +202,7 @@ public class EhController
 			
 			 System.out.println("문항 id: " + leaderQuestionList.get(i).getQuestion_id());
 			 System.out.println("leaderQuestion"+i); 
-			 System.out.println("문항 내용: " + leaderQuestionList.get(i).getQ_content());
+			 System.out.println("문항 내용: " + leaderQuestionList.get(i).getQu_content());
 			 /*
 			    문항 id: 1
 		        leaderQuestion0
@@ -218,6 +229,9 @@ public class EhController
 		System.out.println("라이딩id"+dto.getRiding_id());
 		dto.setRiding_name(dao.ridingNameList(dto.getRiding_id()));
 		
+		model.addAttribute("riding_name", dto.getRiding_name());
+		model.addAttribute("riding_id", dto.getRiding_id());
+		
 		//System.out.println("라이딩모임id : " + riding.getRiding_id());
 		//System.out.println("라이딩모임명 : " + riding.getRiding_name());
 		
@@ -227,6 +241,8 @@ public class EhController
 		System.out.println("작성자 닉네임 : "+dto.getNickName());
 		//System.out.println("참여자 이름 : " + userDto.getNickName());
 		//System.out.println("참여자 이름 : " + userDto.getUser_id());
+		model.addAttribute("nickName", dto.getNickName());
+		model.addAttribute("user_id", dto.getUser_id());
 		
 		
 		//현재 속한 모임 id 찾기
@@ -258,7 +274,7 @@ public class EhController
 	@RequestMapping(value = "/evaluationinsertleader.action",method = RequestMethod.GET)
 	public String evalAdd(EvaluationDTO dto)
 	{
-		String view = "redirect:evaluationleaderform.action";
+		String view = "redirect:mypagemain.action";
 		//String user_id = "40";
 		//String riding_id = "4";
 		//dto.setUser_id();
@@ -298,6 +314,8 @@ public class EhController
 		dto.setP_member_id(dao.searchPMemberId(dto.getUser_id()));
 		dao.answerInsert(dto);
 		
+		System.out.println("어딘데 ㅠㅠㅠㅠ ");
+		
 		//넘어온 값이 not 이면 실행 안시킴
 		//checkInsert , searchCheckId
 		if (!dto.getAttendance().equals("not"))
@@ -309,36 +327,49 @@ public class EhController
 			//--제출자의 P_MEMBER_ID
 			dto.setP_member_id(dao.searchPMemberId(dto.getUser_id()));
 			//System.out.println("먼데 : " + dto.getP_member_id());
-			dao.checkInsert(dto);	//--SEQ , 제출자의 P_MEMBER_ID / 날짜
+			System.out.println("뭔데 ㅅㅄㅄㅂ "+dto.getP_member_id());
+			//--박몽 P_MEMBER_ID 40 USER_ID 102
 			
+			dao.checkInsert(dto);	//--SEQ , 제출자의 P_MEMBER_ID / 날짜
+			//여기 ㅇㅋ
 			
 			//2. 출석체크 응답내용 insert
 			//-- seq , check_atte_id,결석지목받은사람 p_member_id
 			
 			//System.out.println("제출자 아이디 : " + dto.getUser_id());
 			dto.setCheck_atte_id(dao.searchCheckId(dto.getUser_id()));//--제출자의 check_atte_id
+			System.out.println("하하 전날에 뭐하는 짓");
+			
 			//System.out.println("제출자의 뭐시기 : " + dto.getCheck_atte_id());
 			dto.setP_member_id(dao.searchPMemberId(dto.getAttendance())); //--결석자의 p_member_id
+			System.out.println("범인누구냐");
 			//System.out.println("결석자의 pmemberid : " + dto.getP_member_id());
 			dao.checkDetailInsert(dto);
+			System.out.println("되나??????????????????????");
 			//-- 여기까진 ㅇㅋㅇㅋ
 		}
-		
-		if (!dto.getLeaderCheck().equals("not"))
+		int leaderCheck = dao.leaderFlagList(dto.getUser_id());
+		//-- 리더 1 참여자 0 
+		if (leaderCheck == 0)
 		{
-			//1. 작성자의 answer_id
-			dto.setAnswer_id(dao.searchAnswerId(dto.getUser_id()));
-			//2. question_id --> 넘어오는건 q_content 
-			//   q_content로 question_id 찾기
-			//4 / 5 /6
-			
-			//quesiont_id 4 /5/ 6
-			dto.setQuestion_id(dao.searchCheckId(dto.getQ_content()));
-			
-			dao.leadershipDetailInsert(dto);
+			System.out.println("당신은 참여자입니다.");
+			if (!dto.getLeaderCheck().equals("not"))
+			{
+				//1. 작성자의 answer_id
+				dto.setAnswer_id(dao.searchAnswerId(dto.getUser_id()));
+				//2. question_id --> 넘어오는건 q_content 
+				//   q_content로 question_id 찾기
+				//4 / 5 /6
+				
+				//quesiont_id 4 /5/ 6
+				System.out.println("큐 콘텐트가 뭔데 :" +dto.getQu_content());
+				dto.setQuestion_id(dao.searchQuestionId(dto.getQu_content()));
+				System.out.println("제발제발");
+				
+				dao.leadershipDetailInsert(dto);
+			}
 		}
-		
-		
+		System.out.println("어딘데tqtq ㅠㅠㅠㅠ ");
 		
 		// answerDetailInsert 메소드
 		// ANSWER_DETAIL 테이블
@@ -413,21 +444,22 @@ public class EhController
 			//insert 실행
 			dao.answerDetailInsert(dto);
 		}
-		
+		System.out.println("어딘데 fffffffffffffㅠㅠㅠㅠ ");
 		return view;
 	}			
 	
 	//평가(참여자)뷰
 	@RequestMapping(value = "/evaluationmemberform.action", method = RequestMethod.GET)
-	public String evaluationMemberForm(EvaluationDTO dto, Model model)
+	public String evaluationMemberForm(EvaluationDTO dto, Model model,HttpServletRequest request, HttpServletResponse response)
 	{
 		// 처음 조회할 때
 		// 모임명 / 작성자 닉네임 / 참여자 명단 / 문항 / 가져오기
 		//String user_id = "40";
-		System.out.println(dto.getUser_id());
+		//System.out.println(dto.getUser_id());
 		//String riding_id = "4";
 		//System.out.println(dto.getRiding_id());
-		
+		HttpSession session = request.getSession();
+		dto.setUser_id(Integer.toString((Integer)session.getAttribute("user_id")));
 		
 		
 		String view = "/WEB-INF/eh/EvaluationMemberForm.jsp";
@@ -450,7 +482,7 @@ public class EhController
 			
 			 System.out.println("문항 id: " + leaderQuestionList.get(i).getQuestion_id());
 			 System.out.println("leaderQuestion"+i); 
-			 System.out.println("문항 내용: " + leaderQuestionList.get(i).getQ_content());
+			 System.out.println("문항 내용: " + leaderQuestionList.get(i).getQu_content());
 			 
 		}
 		

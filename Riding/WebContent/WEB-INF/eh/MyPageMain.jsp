@@ -16,7 +16,7 @@
 	$(function()
 	{
 		var user_id = $("#user_id").val();
-		alert("user_id"+user_id);
+		//alert("user_id"+user_id);
 		
 		$("#myRidingList").click(function()
 		{
@@ -35,7 +35,7 @@
 			
 			location.replace("participateridinglist.action?user_id="+user_id);
 			
-			
+			/* 
 			//ajax 처리
 			$.ajax(
 			{
@@ -70,7 +70,7 @@
 					alert("따란~ 에이젝스 문제랍니다~"+e.responseText);
 				}
 			});
-			
+			 */
 			
 			
 		});
@@ -91,7 +91,7 @@
 				,success: function(data)
 				{
 					//alert("data : "+ data);
-					alert("넘어온 값은 ? : " + data);
+					//alert("넘어온 값은 ? : " + data);
 					if (data == 1)
 					{
 						location.replace("evaluationleaderform.action?user_id="+user_id);
@@ -228,7 +228,8 @@
 			
 			<div style="text-align: center;">
 				<!-- <span>오늘도 라이딩~!!!</span> -->
-				<span>${oneword }</span>
+				<%-- <span>${oneword }</span> --%>
+				<span>정적한마디 (update 구현하고 변경 예정)</span>
 			</div>								
 		</div>
 		

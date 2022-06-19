@@ -581,10 +581,10 @@ FROM PROFILE;
 --------------------------------------------------------------------------------
 
 --○ 로그인 처리 쿼리
-SELECT COUNT(*)
+SELECT *
 FROM PROFILE
 WHERE EMAIL = 'chmj072@gmail.com'
-  AND PASSWORD = 'overMoon99!';
+  AND PASSWORD = '12341234';
 
 --○ 패널티 회원 처리 쿼리(사이트 이용 제한 회원은 로그인 안 되게)
 SELECT *
@@ -845,3 +845,13 @@ WHERE R.RIDING_ID = 1;
 
 SELECT *
 FROM PROFILE
+ORDER BY USER_ID;
+
+COMMIT;
+
+SELECT COUNT(*) AS COUNT
+		FROM NOTICE A JOIN NOTICE_CONTENT B
+		ON A.N_CONTENT_ID = B.N_CONTENT_ID
+		WHERE USER_ID=1;
+        
+

@@ -60,9 +60,12 @@
 			</tr>
 			
 			<tr>
-				<td>${riding_name }</td>
-				<td>${gigan }</td>
-				<td>${condition }</td>
+				<%-- <td>${riding_name }</td> --%>
+				<td>쌍용강북</td>
+				<%-- <td>${gigan }</td> --%>
+				<td>2021.12.30 ~ 2022.06.20</td>
+				<%-- <td>${condition }</td> --%>
+				<td>수료당~!</td>
 				<td>
 					<button type="button" id="nowRiding" class="btn btn-default">
 						모음으로 이동

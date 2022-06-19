@@ -1,119 +1,36 @@
-package com.test.mj;
+package com.test.choonghee;
 
-public class RidingDTO
+import java.util.ArrayList;
+import java.util.List;
+
+public class InsertRidingDTO
 {
-	//private int user_id;
-	//private int mood_p_id, eat_p_id, dining_p_id, sex_p_id, age_p_id;
 	
 	// 다인라이딩
 	private int user_id;
 	private int mood_p_id, eat_p_id, dining_p_id, sex_p_id, age_p_id, step_id, speed_id;
 	
 	private String riding_id, leader_id, riding_name, start_date, end_date, created_date;
-	private int e_grede_id, maximum, open;
+	private int ev_grede_id, maximum;
 	
-	private String meet_lati, meet_longi, meet_detail, start_lati, start_longi, start_address
+	private String meet_lati, meet_longi, meet_address, meet_detail, start_lati, start_longi, start_address
 			, start_detail, end_lati, end_longi, end_address, end_detail, confirm_date, comments;
 	
-	// (다인라이딩) 참여한 회원정보
-	private String p_member_id, partici_date;
 	
+
 	// 다인라이딩 경유지
-	private String point_id, latitude, longitude, address, point_detail_address;
+	private List<String> point_id, latitude, longitude, address, detail_address;
+
+	public String getMeet_address()
+	{
+		return meet_address;
+	}
+
+	public void setMeet_address(String meet_address)
+	{
+		this.meet_address = meet_address;
+	}
 	
-	// 라이딩 속성
-	private String sp_content, ap_content, ep_content, dp_content, mp_content, step_type, speed_type;
-
-	public String getSp_content()
-	{
-		return sp_content;
-	}
-
-	public void setSp_content(String sp_content)
-	{
-		this.sp_content = sp_content;
-	}
-
-	public String getAp_content()
-	{
-		return ap_content;
-	}
-
-	public void setAp_content(String ap_content)
-	{
-		this.ap_content = ap_content;
-	}
-
-	public String getEp_content()
-	{
-		return ep_content;
-	}
-
-	public void setEp_content(String ep_content)
-	{
-		this.ep_content = ep_content;
-	}
-
-	public String getDp_content()
-	{
-		return dp_content;
-	}
-
-	public void setDp_content(String dp_content)
-	{
-		this.dp_content = dp_content;
-	}
-
-	public String getMp_content()
-	{
-		return mp_content;
-	}
-
-	public void setMp_content(String mp_content)
-	{
-		this.mp_content = mp_content;
-	}
-
-	public String getStep_type()
-	{
-		return step_type;
-	}
-
-	public void setStep_type(String step_type)
-	{
-		this.step_type = step_type;
-	}
-
-	public String getSpeed_type()
-	{
-		return speed_type;
-	}
-
-	public void setSpeed_type(String speed_type)
-	{
-		this.speed_type = speed_type;
-	}
-
-	public String getComments()
-	{
-		return comments;
-	}
-
-	public void setComments(String comments)
-	{
-		this.comments = comments;
-	}
-
-	public int getOpen()
-	{
-		return open;
-	}
-
-	public void setOpen(int open)
-	{
-		this.open = open;
-	}
-
 	public int getUser_id()
 	{
 		return user_id;
@@ -254,14 +171,14 @@ public class RidingDTO
 		this.created_date = created_date;
 	}
 
-	public int getE_grede_id()
+	public int getEv_grede_id()
 	{
-		return e_grede_id;
+		return ev_grede_id;
 	}
 
-	public void setE_grede_id(int e_grede_id)
+	public void setEv_grede_id(int ev_grede_id)
 	{
-		this.e_grede_id = e_grede_id;
+		this.ev_grede_id = ev_grede_id;
 	}
 
 	public int getMaximum()
@@ -394,74 +311,66 @@ public class RidingDTO
 		this.confirm_date = confirm_date;
 	}
 
-	public String getP_member_id()
+	public String getComments()
 	{
-		return p_member_id;
+		return comments;
 	}
 
-	public void setP_member_id(String p_member_id)
+	public void setComments(String comments)
 	{
-		this.p_member_id = p_member_id;
+		this.comments = comments;
 	}
 
-	public String getPartici_date()
-	{
-		return partici_date;
-	}
-
-	public void setPartici_date(String partici_date)
-	{
-		this.partici_date = partici_date;
-	}
-
-	public String getPoint_id()
+	public List<String> getPoint_id()
 	{
 		return point_id;
 	}
 
-	public void setPoint_id(String point_id)
+	public void setPoint_id(List<String> point_id)
 	{
 		this.point_id = point_id;
 	}
 
-	public String getLatitude()
+	public List<String> getLatitude()
 	{
 		return latitude;
 	}
 
-	public void setLatitude(String latitude)
+	public void setLatitude(List<String> latitude)
 	{
 		this.latitude = latitude;
 	}
 
-	public String getLongitude()
+	public List<String> getLongitude()
 	{
 		return longitude;
 	}
 
-	public void setLongitude(String longitude)
+	public void setLongitude(List<String> longitude)
 	{
 		this.longitude = longitude;
 	}
 
-	public String getAddress()
+	public List<String> getAddress()
 	{
 		return address;
 	}
 
-	public void setAddress(String address)
+	public void setAddress(List<String> address)
 	{
 		this.address = address;
 	}
 
-	public String getDetail_address()
+	public List<String> getDetail_address()
 	{
-		return point_detail_address;
+		return detail_address;
 	}
 
-	public void setPoint_detail_address(String point_detail_address)
+	public void setDetail_address(List<String> detail_address)
 	{
-		this.point_detail_address = point_detail_address;
+		this.detail_address = detail_address;
 	}
+
+	
 	
 }

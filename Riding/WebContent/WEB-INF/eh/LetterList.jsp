@@ -9,7 +9,7 @@
 %>
 <!DOCTYPE html>
 <html>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
 	$(function()
 	{
@@ -84,7 +84,7 @@
 				
 				<tr>
 					<td style="text-align: center;">
-						<input type="checkbox" name="letter" value="1"/>
+						<input type="checkbox" name="letter" value="1" />
 					</td>
 					<td>
 						홍길동

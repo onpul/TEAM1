@@ -502,6 +502,5 @@ function addClickEvent()
 }
 
 </script>
- -->
 </body>
 </html>
